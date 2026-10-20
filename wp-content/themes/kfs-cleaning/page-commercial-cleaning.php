@@ -12,16 +12,15 @@
         </div>
       <?php endif; ?>
 
-      <p class="eyebrow">Commercial &amp; Office</p>
       <h1>Commercial &amp; Office Cleaning<br>Services in <span class="accent">MA &amp; NH</span></h1>
       <p class="page-hero-sub">Your workspace reflects your business. KFS Cleaning keeps it spotless &#8212; with flexible scheduling that doesn&#8217;t disrupt your workday.</p>
       <div class="pill-row">
-        <span class="pill">&#10003; Licensed &amp; Insured</span>
-        <span class="pill">&#10003; After-Hours Available</span>
-        <span class="pill">&#10003; Recurring Contracts</span>
-        <span class="pill">&#10003; All Supplies Included</span>
+        <span class="pill">Licensed &amp; Insured</span>
+        <span class="pill">After-Hours Available</span>
+        <span class="pill">Recurring Contracts</span>
+        <span class="pill">All Supplies Included</span>
       </div>
-      <a href="#quote" class="btn-primary">Get a Free Quote &#8594;</a>
+      <a href="#quote" class="btn-primary">Get a Free Quote</a>
     </div>
   </div>
 </section>
@@ -30,19 +29,17 @@
   <div class="wrap">
     <div class="two-col-grid">
       <div>
-        <p class="eyebrow">Services We Offer</p>
         <h2>What We <span class="accent">Clean</span></h2>
         <p style="color:var(--text-muted);font-size:16px;line-height:1.7;margin-bottom:8px">Professional cleaning for every type of commercial space &#8212; no job too big or too small.</p>
         <div class="inc-list">
-          <div class="inc-item"><span class="inc-check">&#10003;</span><span><strong>Office Cleaning</strong> &#8212; desks, common areas, break rooms, restrooms</span></div>
-          <div class="inc-item"><span class="inc-check">&#10003;</span><span><strong>Retail Space Cleaning</strong> &#8212; floors, displays, fitting rooms, entrances</span></div>
-          <div class="inc-item"><span class="inc-check">&#10003;</span><span><strong>Medical Office Cleaning</strong> &#8212; sanitation-focused, detail-oriented</span></div>
-          <div class="inc-item"><span class="inc-check">&#10003;</span><span><strong>Gym &amp; Studio Cleaning</strong> &#8212; equipment wipe-down, locker rooms, floors</span></div>
-          <div class="inc-item"><span class="inc-check">&#10003;</span><span><strong>Small Warehouse / Facility Cleaning</strong> &#8212; upon request</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span><strong>Office Cleaning</strong> &#8212; desks, common areas, break rooms, restrooms</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span><strong>Retail Space Cleaning</strong> &#8212; floors, displays, fitting rooms, entrances</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span><strong>Medical Office Cleaning</strong> &#8212; sanitation-focused, detail-oriented</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span><strong>Gym &amp; Studio Cleaning</strong> &#8212; equipment wipe-down, locker rooms, floors</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span><strong>Small Warehouse / Facility Cleaning</strong> &#8212; upon request</span></div>
         </div>
       </div>
       <div>
-        <p class="eyebrow">Flexible Scheduling</p>
         <h2>Built Around Your <span class="accent">Business</span></h2>
         <p style="color:var(--text-muted);font-size:16px;line-height:1.7;margin-bottom:8px">We work around your hours &#8212; not the other way around.</p>
         <div class="sched-grid reveal">
@@ -60,15 +57,8 @@
   <div class="wrap">
     <div class="two-col-grid">
       <div>
-        <p class="eyebrow">Why Businesses Choose KFS</p>
         <h2>The Commercial Cleaning Partner <span class="accent">You Can Count On</span></h2>
         <p style="color:var(--text-muted);font-size:16px;line-height:1.7;margin:16px 0 24px">We treat your business like it&#8217;s ours. Consistent results, predictable pricing, and a team that shows up when they say they will.</p>
-        <div class="stats-quad">
-          <div class="stat-box reveal"><div class="stat-num">500+</div><div class="stat-label">Clients Served</div></div>
-          <div class="stat-box reveal"><div class="stat-num">5 &#9733;</div><div class="stat-label">Rating</div></div>
-          <div class="stat-box reveal"><div class="stat-num">2</div><div class="stat-label">States Covered</div></div>
-          <div class="stat-box reveal"><div class="stat-num">24hr</div><div class="stat-label">Response Time</div></div>
-        </div>
       </div>
       <div class="trust-cards-stack">
         <div class="trust-card reveal">
@@ -77,7 +67,7 @@
         </div>
         <div class="trust-card reveal">
           <div class="tc-icon"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg></div>
-          <div class="tc-content"><h3>Same Team Every Visit</h3><p>Consistent faces mean no re-explaining preferences. Your team learns your space and keeps it that way.</p></div>
+          <div class="tc-content"><h3>A Consistent Team</h3><p>We keep the same people on your space whenever we can, so there&rsquo;s no re-explaining preferences. Your team learns your space and keeps it that way.</p></div>
         </div>
         <div class="trust-card reveal">
           <div class="tc-icon"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
@@ -90,7 +80,7 @@
 
 <section class="content-section section-alt" id="faq">
   <div class="wrap">
-    <div class="section-head reveal"><p class="eyebrow">FAQ</p><h2>Commercial Cleaning Questions</h2><p>Everything you need to know before booking your first commercial clean.</p></div>
+    <div class="section-head reveal"><h2>Commercial Cleaning Questions</h2><p>Everything you need to know before booking your first commercial clean.</p></div>
     <div class="faq-list">
       <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Do you offer after-hours or weekend commercial cleaning?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Yes. We offer before-hours, after-hours, and weekend commercial cleaning specifically so your cleaning schedule never interferes with your business operations. Just let us know your preferred window and we&#8217;ll work around it.</p></div></div>
       <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Can you provide a certificate of insurance?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Absolutely. KFS Cleaning is fully licensed and insured in both MA and NH. We can provide a certificate of insurance (COI) upon request &#8212; most commercial clients receive it before the first visit.</p></div></div>
@@ -101,7 +91,7 @@
     <div class="service-cta-block reveal" style="margin-top:48px">
       <h2>Keep Your Business Spotless</h2>
       <p>Get a flat-rate commercial cleaning quote &#8212; we&#8217;ll do a walkthrough and give you a monthly rate upfront.</p>
-      <a href="#quote" class="btn-primary">Request Your Free Quote &#8594;</a>
+      <a href="#quote" class="btn-primary">Request Your Free Quote</a>
     </div>
   </div>
 </section>
@@ -109,7 +99,6 @@
 <section class="content-section section-alt">
   <div class="wrap">
     <div class="section-head reveal">
-      <p class="eyebrow">Our Work</p>
       <h2>See the <span class="accent">Difference</span></h2>
       <p>Real results from real cleaning jobs across Massachusetts and New Hampshire.</p>
     </div>
@@ -135,7 +124,6 @@
 <section class="contact-section" id="quote">
   <div class="wrap contact-inner">
     <div class="contact-info">
-      <p class="eyebrow">Get In Touch</p>
       <h2>Request Your <span class="accent">Free Quote</span></h2>
       <p class="contact-lead">Fill out the form and we&#8217;ll respond within 24 hours with a no-obligation estimate. Or call us right now.</p>
       <div class="ci-items">
@@ -170,8 +158,8 @@
         </div>
         <div class="fld"><label for="sqft">Square Footage <span class="fld-hint">(approximate is fine)</span></label><input type="number" id="sqft" name="Square Footage" min="100" max="20000" inputmode="numeric" placeholder="e.g. 1500"></div>
         <div class="fld"><label for="message">Special Requests or Notes</label><textarea id="message" name="Notes" rows="3" placeholder="Tell us anything that helps us prepare your quote..."></textarea></div>
-        <button type="submit" class="btn-primary btn-full form-submit">Request My Free Quote →</button>
-        <p class="form-note">&#128274; Your info is private and never shared.</p>
+        <button type="submit" class="btn-primary btn-full form-submit">Request My Free Quote</button>
+        <p class="form-note">Your info is private and never shared.</p>
       </form>
     </div>
   </div>

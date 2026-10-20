@@ -1,285 +1,470 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-// ─── INLINE SVG ICON HELPER ───────────────────────────────────────────────
-function kfs_icon( $name, $size = 24, $extra_class = '' ) {
-	$icons = array(
-		'home'         => '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
-		'sparkles'     => '<path d="M12 3l1.88 5.76L20 10.5l-4.88 4.74 1.06 5.76L12 18.27l-4.18 2.73 1.06-5.76L4 10.5l6.12-.74z"/><path d="M5 3l.88 2.12L8 6l-2.12.88L5 9l-.88-2.12L2 6l2.12-.88z" opacity=".5"/><path d="M19 13l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6z" opacity=".5"/>',
-		'truck'        => '<rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>',
-		'building'     => '<rect x="4" y="2" width="16" height="20" rx="1"/><path d="M9 22V12h6v10"/><path d="M9 7h1M9 11h1M14 7h1M14 11h1"/>',
-		'hammer'       => '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
-		'key'          => '<circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6M15.5 7.5l3 3M17 6l3 3"/>',
-		'check-circle' => '<circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/>',
-		'shield'       => '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
-		'star'         => '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
-		'clock'        => '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
-		'search'       => '<circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>',
-		'bag'          => '<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/>',
-		'calendar'     => '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
-		'phone'        => '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>',
-		'mail'         => '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>',
-		'map-pin'      => '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
-		'arrow-right'  => '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>',
-	);
-	$path  = isset( $icons[ $name ] ) ? $icons[ $name ] : '';
-	$class = $extra_class ? ' class="' . esc_attr( $extra_class ) . '"' : '';
-	return '<svg' . $class . ' width="' . (int) $size . '" height="' . (int) $size . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' . $path . '</svg>';
-}
-
 // ─── EDITABLE DATA ARRAYS ──────────────────────────────────────────────────
 
-$kfs_services = array(
-	array( 'icon' => 'home',     'num' => '01', 'title' => 'Regular Home Cleaning',   'desc' => 'Weekly, bi-weekly, or monthly recurring cleans tailored to your home. Dusting, vacuuming, mopping, bathrooms, kitchen — done right every time.',                                                    'slug' => 'regular-house-cleaning' ),
-	array( 'icon' => 'sparkles', 'num' => '02', 'title' => 'Deep Cleaning',            'desc' => 'A top-to-bottom scrub that reaches inside appliances, behind furniture, grout lines, and every corner most cleanings miss.',                                                                          'slug' => 'deep-cleaning' ),
-	array( 'icon' => 'truck',    'num' => '03', 'title' => 'Move-In / Move-Out',       'desc' => 'Leave your old place spotless for the next tenant or step into a fresh, sanitized new home. Perfect for landlords and renters alike.',                                                                  'slug' => 'move-out-cleaning' ),
-	array( 'icon' => 'building', 'num' => '04', 'title' => 'Commercial &amp; Office', 'desc' => 'Offices, retail spaces, medical facilities, and commercial properties cleaned on your schedule — evenings and weekends available.',                                                                      'slug' => 'commercial-cleaning' ),
-	array( 'icon' => 'hammer',   'num' => '05', 'title' => 'Post-Construction',        'desc' => 'Dust, debris, and construction residue fully cleared after your renovation. We handle the mess so you can enjoy your new space.',                                                                       'slug' => 'post-construction-cleaning' ),
-	array( 'icon' => 'key',      'num' => '06', 'title' => 'Airbnb / STR Turnover',   'desc' => 'Fast hotel-quality turnovers between guests. Fresh linens, sanitized surfaces, restocked essentials — 5-star reviews every stay.',                                                                      'slug' => 'airbnb-cleaning' ),
+$kfs_img = get_template_directory_uri() . '/assets/images';
+
+// What Katia's team does in each room of the house. 'deep' = what a deep clean adds.
+$kfs_rooms = array(
+	'kitchen'  => array(
+		'name'  => 'Kitchen',
+		'every' => array( 'Countertops and stovetop', 'Sink and faucet', 'Appliance exteriors', 'Cabinet fronts', 'Floors' ),
+		'deep'  => array( 'Inside the appliances', 'Cabinet interiors', 'Grout lines', 'Behind and under things' ),
+	),
+	'bathroom' => array(
+		'name'  => 'Bathroom',
+		'every' => array( 'Toilet, tub and shower', 'Sink and mirrors', 'Fixtures sanitized', 'Floors' ),
+		'deep'  => array( 'Grout lines', 'Vents', 'Baseboards' ),
+	),
+	'bedroom'  => array(
+		'name'  => 'Bedroom',
+		'every' => array( 'Dusting', 'Surfaces wiped', 'Vacuuming', 'Beds made' ),
+		'deep'  => array( 'Behind and under furniture', 'Baseboards', 'Vents' ),
+	),
+	'living'   => array(
+		'name'  => 'Living room',
+		'every' => array( 'Dusting', 'Vacuuming and mopping', 'Baseboards', 'Hallways, stairs and entry' ),
+		'deep'  => array( 'Behind and under furniture', 'Vents', 'Buildup in the corners' ),
+	),
 );
 
-$kfs_gallery = array(
-	array( 'src' => get_template_directory_uri() . '/assets/images/gallery/kitchen-deep-clean.jpg', 'label' => 'Kitchen Deep Clean', 'span' => 2 ),
-	array( 'src' => get_template_directory_uri() . '/assets/images/gallery/kitchen-refresh.jpg', 'label' => 'Kitchen Refresh',        'span' => 1 ),
-	array( 'src' => get_template_directory_uri() . '/assets/images/gallery/office-cleaning.jpg', 'label' => 'Office Cleaning',        'span' => 1 ),
-	array( 'src' => get_template_directory_uri() . '/assets/images/gallery/bathroom-detail.jpg', 'label' => 'Bathroom Detail',        'span' => 1 ),
-	array( 'src' => get_template_directory_uri() . '/assets/images/gallery/move-out-clean.jpg', 'label' => 'Move-Out Clean',         'span' => 1 ),
-	array( 'src' => get_template_directory_uri() . '/assets/images/gallery/post-construction-clean.jpg', 'label' => 'Post-Construction',      'span' => 2 ),
-	array( 'src' => get_template_directory_uri() . '/assets/images/gallery/commercial-cleaning.jpg', 'label' => 'Commercial Cleaning',         'span' => 1 ),
+// Residential first; commercial gets its own card beside the list.
+$kfs_services = array(
+	array( 'title' => 'Regular Home Cleaning',        'desc' => 'Weekly, every-two-weeks, or monthly cleans tailored to your home, done right every time.', 'meta' => '2&ndash;4 hrs', 'slug' => 'regular-house-cleaning', 'dot' => 'kitchen' ),
+	array( 'title' => 'Deep Cleaning',                'desc' => 'Top to bottom: inside appliances, behind furniture, grout lines and every corner most cleanings miss.', 'meta' => '4&ndash;8 hrs', 'slug' => 'deep-cleaning', 'dot' => 'bathroom' ),
+	array( 'title' => 'Move-In / Move-Out',           'desc' => 'Leave your old place spotless for the next tenant, or step into a fresh new home. For renters, owners and landlords.', 'meta' => '', 'slug' => 'move-out-cleaning', 'dot' => 'bedroom' ),
+	array( 'title' => 'Airbnb &amp; Rental Turnover', 'desc' => 'Fast turnovers between guests: fresh linens, sanitized surfaces and restocked essentials.', 'meta' => '', 'slug' => 'airbnb-cleaning', 'dot' => 'living' ),
+	array( 'title' => 'Post-Construction',            'desc' => 'Dust, debris and construction residue cleared after your renovation, so you can enjoy the new space.', 'meta' => '', 'slug' => 'post-construction-cleaning', 'dot' => 'kitchen' ),
 );
+
+// Real job photos; the lightbox opens them large.
+$kfs_gallery = array(
+	array( 'file' => 'post-construction-clean', 'label' => 'Post-construction', 'note' => 'Construction dust cleared after a renovation', 'wide' => true ),
+	array( 'file' => 'bathroom-detail',         'label' => 'Bathroom',          'note' => 'Floor scrubbed down tile by tile',            'wide' => false ),
+	array( 'file' => 'office-cleaning',         'label' => 'Office',            'note' => 'Commercial office clean',                     'wide' => false ),
+	array( 'file' => 'move-out-clean',          'label' => 'Move-out',          'note' => 'Ready for the next tenant',                   'wide' => false ),
+	array( 'file' => 'kitchen-refresh',         'label' => 'Kitchen',           'note' => 'Kitchen refresh',                             'wide' => false ),
+	array( 'file' => 'kitchen-deep-clean',      'label' => 'Deep clean',        'note' => 'Stovetop and oven door, mid-scrub',           'wide' => false ),
+	array( 'file' => 'commercial-cleaning',     'label' => 'Commercial',        'note' => 'Commercial space clean',                      'wide' => true ),
+);
+
+$kfs_towns_ma = array( 'Andover', 'North Andover', 'Lawrence', 'Methuen', 'Haverhill', 'Groveland', 'Lowell', 'Amesbury', 'Newburyport', 'Gloucester', 'Beverly', 'Salem', 'Boston area' );
+$kfs_towns_nh = array( 'Nashua', 'Manchester', 'Derry', 'Londonderry', 'Salem', 'Windham', 'Hudson', 'Merrimack', 'Bedford' );
 
 $kfs_faq = array(
-	array( 'q' => 'How do I get a free cleaning quote?',             'a' => 'Fill out the form on this page or call (978) 219-9787. We respond within 24 hours with a personalized, no-obligation estimate.' ),
-	array( 'q' => 'Are you licensed and insured?',                   'a' => 'Yes. KFS Cleaning Services is fully licensed and insured in both Massachusetts and New Hampshire. We carry general liability insurance and can provide proof upon request.' ),
-	array( 'q' => 'Do you bring your own cleaning supplies?',        'a' => 'Yes — our team arrives fully equipped with professional-grade products and tools at no extra charge. Just let us know if you have specific product preferences.' ),
-	array( 'q' => 'What areas in MA and NH do you serve?',           'a' => 'We serve most of Massachusetts (North Shore, Merrimack Valley, Greater Lowell) and southern New Hampshire. Not sure we cover your area? Call (978) 219-9787 and we\'ll confirm.' ),
-	array( 'q' => 'How long does a house cleaning take?',            'a' => 'A standard home cleaning takes 2–4 hours depending on size. Deep cleans and move-out cleans may take longer. We include a time estimate with every quote.' ),
-	array( 'q' => 'Do I need to be home during the cleaning?',       'a' => 'No. Many clients provide a key or entry code. We\'re fully insured, so you can leave with complete peace of mind. We\'ll text you when we\'re done.' ),
-	array( 'q' => 'What is your satisfaction guarantee?',            'a' => 'If you\'re not 100% satisfied, contact us within 24 hours and we\'ll return to re-clean the area at no charge. Your satisfaction is our priority.' ),
+	array( 'q' => 'How do I get a free cleaning quote?',       'a' => 'Fill out the form on this page or call (978) 219-9787. We respond within 24 hours with a personalized, no-obligation estimate.' ),
+	array( 'q' => 'How do you price a cleaning?',              'a' => 'By the job, never by the hour. You get a flat-rate number with your quote, so you know the exact cost before we start.' ),
+	array( 'q' => 'Are you licensed and insured?',             'a' => 'Yes. KFS Cleaning Services is fully licensed and insured in both Massachusetts and New Hampshire. We carry general liability insurance and can provide proof upon request.' ),
+	array( 'q' => 'Do you bring your own cleaning supplies?',  'a' => 'Yes. Our team arrives fully equipped with professional-grade products and tools at no extra charge. Just let us know if you have specific product preferences.' ),
+	array( 'q' => 'What areas in MA and NH do you serve?',     'a' => 'We serve most of Massachusetts (North Shore, Merrimack Valley, Greater Lowell) and southern New Hampshire. Not sure we cover your area? Call (978) 219-9787 and we\'ll confirm.' ),
+	array( 'q' => 'How long does a house cleaning take?',      'a' => 'A standard home cleaning takes 2–4 hours depending on size. Deep cleans and move-out cleans take longer. We include a time estimate with every quote.' ),
+	array( 'q' => 'Do I need to be home during the cleaning?', 'a' => 'No. Many clients provide a key or entry code. We\'re fully insured, so you can leave with complete peace of mind. We\'ll text you when we\'re done.' ),
+	array( 'q' => 'What is your satisfaction guarantee?',      'a' => 'If you\'re not 100% satisfied, contact us within 24 hours and we\'ll return to re-clean the area at no charge.' ),
 );
+
+// One form template, rendered twice: a quick one in the hero, the full one by "How it works".
+function kfs_quote_form( $prefix, $full ) {
+	$p = esc_attr( $prefix );
+	?>
+	<form action="https://formsubmit.co/support@kfscleaning.com" method="POST" class="quote-form coupon-form">
+		<input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+		<input type="hidden" name="_next" value="<?php echo esc_url( kfs_thanks_url() ); ?>">
+		<input type="hidden" name="_subject" value="<?php echo $full ? 'New Quote Request from kfscleaning.com' : 'New Quote Request from kfscleaning.com (quick form)'; ?>">
+		<input type="hidden" name="_captcha" value="false">
+		<input type="hidden" name="_template" value="table">
+
+		<fieldset class="coupon-switch">
+			<legend>This quote is for</legend>
+			<label><input type="radio" name="Customer Type" value="Home" checked data-branch-switch><span>My home</span></label>
+			<label><input type="radio" name="Customer Type" value="Business" data-branch-switch><span>My business</span></label>
+		</fieldset>
+
+		<div class="form-row">
+			<div class="fld">
+				<label for="<?php echo $p; ?>name">Name <span class="req" aria-hidden="true">*</span></label>
+				<input type="text" id="<?php echo $p; ?>name" name="Full Name" required autocomplete="name">
+			</div>
+			<div class="fld">
+				<label for="<?php echo $p; ?>phone">Phone <span class="req" aria-hidden="true">*</span></label>
+				<input type="tel" id="<?php echo $p; ?>phone" name="Phone" required autocomplete="tel" inputmode="tel" pattern="[0-9()+.\-\s]{10,}" title="A phone number with area code, e.g. (978) 555-0100" placeholder="(978) 555-0100">
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="fld">
+				<label for="<?php echo $p; ?>email">Email <span class="req" aria-hidden="true">*</span></label>
+				<input type="email" id="<?php echo $p; ?>email" name="email" required autocomplete="email">
+			</div>
+			<div class="fld">
+				<label for="<?php echo $p; ?>town">Town</label>
+				<input type="text" id="<?php echo $p; ?>town" name="Town" autocomplete="address-level2" placeholder="e.g. Andover">
+			</div>
+		</div>
+
+		<?php if ( $full ) : ?>
+		<fieldset class="coupon-branch" data-branch="Home">
+			<div class="form-row">
+				<div class="fld">
+					<label for="<?php echo $p; ?>service">Service</label>
+					<select id="<?php echo $p; ?>service" name="Service">
+						<option value="">Choose one</option>
+						<option>Regular Home Cleaning</option>
+						<option>Deep Cleaning</option>
+						<option>Move-In / Move-Out</option>
+						<option>Airbnb / Rental Turnover</option>
+						<option>Post-Construction</option>
+						<option>Not Sure / Other</option>
+					</select>
+				</div>
+				<div class="fld">
+					<label for="<?php echo $p; ?>frequency">How often</label>
+					<select id="<?php echo $p; ?>frequency" name="Frequency">
+						<option value="">Choose one</option>
+						<option>One-Time</option>
+						<option>Weekly</option>
+						<option>Every 2 weeks</option>
+						<option>Monthly</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="fld">
+					<label for="<?php echo $p; ?>bedrooms">Bedrooms</label>
+					<input type="number" id="<?php echo $p; ?>bedrooms" name="Bedrooms" min="0" max="20" inputmode="numeric" placeholder="e.g. 3">
+				</div>
+				<div class="fld">
+					<label for="<?php echo $p; ?>bathrooms">Bathrooms</label>
+					<input type="number" id="<?php echo $p; ?>bathrooms" name="Bathrooms" min="0" max="20" step="0.5" inputmode="decimal" placeholder="e.g. 2">
+				</div>
+			</div>
+		</fieldset>
+		<?php endif; ?>
+
+		<fieldset class="coupon-branch" data-branch="Business" hidden disabled>
+			<input type="hidden" name="Service" value="Commercial &amp; Office">
+			<div class="form-row">
+				<div class="fld">
+					<label for="<?php echo $p; ?>company">Business name</label>
+					<input type="text" id="<?php echo $p; ?>company" name="Business Name" autocomplete="organization">
+				</div>
+				<div class="fld">
+					<label for="<?php echo $p; ?>space">Type of space</label>
+					<select id="<?php echo $p; ?>space" name="Type of Space">
+						<option value="">Choose one</option>
+						<option>Office</option>
+						<option>Retail</option>
+						<option>Medical</option>
+						<option>Other commercial</option>
+					</select>
+				</div>
+			</div>
+			<?php if ( $full ) : ?>
+			<div class="form-row">
+				<div class="fld">
+					<label for="<?php echo $p; ?>hours">When to clean</label>
+					<select id="<?php echo $p; ?>hours" name="Cleaning Hours">
+						<option value="">Choose one</option>
+						<option>During business hours</option>
+						<option>Evenings</option>
+						<option>Weekends</option>
+						<option>Flexible</option>
+					</select>
+				</div>
+				<div class="fld">
+					<label for="<?php echo $p; ?>bfreq">How often</label>
+					<select id="<?php echo $p; ?>bfreq" name="Frequency">
+						<option value="">Choose one</option>
+						<option>One-Time</option>
+						<option>Weekly</option>
+						<option>Several times a week</option>
+						<option>Every 2 weeks</option>
+						<option>Monthly</option>
+					</select>
+				</div>
+			</div>
+			<?php endif; ?>
+			<label class="coupon-check"><input type="checkbox" name="Walkthrough" value="Yes, please set up a walkthrough"> Set up a walkthrough of my space before the quote</label>
+		</fieldset>
+
+		<?php if ( $full ) : ?>
+		<div class="fld">
+			<label for="<?php echo $p; ?>notes">Anything we should know?</label>
+			<textarea id="<?php echo $p; ?>notes" name="Notes" rows="2" placeholder="Pets, problem spots, the best time to reach you"></textarea>
+		</div>
+		<?php endif; ?>
+		<button type="submit" class="btn-primary btn-full form-submit">Get My Free Quote</button>
+		<p class="form-note">We reply within 24 hours. Your details stay with us. Trouble sending? Call <a href="tel:+19782199787">(978) 219-9787</a>.</p>
+	</form>
+	<?php
+}
+
+$kfs_star = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg>';
+$kfs_stars = '<div class="review-stars" role="img" aria-label="5 out of 5 stars">' . str_repeat( $kfs_star, 5 ) . '</div>';
 
 get_header();
 ?>
 
 <main id="main-content">
 
-<!-- ===================== HERO ===================== -->
-<section class="hero" id="home" aria-label="Hero section">
-	<div class="hero-grid-overlay"></div>
-	<div class="hero-glow"></div>
-	<div class="wrap hero-inner">
+<!-- ===================== HERO: THE LITTLE HOUSE ===================== -->
+<section class="hero" aria-labelledby="hero-title">
+	<div class="wrap hero-grid">
 
-		<!-- Left: Hero Text -->
-		<div class="hero-text">
-			<div class="hero-badge">
-				<span class="badge-dot"></span> Serving MA &amp; NH
+		<div class="hero-copy">
+			<h1 id="hero-title">Every room, done right.</h1>
+			<p class="hero-sub">Katia&rsquo;s team takes its time and doesn&rsquo;t leave until you&rsquo;re happy. Tap a room to see what gets cleaned.</p>
+			<div class="quote-card" id="quick-quote">
+				<h2 class="quote-card-title">Free quote within 24 hours</h2>
+				<p class="quote-card-sub">No commitment. Or call <a href="tel:+19782199787">(978) 219-9787</a>.</p>
+				<?php kfs_quote_form( 'h-', false ); ?>
 			</div>
-			<h1>Professional Cleaning,<br><span class="accent">Done Right.</span></h1>
-			<p class="hero-sub">Licensed &middot; Insured &middot; Satisfaction Guaranteed</p>
-			<p class="hero-body">From weekly home cleans to post-construction deep scrubs &mdash; KFS Cleaning Services delivers spotless results on time, every time. Over 500 happy clients across the North Shore and Southern NH.</p>
-			<div class="hero-btns">
-				<a href="#quote" class="btn-primary">Get a Free Quote</a>
-				<a href="#services" class="btn-ghost">View Our Services &rarr;</a>
+			<div class="proof">
+				<span><?php echo $kfs_star; ?>5-star rated on Google</span>
+				<span>500+ homes cleaned</span>
+				<span>Flat-rate pricing</span>
 			</div>
 		</div>
 
-		<!-- Right: Glassmorphism Card -->
-		<div class="hero-card" role="complementary" aria-label="Why clients choose KFS">
-			<h2>Why Clients Choose KFS</h2>
-			<ul class="hero-checks" aria-label="Key benefits">
-				<li><?php echo kfs_icon('check-circle', 20, 'check-svg'); ?> Licensed &amp; Insured in MA &amp; NH</li>
-				<li><?php echo kfs_icon('check-circle', 20, 'check-svg'); ?> 100% Satisfaction Guaranteed</li>
-				<li><?php echo kfs_icon('check-circle', 20, 'check-svg'); ?> We Bring All Supplies &amp; Equipment</li>
-				<li><?php echo kfs_icon('check-circle', 20, 'check-svg'); ?> Flexible Scheduling (Evenings &amp; Weekends)</li>
-				<li><?php echo kfs_icon('check-circle', 20, 'check-svg'); ?> Fast Response &mdash; Quotes in 24 Hours</li>
-			</ul>
-			<a href="#quote" class="btn-primary btn-full">Book Your Free Quote &rarr;</a>
-			<div class="hero-statbar" aria-label="Company stats">
-				<div class="hstat"><div class="hstat-n">500+</div><div class="hstat-l">Homes Cleaned</div></div>
-				<div class="hstat"><div class="hstat-n">5★</div><div class="hstat-l">Rated Service</div></div>
-				<div class="hstat"><div class="hstat-n">24hr</div><div class="hstat-l">Response</div></div>
+		<noscript><style>.house.is-settling .room { opacity: 1; transform: none; }</style></noscript>
+		<div class="house is-settling" id="house">
+			<svg class="house-svg" viewBox="0 -40 800 542" role="img" aria-labelledby="house-title">
+			<title id="house-title">A cutaway house with a kitchen, bathroom, bedroom and living room</title>
+			<polygon class="slab-top" points="400,110 740,280 400,450 60,280"/>
+			<polygon class="slab-left" points="60,280 400,450 400,472 60,302"/>
+			<polygon class="slab-right" points="740,280 400,450 400,472 740,302"/>
+			<polygon class="wall-back-l" points="400,110 60,280 60,160 400,-10"/>
+			<polygon class="wall-back-r" points="400,110 740,280 740,160 400,-10"/>
+			<polygon class="part-top" points="400,-10 740,160 751.9,154.1 400,-21.9 48.1,154.1 60,160"/>
+			<polygon class="window" points="604,172 692.4,216.2 692.4,160.2 604,116"/>
+			<polygon class="window" points="189.2,175.4 107.6,216.2 107.6,160.2 189.2,119.4"/>
+			<polygon class="window" points="352.4,81.8 277.6,119.2 277.6,75.2 352.4,37.8"/>
+			<g class="room room-kitchen" data-room="kitchen"><title>Kitchen</title><polygon class="floor" points="400,113.5 561.8,194.4 400,275.3 238.2,194.4"/><polygon class="f-counter" points="362.6,137.2 515.6,213.7 515.6,183.7 362.6,107.2"/><polygon class="f-counter-side" points="553,195 515.6,213.7 515.6,183.7 553,165"/><polygon class="f-counter-top" points="400,88.5 553,165 515.6,183.7 362.6,107.2"/><polygon class="f-dark" points="425.5,107.6 462.9,126.3 439.1,138.2 401.7,119.5"/><polygon class="f-water" points="493.5,141.6 524.1,156.9 500.3,168.8 469.7,153.5"/><polygon class="f-counter" points="274.2,181.4 311.6,200.1 311.6,170.1 274.2,151.4"/><polygon class="f-counter-side" points="400,155.9 311.6,200.1 311.6,170.1 400,125.9"/><polygon class="f-counter-top" points="362.6,107.2 400,125.9 311.6,170.1 274.2,151.4"/><polygon class="f-wood" points="342.2,213.7 406.8,246 406.8,220 342.2,187.7"/><polygon class="f-wood-side" points="451,223.9 406.8,246 406.8,220 451,197.9"/><polygon class="f-wood-top" points="386.4,165.6 451,197.9 406.8,220 342.2,187.7"/></g>
+			<g class="room room-bathroom" data-room="bathroom"><title>Bathroom</title><polygon class="floor" points="570,198.5 731.8,279.4 570,360.3 408.2,279.4"/><polygon class="f-white" points="539.4,222.2 597.2,251.1 597.2,221.1 539.4,192.2"/><polygon class="f-white-side" points="631.2,234.1 597.2,251.1 597.2,221.1 631.2,204.1"/><polygon class="f-white-top" points="573.4,175.2 631.2,204.1 597.2,221.1 539.4,192.2"/><polygon class="f-water" points="580.2,184.9 610.8,200.2 590.4,210.4 559.8,195.1"/><polygon class="f-white" points="551.3,303 614.2,334.4 614.2,310.4 551.3,279"/><polygon class="f-white-side" points="723,280 614.2,334.4 614.2,310.4 723,256"/><polygon class="f-white-top" points="660.1,224.6 723,256 614.2,310.4 551.3,279"/><polygon class="f-water" points="658.4,231.7 707.7,256.4 615.9,302.3 566.6,277.6"/><polygon class="f-white" points="478.2,254.5 505.4,268.1 505.4,250.1 478.2,236.5"/><polygon class="f-white-side" points="529.2,256.2 505.4,268.1 505.4,250.1 529.2,238.2"/><polygon class="f-white-top" points="502,224.6 529.2,238.2 505.4,250.1 478.2,236.5"/><polygon class="f-rug" points="495.2,276.1 549.6,303.3 515.6,320.3 461.2,293.1"/></g>
+			<g class="room room-bedroom" data-room="bedroom"><title>Bedroom</title><polygon class="floor" points="230,198.5 391.8,279.4 230,360.3 68.2,279.4"/><polygon class="f-rug" points="277.6,252.3 349,288 233.4,345.8 162,310.1"/><polygon class="f-bed" points="116.1,260.5 218.1,311.5 218.1,291.5 116.1,240.5"/><polygon class="f-bed-side" points="320.1,260.5 218.1,311.5 218.1,291.5 320.1,240.5"/><polygon class="f-bed-top" points="218.1,189.5 320.1,240.5 218.1,291.5 116.1,240.5"/><polygon class="f-white" points="126.3,238.8 153.5,252.4 153.5,244.4 126.3,230.8"/><polygon class="f-white-side" points="241.9,208.2 153.5,252.4 153.5,244.4 241.9,200.1"/><polygon class="f-white-top" points="214.7,186.6 241.9,200.1 153.5,244.4 126.3,230.8"/><polygon class="f-wood" points="78.7,279.2 109.3,294.5 109.3,272.5 78.7,257.2"/><polygon class="f-wood-side" points="136.5,280.9 109.3,294.5 109.3,272.5 136.5,258.9"/><polygon class="f-wood-top" points="105.9,243.6 136.5,258.9 109.3,272.5 78.7,257.2"/></g>
+			<g class="room room-living" data-room="living"><title>Living room</title><polygon class="floor" points="400,283.5 561.8,364.4 400,445.3 238.2,364.4"/><polygon class="f-rug" points="403.4,311.8 485,352.6 376.2,407 294.6,366.2"/><polygon class="f-wood" points="342.2,363.3 383,383.7 383,369.7 342.2,349.3"/><polygon class="f-wood-side" points="437.4,356.5 383,383.7 383,369.7 437.4,342.5"/><polygon class="f-wood-top" points="396.6,322.1 437.4,342.5 383,369.7 342.2,349.3"/><polygon class="f-sofa" points="379.6,419.4 413.6,436.4 413.6,418.4 379.6,401.4"/><polygon class="f-sofa-side" points="542.8,371.8 413.6,436.4 413.6,418.4 542.8,353.8"/><polygon class="f-sofa-top" points="508.8,336.8 542.8,353.8 413.6,418.4 379.6,401.4"/><polygon class="f-sofa" points="398.3,428.8 413.6,436.4 413.6,398.4 398.3,390.8"/><polygon class="f-sofa-side" points="542.8,371.8 413.6,436.4 413.6,398.4 542.8,333.8"/><polygon class="f-sofa-top" points="527.5,326.2 542.8,333.8 413.6,398.4 398.3,390.8"/><polygon class="f-white" points="253.8,363.3 274.2,373.5 274.2,343.5 253.8,333.3"/><polygon class="f-white-side" points="294.6,363.3 274.2,373.5 274.2,343.5 294.6,333.3"/><polygon class="f-white-top" points="274.2,323.1 294.6,333.3 274.2,343.5 253.8,333.3"/></g>
+			</svg>
+			<div class="room-tabs" role="tablist" aria-label="Rooms">
+				<?php $first = true; foreach ( $kfs_rooms as $key => $room ) : ?>
+				<button type="button" class="room-tab" role="tab" id="tab-<?php echo $key; ?>" data-room="<?php echo $key; ?>" aria-controls="card-<?php echo $key; ?>" aria-selected="<?php echo $first ? 'true' : 'false'; ?>" tabindex="<?php echo $first ? '0' : '-1'; ?>"><?php echo esc_html( $room['name'] ); ?></button>
+				<?php $first = false; endforeach; ?>
+				<button type="button" class="room-tab" role="tab" id="tab-final" data-room="final" aria-controls="card-final" aria-selected="false" tabindex="-1">Final check</button>
+			</div>
+
+			<?php $first = true; foreach ( $kfs_rooms as $key => $room ) : ?>
+			<div class="room-card" role="tabpanel" id="card-<?php echo $key; ?>" data-room="<?php echo $key; ?>" aria-labelledby="tab-<?php echo $key; ?>"<?php echo $first ? '' : ' hidden'; ?>>
+				<h3>The <?php echo esc_html( strtolower( $room['name'] ) ); ?></h3>
+				<div class="room-card-cols">
+					<div>
+						<h4>Every clean</h4>
+						<ul class="ticks"><?php foreach ( $room['every'] as $task ) : ?><li><?php echo esc_html( $task ); ?></li><?php endforeach; ?></ul>
+					</div>
+					<div>
+						<h4>A deep clean adds</h4>
+						<ul class="ticks"><?php foreach ( $room['deep'] as $task ) : ?><li><?php echo esc_html( $task ); ?></li><?php endforeach; ?></ul>
+					</div>
+				</div>
+			</div>
+			<?php $first = false; endforeach; ?>
+			<div class="room-card" role="tabpanel" id="card-final" data-room="final" aria-labelledby="tab-final" hidden>
+				<h3>Before we leave</h3>
+				<ul class="ticks">
+					<li>One more walk through every room</li>
+					<li>Anything missed gets done before we go</li>
+					<li>Not home? We text you when we&rsquo;re done</li>
+					<li>Spot something later? Tell us within 24 hours and we re-clean it free</li>
+				</ul>
 			</div>
 		</div>
 
 	</div>
 </section>
 
-<!-- ===================== TRUST STRIP ===================== -->
-<div class="trust-strip" role="region" aria-label="Trust indicators">
-	<div class="wrap trust-inner">
-		<span><?php echo kfs_icon('shield', 16, 'ts-icon'); ?> Licensed &amp; Insured</span>
-		<span class="ts-sep" aria-hidden="true">|</span>
-		<span><?php echo kfs_icon('star', 16, 'ts-icon'); ?> 5-Star Rated</span>
-		<span class="ts-sep" aria-hidden="true">|</span>
-		<span><?php echo kfs_icon('check-circle', 16, 'ts-icon'); ?> Satisfaction Guaranteed</span>
-		<span class="ts-sep" aria-hidden="true">|</span>
-		<span><?php echo kfs_icon('bag', 16, 'ts-icon'); ?> Supplies Included</span>
-		<span class="ts-sep" aria-hidden="true">|</span>
-		<span><?php echo kfs_icon('map-pin', 16, 'ts-icon'); ?> MA &amp; NH</span>
-		<span class="ts-sep" aria-hidden="true">|</span>
-		<span><?php echo kfs_icon('clock', 16, 'ts-icon'); ?> 24-Hour Response</span>
-	</div>
-</div>
-
-<!-- ===================== SERVICES ===================== -->
-<section class="services-section section-alt" id="services" aria-label="Services">
+<!-- ===================== WHAT THE NEIGHBORS SAY ===================== -->
+<section class="section section-alt" id="reviews" aria-labelledby="reviews-title">
 	<div class="wrap">
-		<div class="section-head reveal">
-			<p class="eyebrow">What We Do</p>
-			<h2>Every Type of Clean, Covered</h2>
-			<p>From one-time deep cleans to recurring residential service &mdash; we handle it all with care, precision, and the right tools for the job.</p>
+		<div class="section-head">
+			<h2 class="section-title" id="reviews-title">What the neighbors say</h2>
+			<p class="section-lead">Google reviews, word for word.</p>
 		</div>
-		<div class="services-grid" role="list">
-			<?php foreach ( $kfs_services as $svc ) : ?>
-			<div class="svc-card reveal" role="listitem">
-				<div class="svc-top">
-					<div class="svc-icon-wrap"><?php echo kfs_icon( $svc['icon'], 26, 'svc-svg' ); ?></div>
-					<span class="svc-num"><?php echo esc_html( $svc['num'] ); ?></span>
-				</div>
-				<h3><?php echo $svc['title']; ?></h3>
-				<p><?php echo $svc['desc']; ?></p>
-				<a href="<?php echo esc_url( home_url( '/' . $svc['slug'] . '/' ) ); ?>" class="svc-link" aria-label="Learn more about <?php echo esc_attr( $svc['title'] ); ?>">
-					Learn More <?php echo kfs_icon('arrow-right', 14); ?>
-				</a>
-			</div>
-			<?php endforeach; ?>
+		<div class="reviews-grid">
+			<figure class="review review-lead">
+				<?php echo $kfs_stars; ?>
+				<p class="review-pull" aria-hidden="true">&ldquo;I trust to have them in my house with no one here.&rdquo;</p>
+				<blockquote><p>&ldquo;Katia and company always show up when expected never one canceled appointment!!! Having reliability gives me peace of mind. Anything I request is done and I trust to have them in my house with no one here. Prices are great!!! Been a customer for over two years and will continue as long as she is here!!!&rdquo;</p></blockquote>
+				<figcaption><span class="review-avatar" aria-hidden="true">C</span>Christine A. <span>Dracut, MA &middot; Google review</span></figcaption>
+			</figure>
+			<figure class="review review-small">
+				<?php echo $kfs_stars; ?>
+				<blockquote><p>&ldquo;Wonderful, detailed, and conscientious! Katia and her crew always leave my home sparkling!&rdquo;</p></blockquote>
+				<figcaption><span class="review-avatar" style="--av:var(--bathroom)" aria-hidden="true">J</span>Jessica K. <span>Google review</span></figcaption>
+			</figure>
+			<figure class="review review-small">
+				<?php echo $kfs_stars; ?>
+				<blockquote><p>&ldquo;I highly recommend Katia and her cleaning team. They are reliable, professional, thorough, and consistently do an outstanding job.&rdquo;</p></blockquote>
+				<figcaption><span class="review-avatar" style="--av:var(--bedroom)" aria-hidden="true">L</span>Lauren D. <span>Google review</span></figcaption>
+			</figure>
+			<figure class="review review-small review-wide">
+				<?php echo $kfs_stars; ?>
+				<blockquote><p>&ldquo;KFS has been cleaning my home for 26 years. Trusted, does a great job cleaning the kitchen, bathrooms and main rooms.&rdquo;</p></blockquote>
+				<figcaption><span class="review-avatar" style="--av:var(--living)" aria-hidden="true">J</span>Jan R. <span>Google review</span></figcaption>
+			</figure>
 		</div>
-		<div class="mid-cta reveal" role="complementary">
-			<h3>Ready for a Spotless Home or Office?</h3>
-			<p>Get your free, no-obligation quote today. We respond within 24 hours &mdash; often same-week scheduling available.</p>
-			<a href="#quote" class="btn-primary">Request a Free Quote &rarr;</a>
-		</div>
-	</div>
-</section>
-
-<!-- ===================== WHY US ===================== -->
-<section class="why-section" id="why" aria-label="Why choose KFS">
-	<div class="wrap why-inner">
-		<div class="why-left">
-			<p class="eyebrow">Why Choose Us</p>
-			<h2>The Cleaning Service<br>North Shore <span class="accent">Trusts.</span></h2>
-			<p class="why-body">We show up on time, bring our own supplies, and don&rsquo;t leave until the job is done right. No shortcuts. No excuses. Just clean.</p>
-			<div class="stats-grid" aria-label="Company statistics">
-				<div class="stat-box"><div class="stat-num">500+</div><div class="stat-label">Homes Cleaned</div></div>
-				<div class="stat-box"><div class="stat-num">5 ★</div><div class="stat-label">Average Rating</div></div>
-				<div class="stat-box"><div class="stat-num">6</div><div class="stat-label">Service Types</div></div>
-				<div class="stat-box"><div class="stat-num">2</div><div class="stat-label">States Served</div></div>
-			</div>
-		</div>
-		<div class="trust-cards" role="list">
-			<div class="trust-card reveal" role="listitem">
-				<div class="tc-icon"><?php echo kfs_icon('shield', 24); ?></div>
-				<div class="tc-content">
-					<h3>Licensed &amp; Insured</h3>
-					<p>Fully licensed and insured in MA &amp; NH. Your home and belongings are protected every visit.</p>
-				</div>
-			</div>
-			<div class="trust-card reveal" role="listitem">
-				<div class="tc-icon"><?php echo kfs_icon('check-circle', 24); ?></div>
-				<div class="tc-content">
-					<h3>Satisfaction Guarantee</h3>
-					<p>Not happy? We return within 24 hours and re-clean at zero cost. No hassle, no questions.</p>
-				</div>
-			</div>
-			<div class="trust-card reveal" role="listitem">
-				<div class="tc-icon"><?php echo kfs_icon('bag', 24); ?></div>
-				<div class="tc-content">
-					<h3>We Bring Everything</h3>
-					<p>Commercial-grade products, vacuums, mops, and microfibers. You provide the space &mdash; we do the rest.</p>
-				</div>
-			</div>
-			<div class="trust-card reveal" role="listitem">
-				<div class="tc-icon"><?php echo kfs_icon('calendar', 24); ?></div>
-				<div class="tc-content">
-					<h3>Flexible Scheduling</h3>
-					<p>Morning, afternoon, evening, or weekends &mdash; we work around your calendar, not ours.</p>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-
-<!-- ===================== GALLERY ===================== -->
-<section class="gallery-section section-alt" id="gallery" aria-label="Photo gallery">
-	<div class="wrap">
-		<div class="section-head reveal">
-			<p class="eyebrow">Our Work</p>
-			<h2>See the Difference</h2>
-			<p>Real results from real jobs across Massachusetts and New Hampshire.</p>
-		</div>
-		<div class="gallery-grid" id="gallery-grid">
-			<?php foreach ( $kfs_gallery as $i => $img ) : ?>
-<div class="gal-item<?php echo ( isset( $img['span'] ) && $img['span'] > 1 ) ? ' gal-wide' : ''; ?>"
-	 data-src="<?php echo esc_url( $img['src'] ); ?>"
-	 data-index="<?php echo esc_attr( $i ); ?>"
-	 role="button"
-	 tabindex="0"
-	 aria-label="View <?php echo esc_attr( $img['label'] ); ?>">
-
-	<img src="<?php echo esc_url( $img['src'] ); ?>" alt="<?php echo esc_attr( $img['label'] ); ?> — KFS Cleaning Services MA &amp; NH" loading="lazy">
-
-	<div class="gal-caption">
-		<div class="gal-caption-text">
-			<h3 class="gal-title"><?php echo esc_html( $img['label'] ); ?></h3>
-			<p class="gal-subtitle">KFS Cleaning Services</p>
-		</div>
-	</div>
-</div>
-			<?php endforeach; ?>
-		</div>
-	</div>
-</section>
-
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox" aria-hidden="true">
-	<div class="lightbox-backdrop" data-lightbox-close></div>
-
-	<div class="lightbox-inner">
-		<button class="lb-close" id="lb-close" type="button" aria-label="Close lightbox">&times;</button>
-		<button class="lb-prev" id="lb-prev" type="button" aria-label="Previous image">&#10094;</button>
-
-		<div class="lb-stage">
-			<img src="" alt="" id="lb-img">
-		</div>
-
-		<button class="lb-next" id="lb-next" type="button" aria-label="Next image">&#10095;</button>
-	</div>
-</div>
-<!-- ===================== REVIEWS WIDGETS ===================== -->
-<section class="reviews-section" id="reviews" aria-label="Customer reviews">
-	<div class="wrap">
-		<div class="section-head reveal">
-			<p class="eyebrow">Customer Reviews</p>
-			<h2>What Our Customers Say</h2>
-			<p>See verified feedback from our customers on Google and Thumbtack.</p>
-		</div>
-
-		<div class="reviews-widget">
+		<div class="reviews-more reviews-widget">
 			<?php
-			$google_reviews = do_shortcode('[trustindex no-registration=google]');
-			if ( ! empty( trim( $google_reviews ) ) && $google_reviews !== '[trustindex no-registration=google]' ) {
+			$google_reviews = do_shortcode( '[trustindex no-registration=google]' );
+			// The shortcode echoes itself back, or returns an error notice, when the widget is unavailable.
+			if ( trim( $google_reviews ) !== '' && strpos( $google_reviews, '[trustindex' ) === false && strpos( $google_reviews, 'ti-widget' ) !== false ) {
 				echo $google_reviews;
 			} else {
-				// Widget unavailable: point people to the reviews instead of showing an empty box.
-				echo '<p class="reviews-fallback">Read what our customers say on <a href="' . esc_url( 'https://www.google.com/search?q=KFS+Cleaning+Services+reviews' ) . '" target="_blank" rel="noopener">Google Reviews</a>.</p>';
+				echo '<p class="reviews-fallback">Read more reviews on <a href="' . esc_url( 'https://www.google.com/search?q=KFS+Cleaning+Services+reviews' ) . '" target="_blank" rel="noopener">Google</a>.</p>';
 			}
 			?>
 		</div>
 	</div>
 </section>
 
-<!-- ===================== FAQ ===================== -->
-<section class="faq-section section-alt" id="faq" aria-label="Frequently asked questions">
+<!-- ===================== THE PROMISE ===================== -->
+<section class="promise" id="why" aria-labelledby="promise-title">
 	<div class="wrap">
-		<div class="section-head reveal">
-			<p class="eyebrow">Got Questions?</p>
-			<h2>Frequently Asked Questions</h2>
-			<p>Everything you need to know before booking your first clean.</p>
+		<div class="promise-card">
+			<div>
+				<h2 id="promise-title">We don&rsquo;t leave until it&rsquo;s completely clean and you&rsquo;re happy.</h2>
+				<p>Katia&rsquo;s team takes its time and doesn&rsquo;t rush. If anything was missed, tell us within 24 hours and we come back and re-clean it at no charge.</p>
+			</div>
+			<ul class="credits">
+				<li><b>Flat-rate pricing</b>Priced by the job, never by the hour</li>
+				<li><b>Free re-clean</b>Tell us within 24 hours</li>
+				<li><b>Licensed &amp; insured</b>In Massachusetts and New Hampshire</li>
+				<li><b>Supplies included</b>Professional-grade, no extra charge</li>
+				<li><b>Flexible hours</b>Evenings and weekends available</li>
+				<li><b>A consistent team</b>The same people whenever we can</li>
+			</ul>
 		</div>
-		<div class="faq-list" id="faq-list" role="list">
+	</div>
+</section>
+
+<!-- ===================== SERVICES ===================== -->
+<section class="section" id="services" aria-labelledby="services-title">
+	<div class="wrap">
+		<div class="section-head">
+			<h2 class="section-title" id="services-title">One-time or every week</h2>
+			<p class="section-lead">Six kinds of cleaning, each with its own checklist.</p>
+		</div>
+		<div class="services-grid">
+			<ul class="service-list">
+				<?php foreach ( $kfs_services as $svc ) : ?>
+				<li class="service-row" style="--dot:var(--<?php echo esc_attr( $svc['dot'] ); ?>-deep)">
+					<div>
+						<h3><a href="<?php echo esc_url( home_url( '/' . $svc['slug'] . '/' ) ); ?>"><?php echo $svc['title']; ?></a></h3>
+						<p><?php echo esc_html( $svc['desc'] ); ?></p>
+					</div>
+					<?php if ( $svc['meta'] ) : ?><span class="service-time"><?php echo $svc['meta']; ?></span><?php endif; ?>
+				</li>
+				<?php endforeach; ?>
+			</ul>
+			<aside class="business-card" aria-labelledby="business-title">
+				<h3 id="business-title">For businesses</h3>
+				<p>Offices, retail, medical and commercial properties, cleaned around your business hours.</p>
+				<ul class="ticks">
+					<li>Evenings and weekends</li>
+					<li>A walkthrough before we quote</li>
+					<li>Proof of insurance on request</li>
+				</ul>
+				<a class="btn-primary" href="#quote" data-coupon="Business">Book a walkthrough</a>
+				<p><a href="<?php echo esc_url( home_url( '/commercial-cleaning/' ) ); ?>">More about commercial cleaning</a></p>
+			</aside>
+		</div>
+	</div>
+</section>
+
+<!-- ===================== FROM THE JOB (gallery) ===================== -->
+<section class="section section-alt" id="gallery" aria-labelledby="gallery-title">
+	<div class="wrap">
+		<div class="section-head">
+			<h2 class="section-title" id="gallery-title">From the job</h2>
+			<p class="section-lead">Real photos from real jobs. Tap one to see it larger.</p>
+		</div>
+		<div class="photo-grid">
+			<?php foreach ( $kfs_gallery as $i => $img ) : ?>
+			<button type="button" class="gal-item<?php echo $img['wide'] ? ' gal-wide' : ''; ?>" data-src="<?php echo esc_url( $kfs_img . '/gallery/' . $img['file'] . '.jpg' ); ?>" data-index="<?php echo esc_attr( $i ); ?>" aria-label="View larger photo: <?php echo esc_attr( $img['note'] ); ?>">
+				<img src="<?php echo esc_url( $kfs_img . '/gallery/' . $img['file'] . '.jpg' ); ?>" alt="<?php echo esc_attr( $img['label'] . ': ' . $img['note'] ); ?>" loading="lazy">
+				<span class="photo-cap"><?php echo esc_html( $img['label'] ); ?></span>
+			</button>
+			<?php endforeach; ?>
+		</div>
+	</div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" aria-hidden="true">
+	<div class="lightbox-backdrop" data-lightbox-close></div>
+	<div class="lightbox-inner">
+		<button class="lb-close" id="lb-close" type="button" aria-label="Close photo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+		<button class="lb-prev" id="lb-prev" type="button" aria-label="Previous photo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4l-8 8 8 8"/></svg></button>
+		<div class="lb-stage">
+			<img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="" id="lb-img">
+		</div>
+		<button class="lb-next" id="lb-next" type="button" aria-label="Next photo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4l8 8-8 8"/></svg></button>
+	</div>
+</div>
+
+<!-- ===================== HOW IT WORKS + FULL QUOTE ===================== -->
+<section class="section" id="quote" aria-labelledby="next-title">
+	<div class="wrap quote-grid">
+		<div>
+			<h2 class="section-title" id="next-title">How it works</h2>
+			<ol class="steps">
+				<li><div><b>Send the form or call.</b><span>Tell us about your home or business. It takes a minute.</span></div></li>
+				<li><div><b>Get a flat-rate quote within 24 hours.</b><span>For businesses, we set up a walkthrough of the space first.</span></div></li>
+				<li><div><b>Pick a day.</b><span>Katia&rsquo;s team arrives on time with every supply and gives each room the time it needs.</span></div></li>
+			</ol>
+			<p class="call-line">Rather talk? <a href="tel:+19782199787">(978) 219-9787</a></p>
+		</div>
+		<div class="quote-card">
+			<h2 class="quote-card-title">Your free quote</h2>
+			<p class="quote-card-sub">A few details and we&rsquo;ll send a flat-rate number within 24 hours.</p>
+			<?php kfs_quote_form( 'q-', true ); ?>
+		</div>
+	</div>
+</section>
+
+<!-- ===================== TOWNS WE SERVE ===================== -->
+<section class="section section-alt" id="areas" aria-labelledby="areas-title">
+	<div class="wrap">
+		<div class="section-head">
+			<h2 class="section-title" id="areas-title">Towns we serve</h2>
+			<p class="section-lead">The North Shore and Merrimack Valley in Massachusetts, plus Southern New Hampshire.</p>
+		</div>
+		<div class="towns">
+			<div class="towns-state">
+				<h3>Massachusetts</h3>
+				<p>North Shore, Merrimack Valley &amp; Greater Lowell</p>
+				<ul class="town-list">
+					<?php foreach ( $kfs_towns_ma as $town ) : ?><li><?php echo esc_html( $town ); ?></li><?php endforeach; ?>
+				</ul>
+			</div>
+			<div class="towns-state">
+				<h3>New Hampshire</h3>
+				<p>Southern New Hampshire &amp; Seacoast</p>
+				<ul class="town-list">
+					<?php foreach ( $kfs_towns_nh as $town ) : ?><li><?php echo esc_html( $town ); ?></li><?php endforeach; ?>
+				</ul>
+			</div>
+		</div>
+		<p class="towns-note">Don&rsquo;t see your town? <a href="tel:+19782199787">Call (978) 219-9787</a> and we&rsquo;ll confirm. We likely cover it.</p>
+	</div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section class="section" id="faq" aria-labelledby="faq-title">
+	<div class="wrap">
+		<div class="section-head">
+			<h2 class="section-title" id="faq-title">Questions before you book</h2>
+		</div>
+		<div class="faq-list" id="faq-list">
 			<?php foreach ( $kfs_faq as $i => $item ) : ?>
-			<div class="faq-item reveal" role="listitem">
-				<button class="faq-q" aria-expanded="false" aria-controls="faq-a-<?php echo esc_attr( $i ); ?>" id="faq-q-<?php echo esc_attr( $i ); ?>">
+			<div class="faq-item">
+				<button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a-<?php echo esc_attr( $i ); ?>" id="faq-q-<?php echo esc_attr( $i ); ?>">
 					<span><?php echo esc_html( $item['q'] ); ?></span>
 					<span class="faq-icon" aria-hidden="true">+</span>
 				</button>
@@ -288,141 +473,6 @@ get_header();
 				</div>
 			</div>
 			<?php endforeach; ?>
-		</div>
-	</div>
-</section>
-
-<!-- ===================== SERVICE AREAS ===================== -->
-<section class="areas-section" id="areas" aria-label="Service areas">
-	<div class="wrap">
-		<div class="section-head reveal">
-			<p class="eyebrow">Where We Work</p>
-			<h2>Serving MA &amp; NH</h2>
-			<p>We cover the North Shore and Merrimack Valley in Massachusetts, plus communities throughout Southern New Hampshire.</p>
-		</div>
-		<div class="areas-grid">
-			<div class="area-card reveal" role="region" aria-label="Massachusetts service areas">
-				<div class="area-icon"><?php echo kfs_icon('map-pin', 28); ?></div>
-				<h3>Massachusetts</h3>
-				<p>North Shore, Merrimack Valley &amp; Greater Lowell</p>
-				<div class="area-towns" aria-label="Towns served in Massachusetts">
-					<span>Andover</span><span>Lawrence</span><span>Haverhill</span><span>Lowell</span>
-					<span>Methuen</span><span>North Andover</span><span>Amesbury</span><span>Newburyport</span>
-					<span>Gloucester</span><span>Beverly</span><span>Salem</span><span>Groveland</span>
-					<span>Boston area</span><span>+ More</span>
-				</div>
-			</div>
-			<div class="area-card reveal" role="region" aria-label="New Hampshire service areas">
-				<div class="area-icon"><?php echo kfs_icon('map-pin', 28); ?></div>
-				<h3>New Hampshire</h3>
-				<p>Southern New Hampshire &amp; Seacoast</p>
-				<div class="area-towns" aria-label="Towns served in New Hampshire">
-					<span>Nashua</span><span>Manchester</span><span>Derry</span><span>Salem</span>
-					<span>Londonderry</span><span>Hudson</span><span>Merrimack</span><span>Bedford</span>
-					<span>Windham</span><span>+ More</span>
-				</div>
-			</div>
-		</div>
-		<p class="areas-note">Not sure if we cover your area? <a href="tel:+19782199787">Call (978) 219-9787</a> &mdash; we likely do.</p>
-	</div>
-</section>
-
-<!-- ===================== CONTACT / QUOTE FORM ===================== -->
-<section class="contact-section" id="quote" aria-label="Contact and quote form">
-	<div class="wrap contact-inner">
-		<div class="contact-info">
-			<p class="eyebrow">Get In Touch</p>
-			<h2>Request Your Free Quote</h2>
-			<p class="contact-lead">Fill out the form and we&rsquo;ll respond within 24 hours with a no-obligation estimate. Or give us a call right now.</p>
-			<div class="ci-items">
-				<div class="ci-item">
-					<div class="ci-ico"><?php echo kfs_icon('phone', 20); ?></div>
-					<div><div class="ci-label">Phone</div><a href="tel:+19782199787" class="ci-value">(978) 219-9787</a></div>
-				</div>
-				<div class="ci-item">
-					<div class="ci-ico"><?php echo kfs_icon('mail', 20); ?></div>
-					<div><div class="ci-label">Email</div><a href="mailto:support@kfscleaning.com" class="ci-value">support@kfscleaning.com</a></div>
-				</div>
-				<div class="ci-item">
-					<div class="ci-ico"><?php echo kfs_icon('clock', 20); ?></div>
-					<div><div class="ci-label">Hours</div><span class="ci-value">Mon &ndash; Sat &middot; 8am &ndash; 6pm</span></div>
-				</div>
-				<div class="ci-item">
-					<div class="ci-ico"><?php echo kfs_icon('map-pin', 20); ?></div>
-					<div><div class="ci-label">Service Area</div><span class="ci-value">Massachusetts &amp; New Hampshire</span></div>
-				</div>
-			</div>
-		</div>
-		<div class="form-card">
-			<h3>Get a Free Quote</h3>
-			<p class="form-sub">No commitment required &mdash; we respond within 24 hours.</p>
-			<p class="form-legend"><span class="req" aria-hidden="true">*</span> Required</p>
-			<form action="https://formsubmit.co/support@kfscleaning.com" method="POST" class="quote-form">
-				<input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
-				<input type="hidden" name="_next" value="<?php echo esc_url( kfs_thanks_url() ); ?>">
-				<input type="hidden" name="_subject" value="New Quote Request from kfscleaning.com">
-				<input type="hidden" name="_captcha" value="false">
-				<input type="hidden" name="_template" value="table">
-				<div class="form-row">
-					<div class="fld">
-						<label for="full-name">Full Name <span class="req" aria-hidden="true">*</span></label>
-						<input type="text" id="full-name" name="Full Name" required autocomplete="name" aria-required="true">
-					</div>
-					<div class="fld">
-						<label for="phone">Phone <span class="req" aria-hidden="true">*</span></label>
-						<input type="tel" id="phone" name="Phone" required autocomplete="tel" aria-required="true" placeholder="(978) 555-0100">
-					</div>
-				</div>
-				<div class="fld">
-					<label for="email">Email Address <span class="req" aria-hidden="true">*</span></label>
-					<input type="email" id="email" name="email" required autocomplete="email" aria-required="true">
-				</div>
-				<div class="form-row">
-					<div class="fld">
-						<label for="service">Service Needed</label>
-						<select id="service" name="Service">
-							<option value="">— Select a service —</option>
-							<option>Regular Home Cleaning</option>
-							<option>Deep Cleaning</option>
-							<option>Move-In / Move-Out</option>
-							<option>Commercial &amp; Office</option>
-							<option>Post-Construction</option>
-							<option>Airbnb / STR Turnover</option>
-							<option>Not Sure / Other</option>
-						</select>
-					</div>
-					<div class="fld">
-						<label for="frequency">Frequency</label>
-						<select id="frequency" name="Frequency">
-							<option value="">— How often? —</option>
-							<option>One-Time</option>
-							<option>Weekly</option>
-							<option>Bi-Weekly (Every 2 weeks)</option>
-							<option>Monthly</option>
-						</select>
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="fld">
-						<label for="bedrooms">Bedrooms</label>
-						<input type="number" id="bedrooms" name="Bedrooms" min="0" max="20" inputmode="numeric" placeholder="e.g. 3">
-					</div>
-					<div class="fld">
-						<label for="bathrooms">Bathrooms</label>
-						<input type="number" id="bathrooms" name="Bathrooms" min="0" max="20" step="0.5" inputmode="decimal" placeholder="e.g. 2">
-					</div>
-				</div>
-				<div class="fld">
-					<label for="sqft">Square Footage <span class="fld-hint">(approximate is fine)</span></label>
-					<input type="number" id="sqft" name="Square Footage" min="100" max="20000" inputmode="numeric" placeholder="e.g. 1500">
-				</div>
-				<div class="fld">
-					<label for="message">Special Requests or Notes</label>
-					<textarea id="message" name="Notes" rows="3" placeholder="Tell us anything that helps us prepare your quote..."></textarea>
-				</div>
-				<button type="submit" class="btn-primary btn-full form-submit">Request My Free Quote &rarr;</button>
-				<p class="form-note">&#128274; Your info is private and never shared.</p>
-			</form>
 		</div>
 	</div>
 </section>

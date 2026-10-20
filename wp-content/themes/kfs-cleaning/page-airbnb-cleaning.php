@@ -12,16 +12,15 @@
         </div>
       <?php endif; ?>
 
-      <p class="eyebrow">Airbnb &amp; Short-Term Rental</p>
       <h1>Airbnb &amp; STR Cleaning<br>in <span class="accent">MA &amp; NH</span></h1>
       <p class="page-hero-sub">A 5-star guest experience starts with a spotless property. One bad cleanliness review costs you months of bookings &#8212; don&#8217;t risk it.</p>
       <div class="pill-row">
-        <span class="pill">&#10003; Flexible Timing</span>
-        <span class="pill">&#10003; Damage Reporting</span>
-        <span class="pill">&#10003; Linen Changes</span>
-        <span class="pill">&#10003; Restock Service</span>
+        <span class="pill">Flexible Timing</span>
+        <span class="pill">Damage Reporting</span>
+        <span class="pill">Linen Changes</span>
+        <span class="pill">Restock Service</span>
       </div>
-      <a href="#quote" class="btn-primary">Get a Free Quote &#8594;</a>
+      <a href="#quote" class="btn-primary">Get a Free Quote</a>
     </div>
   </div>
 </section>
@@ -30,22 +29,20 @@
   <div class="wrap">
     <div class="two-col-grid">
       <div>
-        <p class="eyebrow">Every Turnover Includes</p>
         <h2>Guest-Ready From <span class="accent">Every Angle</span></h2>
         <p style="color:var(--text-muted);font-size:16px;line-height:1.7;margin-bottom:8px">We treat every turnover like a 5-star hotel reset &#8212; nothing is missed, nothing is assumed clean.</p>
         <div class="inc-list">
-          <div class="inc-item"><span class="inc-check">&#10003;</span><span>Full linen change</span></div>
-          <div class="inc-item"><span class="inc-check">&#10003;</span><span>Bathrooms fully sanitized and restocked</span></div>
-          <div class="inc-item"><span class="inc-check">&#10003;</span><span>Kitchen cleaned and reset</span></div>
-          <div class="inc-item"><span class="inc-check">&#10003;</span><span>All surfaces wiped and disinfected</span></div>
-          <div class="inc-item"><span class="inc-check">&#10003;</span><span>Floors vacuumed and mopped</span></div>
-          <div class="inc-item"><span class="inc-check">&#10003;</span><span>Trash removed and bins lined</span></div>
-          <div class="inc-item"><span class="inc-check">&#10003;</span><span>Damage report with photos sent after every clean</span></div>
-          <div class="inc-item"><span class="inc-check">&#10003;</span><span>Amenity restock upon request</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Full linen change</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Bathrooms fully sanitized and restocked</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Kitchen cleaned and reset</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>All surfaces wiped and disinfected</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Floors vacuumed and mopped</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Trash removed and bins lined</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Damage report with photos sent after every clean</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Amenity restock upon request</span></div>
         </div>
       </div>
       <div>
-        <p class="eyebrow">Flexible Scheduling</p>
         <h2>Built Around Your <span class="accent">Bookings</span></h2>
         <p style="color:var(--text-muted);font-size:16px;line-height:1.7;margin-bottom:8px">We adapt to your check-in and check-out windows &#8212; no matter how tight the turnaround.</p>
         <div class="sched-grid reveal">
@@ -63,15 +60,8 @@
   <div class="wrap">
     <div class="two-col-grid">
       <div>
-        <p class="eyebrow">Why STR Hosts Choose KFS</p>
         <h2>Protect Your Rating, <span class="accent">Protect Your Revenue</span></h2>
         <p style="color:var(--text-muted);font-size:16px;line-height:1.7;margin:16px 0 24px">One cleanliness complaint can tank your listing ranking for months. KFS gives you a reliable team that shows up, does the job right, and keeps you covered.</p>
-        <div class="stats-quad">
-          <div class="stat-box reveal"><div class="stat-num">500+</div><div class="stat-label">Clients Served</div></div>
-          <div class="stat-box reveal"><div class="stat-num">5 &#9733;</div><div class="stat-label">Average Rating</div></div>
-          <div class="stat-box reveal"><div class="stat-num">2</div><div class="stat-label">States Covered</div></div>
-          <div class="stat-box reveal"><div class="stat-num">24hr</div><div class="stat-label">Response Time</div></div>
-        </div>
       </div>
       <div class="trust-cards-stack">
         <div class="trust-card reveal">
@@ -93,7 +83,7 @@
 
 <section class="content-section section-alt" id="faq">
   <div class="wrap">
-    <div class="section-head reveal"><p class="eyebrow">FAQ</p><h2>STR Cleaning Questions</h2><p>Everything Airbnb and VRBO hosts ask before booking their first turnover.</p></div>
+    <div class="section-head reveal"><h2>STR Cleaning Questions</h2><p>Everything Airbnb and VRBO hosts ask before booking their first turnover.</p></div>
     <div class="faq-list">
       <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Can you do same-day turnovers?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Yes, with enough advance notice. If you know your checkout time a day or more ahead, we can schedule a same-day turnover before your next guest arrives. Last-minute requests are handled case by case &#8212; call us directly at (978) 219-9787 for urgent needs.</p></div></div>
       <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>What if a guest leaves the property trashed?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>It happens. We document everything with photos, handle the cleanup, and send you a full damage report. If additional charges apply for excessive mess, we&#8217;ll communicate that before proceeding &#8212; no surprise invoices.</p></div></div>
@@ -104,7 +94,7 @@
     <div class="service-cta-block reveal" style="margin-top:48px">
       <h2>5-Star Guest Experiences Start Here</h2>
       <p>Book KFS for your Airbnb or VRBO &#8212; reliable, guest-ready cleans on every turnover.</p>
-      <a href="#quote" class="btn-primary">Request Your Free Quote &#8594;</a>
+      <a href="#quote" class="btn-primary">Request Your Free Quote</a>
     </div>
   </div>
 </section>
@@ -112,7 +102,6 @@
 <section class="content-section section-alt">
   <div class="wrap">
     <div class="section-head reveal">
-      <p class="eyebrow">Our Work</p>
       <h2>See the <span class="accent">Difference</span></h2>
       <p>Real results from real cleaning jobs across Massachusetts and New Hampshire.</p>
     </div>
@@ -138,7 +127,6 @@
 <section class="contact-section" id="quote">
   <div class="wrap contact-inner">
     <div class="contact-info">
-      <p class="eyebrow">Get In Touch</p>
       <h2>Request Your <span class="accent">Free Quote</span></h2>
       <p class="contact-lead">Fill out the form and we&#8217;ll respond within 24 hours with a no-obligation estimate. Or call us right now.</p>
       <div class="ci-items">
@@ -173,8 +161,8 @@
         </div>
         <div class="fld"><label for="sqft">Square Footage <span class="fld-hint">(approximate is fine)</span></label><input type="number" id="sqft" name="Square Footage" min="100" max="20000" inputmode="numeric" placeholder="e.g. 1500"></div>
         <div class="fld"><label for="message">Special Requests or Notes</label><textarea id="message" name="Notes" rows="3" placeholder="Tell us anything that helps us prepare your quote..."></textarea></div>
-        <button type="submit" class="btn-primary btn-full form-submit">Request My Free Quote →</button>
-        <p class="form-note">&#128274; Your info is private and never shared.</p>
+        <button type="submit" class="btn-primary btn-full form-submit">Request My Free Quote</button>
+        <p class="form-note">Your info is private and never shared.</p>
       </form>
     </div>
   </div>

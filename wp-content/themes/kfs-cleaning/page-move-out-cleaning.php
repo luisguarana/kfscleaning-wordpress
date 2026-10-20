@@ -12,16 +12,15 @@
         </div>
       <?php endif; ?>
 
-      <p class="eyebrow">Move-In &amp; Move-Out</p>
       <h1>Move-In &amp; Move-Out Cleaning<br>in <span class="accent">MA &amp; NH</span></h1>
       <p class="page-hero-sub">Leave your old place spotless or step into a fresh new home. Inspection-ready results for tenants, landlords, and realtors.</p>
       <div class="pill-row">
-        <span class="pill">✓ Deposit-Back Results</span>
-        <span class="pill">✓ Licensed &amp; Insured</span>
-        <span class="pill">✓ Flat-Rate Pricing</span>
-        <span class="pill">✓ All Surfaces Covered</span>
+        <span class="pill">Deposit-Back Results</span>
+        <span class="pill">Licensed &amp; Insured</span>
+        <span class="pill">Flat-Rate Pricing</span>
+        <span class="pill">All Surfaces Covered</span>
       </div>
-      <a href="#quote" class="btn-primary">Get a Free Quote →</a>
+      <a href="#quote" class="btn-primary">Get a Free Quote</a>
     </div>
   </div>
 </section>
@@ -30,22 +29,20 @@
   <div class="wrap">
     <div class="two-col-grid">
       <div>
-        <p class="eyebrow">What's Included</p>
         <h2>Everything <span class="accent">Covered</span></h2>
         <p style="color:var(--text-muted);font-size:16px;line-height:1.7;margin-bottom:8px">A thorough top-to-bottom clean designed to pass inspection and impress — every time.</p>
         <div class="inc-list">
-          <div class="inc-item"><span class="inc-check" aria-hidden="true">✓</span><span>Full kitchen deep clean including inside appliances</span></div>
-          <div class="inc-item"><span class="inc-check" aria-hidden="true">✓</span><span>Bathrooms scrubbed and sanitized completely</span></div>
-          <div class="inc-item"><span class="inc-check" aria-hidden="true">✓</span><span>All floors vacuumed and mopped</span></div>
-          <div class="inc-item"><span class="inc-check" aria-hidden="true">✓</span><span>Inside all closets and cabinets</span></div>
-          <div class="inc-item"><span class="inc-check" aria-hidden="true">✓</span><span>Baseboards, doors, and door frames wiped</span></div>
-          <div class="inc-item"><span class="inc-check" aria-hidden="true">✓</span><span>Light fixtures and ceiling fans cleaned</span></div>
-          <div class="inc-item"><span class="inc-check" aria-hidden="true">✓</span><span>Window sills and blinds wiped</span></div>
-          <div class="inc-item"><span class="inc-check" aria-hidden="true">✓</span><span>Walls spot-cleaned</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Full kitchen deep clean including inside appliances</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Bathrooms scrubbed and sanitized completely</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>All floors vacuumed and mopped</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Inside all closets and cabinets</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Baseboards, doors, and door frames wiped</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Light fixtures and ceiling fans cleaned</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Window sills and blinds wiped</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Walls spot-cleaned</span></div>
         </div>
       </div>
       <div>
-        <p class="eyebrow">Who We Work With</p>
         <h2>Built for <span class="accent">Every Situation</span></h2>
         <p style="color:var(--text-muted);font-size:16px;line-height:1.7;margin-bottom:8px">Whether you're moving out, turning a unit, or prepping for a showing — we've got you covered.</p>
         <div class="sched-grid reveal">
@@ -63,7 +60,6 @@
   <div class="wrap">
     <div class="two-col-grid">
       <div>
-        <p class="eyebrow">Pricing</p>
         <h2>Honest <span class="accent">Flat-Rate</span> Quotes</h2>
         <p style="color:var(--text-muted);font-size:16px;line-height:1.7;margin-top:16px">Move-out cleans in the North Shore MA area typically run $250–$800 depending on size and condition. We price by the job, not by the hour — so you know the cost upfront.</p>
         <div class="price-band reveal">
@@ -93,7 +89,6 @@
 <section class="content-section section-alt" id="faq">
   <div class="wrap">
     <div class="section-head reveal">
-      <p class="eyebrow">FAQ</p>
       <h2>Common Questions</h2>
       <p>Answers to what tenants, landlords, and realtors ask most before booking.</p>
     </div>
@@ -107,7 +102,7 @@
     <div class="service-cta-block reveal" style="margin-top:48px">
       <h2>Moving? Let Us Handle the Clean.</h2>
       <p>Get a free flat-rate quote today. We respond within 24 hours.</p>
-      <a href="#quote" class="btn-primary">Request My Free Quote →</a>
+      <a href="#quote" class="btn-primary">Request My Free Quote</a>
     </div>
   </div>
 </section>
@@ -115,7 +110,6 @@
 <section class="content-section section-alt">
   <div class="wrap">
     <div class="section-head reveal">
-      <p class="eyebrow">Our Work</p>
       <h2>See the <span class="accent">Difference</span></h2>
       <p>Real results from real cleaning jobs across Massachusetts and New Hampshire.</p>
     </div>
@@ -141,7 +135,6 @@
 <section class="contact-section" id="quote">
   <div class="wrap contact-inner">
     <div class="contact-info">
-      <p class="eyebrow">Get In Touch</p>
       <h2>Request Your <span class="accent">Free Quote</span></h2>
       <p class="contact-lead">Fill out the form and we'll respond within 24 hours with a no-obligation estimate. Or call us right now.</p>
       <div class="ci-items">
@@ -176,8 +169,8 @@
         </div>
         <div class="fld"><label for="sqft">Square Footage <span class="fld-hint">(approximate is fine)</span></label><input type="number" id="sqft" name="Square Footage" min="100" max="20000" inputmode="numeric" placeholder="e.g. 1500"></div>
         <div class="fld"><label for="message">Special Requests or Notes</label><textarea id="message" name="Notes" rows="3" placeholder="Tell us anything that helps us prepare your quote..."></textarea></div>
-        <button type="submit" class="btn-primary btn-full form-submit">Request My Free Quote →</button>
-        <p class="form-note">&#128274; Your info is private and never shared.</p>
+        <button type="submit" class="btn-primary btn-full form-submit">Request My Free Quote</button>
+        <p class="form-note">Your info is private and never shared.</p>
       </form>
     </div>
   </div>

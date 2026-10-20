@@ -70,42 +70,13 @@ if ( is_array( $kfs_reviews ) && ! empty( $kfs_reviews['rating_number'] ) ) : ?>
 <body <?php body_class( is_front_page() ? 'kfs-home' : '' ); ?> id="top">
 <a href="#main-content" class="skip-link">Skip to content</a>
 
-<!-- Floating Quote Button -->
-<a href="<?php echo esc_url( kfs_quote_url() ); ?>" class="float-quote">
-	<span class="fq-dot" aria-hidden="true"></span> Get a Free Quote
-</a>
-
-<!-- Top Bar -->
-<div class="topbar">
-	<div class="wrap topbar-inner">
-		<a href="tel:+19782199787" class="tb-item">
-			<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00C8E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-			(978) 219-9787
-		</a>
-		<span class="tb-sep" aria-hidden="true">&middot;</span>
-		<a href="mailto:support@kfscleaning.com" class="tb-item">
-			<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00C8E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-			support@kfscleaning.com
-		</a>
-		<span class="tb-sep" aria-hidden="true">&middot;</span>
-		<span class="tb-item">
-			<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00C8E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-			Serving Massachusetts &amp; New Hampshire
-		</span>
-	</div>
-</div>
-
-<!-- Navigation -->
 <header class="site-header" id="site-header">
 	<div class="wrap nav-inner">
 		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="nav-brand" aria-label="KFS Cleaning Services - homepage">
-			<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/kfs-icon.png' ); ?>" alt="" class="nav-logo-img" width="59" height="54">
-			<div class="nav-brand-text">
-				<span class="nav-brand-name">KFS Cleaning</span>
-				<span class="nav-brand-sub">Services</span>
-			</div>
+			<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/kfs-logo-trim.png' ); ?>" alt="" class="nav-logo-img" width="178" height="162">
+			<span class="brand-name">KFS Cleaning<small>Massachusetts &amp; New Hampshire</small></span>
 		</a>
-		<nav class="nav-links" id="nav-links" aria-label="Main navigation">
+		<nav class="section-nav" aria-label="Main navigation">
 			<div class="nav-dropdown">
 				<a href="<?php echo esc_url( kfs_section_url( 'services' ) ); ?>" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Services <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></a>
 				<div class="dropdown-menu">
@@ -114,17 +85,16 @@ if ( is_array( $kfs_reviews ) && ! empty( $kfs_reviews['rating_number'] ) ) : ?>
 					<a href="<?php echo esc_url(home_url('/move-out-cleaning/')); ?>">Move-In / Move-Out</a>
 					<a href="<?php echo esc_url(home_url('/commercial-cleaning/')); ?>">Commercial &amp; Office</a>
 					<a href="<?php echo esc_url(home_url('/post-construction-cleaning/')); ?>">Post-Construction</a>
-					<a href="<?php echo esc_url(home_url('/airbnb-cleaning/')); ?>">Airbnb / STR Turnover</a>
+					<a href="<?php echo esc_url(home_url('/airbnb-cleaning/')); ?>">Airbnb &amp; Rental Turnover</a>
 				</div>
 			</div>
-			<a href="<?php echo esc_url(home_url('/blog/')); ?>">Blog</a>
-			<a href="<?php echo esc_url( kfs_section_url( 'why' ) ); ?>">Why KFS</a>
-			<a href="<?php echo esc_url( kfs_section_url( 'gallery' ) ); ?>">Gallery</a>
-			<a href="<?php echo esc_url( kfs_section_url( 'areas' ) ); ?>">Service Area</a>
 			<a href="<?php echo esc_url( kfs_section_url( 'reviews' ) ); ?>">Reviews</a>
-			<a href="<?php echo esc_url( kfs_section_url( 'faq' ) ); ?>">FAQ</a>
+			<a href="<?php echo esc_url( kfs_section_url( 'gallery' ) ); ?>">Our Work</a>
+			<a href="<?php echo esc_url( kfs_section_url( 'areas' ) ); ?>">Towns</a>
+			<a href="<?php echo esc_url(home_url('/blog/')); ?>">Blog</a>
 		</nav>
 		<div class="nav-right">
+			<a href="tel:+19782199787" class="nav-phone">(978) 219-9787</a>
 			<a href="<?php echo esc_url( kfs_quote_url() ); ?>" class="nav-cta">Get a Free Quote</a>
 		</div>
 		<button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
@@ -138,19 +108,24 @@ if ( is_array( $kfs_reviews ) && ! empty( $kfs_reviews['rating_number'] ) ) : ?>
 		<a href="<?php echo esc_url(home_url('/move-out-cleaning/')); ?>">Move-In / Move-Out</a>
 		<a href="<?php echo esc_url(home_url('/commercial-cleaning/')); ?>">Commercial &amp; Office</a>
 		<a href="<?php echo esc_url(home_url('/post-construction-cleaning/')); ?>">Post-Construction</a>
-		<a href="<?php echo esc_url(home_url('/airbnb-cleaning/')); ?>">Airbnb / STR Turnover</a>
-		<a href="<?php echo esc_url(home_url('/blog/')); ?>">Blog</a>
-		<a href="<?php echo esc_url( kfs_section_url( 'gallery' ) ); ?>">Gallery</a>
+		<a href="<?php echo esc_url(home_url('/airbnb-cleaning/')); ?>">Airbnb &amp; Rental Turnover</a>
 		<a href="<?php echo esc_url( kfs_section_url( 'reviews' ) ); ?>">Reviews</a>
+		<a href="<?php echo esc_url( kfs_section_url( 'gallery' ) ); ?>">Our Work</a>
+		<a href="<?php echo esc_url( kfs_section_url( 'areas' ) ); ?>">Towns We Serve</a>
 		<a href="<?php echo esc_url( kfs_section_url( 'faq' ) ); ?>">FAQ</a>
-		<a href="<?php echo esc_url( kfs_section_url( 'areas' ) ); ?>">Service Area</a>
-		<a href="tel:+19782199787">Call (978) 219-9787</a>
+		<a href="<?php echo esc_url(home_url('/blog/')); ?>">Blog</a>
 		<a href="<?php echo esc_url( kfs_quote_url() ); ?>" class="mobile-cta">Get a Free Quote</a>
 	</div>
 </header>
+
+<!-- Phone: call / quote within thumb reach -->
+<div class="action-bar">
+	<a href="tel:+19782199787" class="ab-call">Call (978) 219-9787</a>
+	<a href="<?php echo esc_url( kfs_quote_url() ); ?>" class="ab-quote">Get a Free Quote</a>
+</div>
 <?php if ( isset( $_GET['thanks'] ) && $_GET['thanks'] === '1' ) : ?>
 <div class="thanks-banner" role="status">
-	<span>&#10003; Thanks! Your quote request was sent. We&rsquo;ll be in touch within 24 hours.</span>
-	<button type="button" class="thanks-close" aria-label="Dismiss message">&times;</button>
+	<span>Thanks! Your quote request was sent. We&rsquo;ll be in touch within 24 hours.</span>
+	<button type="button" class="thanks-close" aria-label="Dismiss message"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
 </div>
 <?php endif; ?>

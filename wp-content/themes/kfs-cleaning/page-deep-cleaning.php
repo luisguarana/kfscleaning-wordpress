@@ -12,16 +12,15 @@
         </div>
       <?php endif; ?>
 
-      <p class="eyebrow">Deep Cleaning Services</p>
       <h1>Professional Deep Cleaning<br>Services in <span class="accent">MA &amp; NH</span></h1>
       <p class="page-hero-sub">A top-to-bottom scrub that reaches inside appliances, behind furniture, grout lines, baseboards, vents, and everywhere buildup hides.</p>
       <div class="pill-row">
-        <span class="pill">✓ Licensed &amp; Insured</span>
-        <span class="pill">✓ Flat-Rate Pricing</span>
-        <span class="pill">✓ All Supplies Included</span>
-        <span class="pill">✓ Satisfaction Guarantee</span>
+        <span class="pill">Licensed &amp; Insured</span>
+        <span class="pill">Flat-Rate Pricing</span>
+        <span class="pill">All Supplies Included</span>
+        <span class="pill">Satisfaction Guarantee</span>
       </div>
-      <a href="#quote" class="btn-primary">Get a Free Quote →</a>
+      <a href="#quote" class="btn-primary">Get a Free Quote</a>
     </div>
   </div>
 </section>
@@ -30,23 +29,21 @@
   <div class="wrap">
     <div class="two-col-grid">
       <div>
-        <p class="eyebrow">What's Included</p>
         <h2>What Deep Cleaning <span class="accent">Covers</span></h2>
         <p style="color:var(--text-muted);font-size:16px;line-height:1.7;margin-bottom:8px">We go well beyond the surface — hitting every spot that regular cleaning misses.</p>
         <div class="inc-list">
-          <div class="inc-item"><span class="inc-check" aria-hidden="true">✓</span><span>Inside oven, microwave &amp; refrigerator</span></div>
-          <div class="inc-item"><span class="inc-check" aria-hidden="true">✓</span><span>Behind &amp; under appliances</span></div>
-          <div class="inc-item"><span class="inc-check" aria-hidden="true">✓</span><span>Cabinet interiors wiped</span></div>
-          <div class="inc-item"><span class="inc-check" aria-hidden="true">✓</span><span>Grout scrubbed in bathrooms &amp; kitchen</span></div>
-          <div class="inc-item"><span class="inc-check" aria-hidden="true">✓</span><span>Baseboards hand-wiped throughout</span></div>
-          <div class="inc-item"><span class="inc-check" aria-hidden="true">✓</span><span>Light switches &amp; door handles sanitized</span></div>
-          <div class="inc-item"><span class="inc-check" aria-hidden="true">✓</span><span>Window sills, blinds &amp; tracks</span></div>
-          <div class="inc-item"><span class="inc-check" aria-hidden="true">✓</span><span>Ceiling fans &amp; light fixtures</span></div>
-          <div class="inc-item"><span class="inc-check" aria-hidden="true">✓</span><span>Inside closets &amp; drawers</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Inside oven, microwave &amp; refrigerator</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Behind &amp; under appliances</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Cabinet interiors wiped</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Grout scrubbed in bathrooms &amp; kitchen</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Baseboards hand-wiped throughout</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Light switches &amp; door handles sanitized</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Window sills, blinds &amp; tracks</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Ceiling fans &amp; light fixtures</span></div>
+          <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Inside closets &amp; drawers</span></div>
         </div>
       </div>
       <div>
-        <p class="eyebrow">Timing</p>
         <h2>When Do You <span class="accent">Need One?</span></h2>
         <p style="color:var(--text-muted);font-size:16px;line-height:1.7;margin-bottom:8px">A deep clean makes sense at key moments — here are the most common ones.</p>
         <div class="sched-grid reveal">
@@ -64,13 +61,6 @@
   <div class="wrap">
     <div class="two-col-grid">
       <div>
-        <div class="stats-quad" style="margin-bottom:32px">
-          <div class="stat-box reveal"><div class="stat-num">500+</div><div class="stat-label">Homes Cleaned</div></div>
-          <div class="stat-box reveal"><div class="stat-num">5 ★</div><div class="stat-label">Rating</div></div>
-          <div class="stat-box reveal"><div class="stat-num">24hr</div><div class="stat-label">Response</div></div>
-          <div class="stat-box reveal"><div class="stat-num">2</div><div class="stat-label">States Served</div></div>
-        </div>
-        <p class="eyebrow">Why KFS</p>
         <h2>The Deep Clean <span class="accent">Difference</span></h2>
         <p style="color:var(--text-muted);font-size:16px;line-height:1.7;margin-top:14px">We don't cut corners. Every deep clean is done with professional-grade products by a trained team that takes pride in the work. You'll see the difference immediately.</p>
       </div>
@@ -95,7 +85,6 @@
 <section class="content-section section-alt" id="faq">
   <div class="wrap">
     <div class="section-head reveal">
-      <p class="eyebrow">FAQ</p>
       <h2>Common Questions</h2>
       <p>Everything you need to know about deep cleaning before you book.</p>
     </div>
@@ -109,7 +98,7 @@
     <div class="service-cta-block reveal" style="margin-top:48px">
       <h2>Ready for a Deep Clean Reset?</h2>
       <p>Get a flat-rate quote today — no hourly surprises, no commitment required.</p>
-      <a href="#quote" class="btn-primary">Request My Free Quote →</a>
+      <a href="#quote" class="btn-primary">Request My Free Quote</a>
     </div>
   </div>
 </section>
@@ -117,7 +106,6 @@
 <section class="content-section section-alt">
   <div class="wrap">
     <div class="section-head reveal">
-      <p class="eyebrow">Our Work</p>
       <h2>See the <span class="accent">Difference</span></h2>
       <p>Real results from real cleaning jobs across Massachusetts and New Hampshire.</p>
     </div>
@@ -143,7 +131,6 @@
 <section class="contact-section" id="quote">
   <div class="wrap contact-inner">
     <div class="contact-info">
-      <p class="eyebrow">Get In Touch</p>
       <h2>Request Your <span class="accent">Free Quote</span></h2>
       <p class="contact-lead">Fill out the form and we'll respond within 24 hours with a no-obligation estimate. Or call us right now.</p>
       <div class="ci-items">
@@ -178,8 +165,8 @@
         </div>
         <div class="fld"><label for="sqft">Square Footage <span class="fld-hint">(approximate is fine)</span></label><input type="number" id="sqft" name="Square Footage" min="100" max="20000" inputmode="numeric" placeholder="e.g. 1500"></div>
         <div class="fld"><label for="message">Special Requests or Notes</label><textarea id="message" name="Notes" rows="3" placeholder="Tell us anything that helps us prepare your quote..."></textarea></div>
-        <button type="submit" class="btn-primary btn-full form-submit">Request My Free Quote →</button>
-        <p class="form-note">&#128274; Your info is private and never shared.</p>
+        <button type="submit" class="btn-primary btn-full form-submit">Request My Free Quote</button>
+        <p class="form-note">Your info is private and never shared.</p>
       </form>
     </div>
   </div>

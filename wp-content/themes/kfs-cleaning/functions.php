@@ -13,7 +13,7 @@ add_action( 'after_setup_theme', 'kfs_theme_setup' );
 function kfs_enqueue_assets() {
 	wp_enqueue_style(
 		'kfs-fonts',
-		'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Inter:wght@400;500;600;700&display=swap',
+		'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Figtree:wght@400;500;600;700&display=swap',
 		array(),
 		null
 	);
@@ -21,13 +21,13 @@ function kfs_enqueue_assets() {
 		'kfs-main',
 		get_template_directory_uri() . '/assets/css/main.css',
 		array( 'kfs-fonts' ),
-		'1.4.2'
+		'3.0.0'
 	);
 	wp_enqueue_script(
 		'kfs-main',
 		get_template_directory_uri() . '/assets/js/main.js',
 		array(),
-		'1.4',
+		'3.0',
 		true
 	);
 }

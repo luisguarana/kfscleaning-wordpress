@@ -89,10 +89,9 @@
       var target = document.querySelector(this.getAttribute('href'));
       if (!target) return;
       e.preventDefault();
-      var headerH  = header ? header.offsetHeight : 0;
-      var topbarEl = document.querySelector('.topbar');
-      var topbarH  = topbarEl ? topbarEl.offsetHeight : 0;
-      var top = target.getBoundingClientRect().top + window.scrollY - headerH - topbarH - 8;
+      // Only the section nav is sticky; the ear line and masthead scroll away.
+      var headerH = header ? header.offsetHeight : 0;
+      var top = target.getBoundingClientRect().top + window.scrollY - headerH - 12;
       if (prefersReducedMotion) {
         window.scrollTo({ top: top });
       } else {
@@ -187,27 +186,67 @@
     }
   });
 
-  /* ── SCROLL REVEAL ──────────────────────────────────────────────────── */
-  var revealEls = document.querySelectorAll(
-    '.reveal, .svc-card, .trust-card, .faq-item, .area-card, .stat-box, .hero-card, .section-head, .mid-cta'
-  );
-  revealEls.forEach(function (el) { el.classList.add('reveal'); });
-
-  if (prefersReducedMotion) {
-    revealEls.forEach(function (el) { el.classList.add('in'); });
-  } else if ('IntersectionObserver' in window) {
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in');
-          observer.unobserve(entry.target);
-        }
+  /* ── THE LITTLE HOUSE: rooms settle in once, then tap/arrow through ─── */
+  var house = document.getElementById('house');
+  if (house) {
+    var tabs  = Array.from(house.querySelectorAll('.room-tab'));
+    var cards = house.querySelectorAll('.room-card');
+    var rooms = house.querySelectorAll('.house-svg .room');
+    var selectRoom = function (name, focus) {
+      tabs.forEach(function (t) {
+        var on = t.getAttribute('data-room') === name;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        if (on && focus) t.focus();
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    revealEls.forEach(function (el) { observer.observe(el); });
-  } else {
-    revealEls.forEach(function (el) { el.classList.add('in'); });
+      cards.forEach(function (c) { c.hidden = c.getAttribute('data-room') !== name; });
+      // "Final check" lifts every room at once.
+      rooms.forEach(function (r) { r.classList.toggle('is-active', name === 'final' || r.getAttribute('data-room') === name); });
+    };
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { selectRoom(t.getAttribute('data-room')); });
+      t.addEventListener('keydown', function (e) {
+        var next = { ArrowRight: i + 1, ArrowDown: i + 1, ArrowLeft: i - 1, ArrowUp: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
+        if (next === undefined) return;
+        e.preventDefault();
+        selectRoom(tabs[(next + tabs.length) % tabs.length].getAttribute('data-room'), true);
+      });
+    });
+    rooms.forEach(function (r) {
+      r.addEventListener('click', function () { selectRoom(r.getAttribute('data-room')); });
+    });
+    var settle = function () {
+      house.classList.remove('is-settling');
+      setTimeout(function () { selectRoom('kitchen'); }, prefersReducedMotion ? 0 : 700);
+    };
+    if (prefersReducedMotion) settle();
+    else requestAnimationFrame(function () { requestAnimationFrame(settle); });
   }
+
+  /* ── COUPON: home / business switch re-sets the fields ──────────────── */
+  function setBranch(form, value) {
+    form.querySelectorAll('.coupon-branch').forEach(function (fs) {
+      var on = fs.getAttribute('data-branch') === value;
+      fs.hidden = !on;
+      fs.disabled = !on;   // disabled fields are left out of the submission
+    });
+  }
+  document.querySelectorAll('.coupon-form').forEach(function (form) {
+    form.querySelectorAll('[data-branch-switch]').forEach(function (radio) {
+      radio.addEventListener('change', function () { if (radio.checked) setBranch(form, radio.value); });
+      if (radio.checked) setBranch(form, radio.value);
+    });
+  });
+  // "Book a walkthrough" links preselect the business coupon.
+  document.querySelectorAll('[data-coupon]').forEach(function (link) {
+    link.addEventListener('click', function () {
+      var radio = document.querySelector('#quote [data-branch-switch][value="' + link.getAttribute('data-coupon') + '"]');
+      if (!radio) return;
+      radio.checked = true;
+      radio.dispatchEvent(new Event('change'));
+      setTimeout(function () { radio.focus({ preventScroll: true }); }, prefersReducedMotion ? 0 : 500);
+    });
+  });
 
   /* ── THANKS BANNER (stays until dismissed) ──────────────────────────── */
   var thanksBanner = document.querySelector('.thanks-banner');

@@ -31,13 +31,13 @@
         <div class="art-cta" style="margin-top:48px;">
           <h3>Ready for a Spotless Home or Office?</h3>
           <p>Serving Massachusetts &amp; New Hampshire. Licensed, insured, and satisfaction guaranteed.</p>
-          <a href="<?php echo esc_url( kfs_quote_url() ); ?>" class="btn-primary">Get a Free Quote →</a>
+          <a href="<?php echo esc_url( kfs_quote_url() ); ?>" class="btn-primary">Get a Free Quote</a>
         </div>
 
         <div style="margin-top:48px;padding-top:32px;border-top:1px solid var(--border-dim);">
           <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-            <div><?php previous_post_link('<span style="color:var(--text-muted);font-size:13px;">← Previous</span><br>%link'); ?></div>
-            <div style="text-align:right;"><?php next_post_link('<span style="color:var(--text-muted);font-size:13px;">Next →</span><br>%link'); ?></div>
+            <div><?php previous_post_link('<span style="color:var(--text-muted);font-size:13px;">Previous post</span><br>%link'); ?></div>
+            <div style="text-align:right;"><?php next_post_link('<span style="color:var(--text-muted);font-size:13px;">Next post</span><br>%link'); ?></div>
           </div>
         </div>
       </div>

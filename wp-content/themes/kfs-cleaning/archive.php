@@ -11,7 +11,6 @@
       </div>
     <?php endif; ?>
 
-    <p class="eyebrow">KFS Cleaning Blog</p>
     <h1>Cleaning Tips, Guides &amp; Local Advice</h1>
     <p class="page-hero-lead">
       Expert advice for homeowners, renters, and businesses across Massachusetts &amp; New Hampshire.
@@ -48,7 +47,7 @@
                 <?php echo get_the_date(); ?> &middot; <?php echo ceil(str_word_count(wp_strip_all_tags(get_the_content())) / 200); ?> min read
               </div>
 
-              <span class="blog-card-link" aria-hidden="true">Read More →</span>
+              <span class="blog-card-link" aria-hidden="true">Read more</span>
             </div>
           </article>
         <?php endwhile; ?>
@@ -56,14 +55,14 @@
 
       <?php the_posts_pagination(array(
         'mid_size'  => 2,
-        'prev_text' => '← Newer',
-        'next_text' => 'Older →',
+        'prev_text' => 'Newer posts',
+        'next_text' => 'Older posts',
       )); ?>
     <?php else : ?>
       <div class="blog-empty">
         <h2>No posts yet</h2>
         <p>Check back soon — we post cleaning tips and local guides regularly.</p>
-        <a href="<?php echo esc_url(home_url('/')); ?>" class="btn-primary">← Back to Home</a>
+        <a href="<?php echo esc_url(home_url('/')); ?>" class="btn-primary">Back to Home</a>
       </div>
     <?php endif; ?>
   </div>

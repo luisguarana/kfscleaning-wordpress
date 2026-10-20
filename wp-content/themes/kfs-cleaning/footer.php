@@ -3,12 +3,8 @@
 	<div class="wrap footer-grid">
 		<!-- Brand -->
 		<div class="footer-brand">
-			<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/kfs-logo.png' ); ?>" alt="KFS Cleaning Services" width="120" height="80" loading="lazy" class="footer-logo">
-			<p>Professional residential &amp; commercial cleaning across Massachusetts &amp; New Hampshire. Licensed, insured, and satisfaction guaranteed.</p>
-			<p class="footer-brand-contact">
-				<a href="tel:+19782199787">(978) 219-9787</a><br>
-				<a href="mailto:support@kfscleaning.com">support@kfscleaning.com</a>
-			</p>
+			<p class="footer-mast">KFS Cleaning Services</p>
+			<p>Home and business cleaning by Katia&rsquo;s team across the North Shore, the Merrimack Valley and Southern New Hampshire.</p>
 		</div>
 		<!-- Services -->
 		<div class="footer-col">
@@ -18,41 +14,30 @@
 			<a href="<?php echo esc_url(home_url('/move-out-cleaning/')); ?>">Move-In / Move-Out</a>
 			<a href="<?php echo esc_url(home_url('/commercial-cleaning/')); ?>">Commercial &amp; Office</a>
 			<a href="<?php echo esc_url(home_url('/post-construction-cleaning/')); ?>">Post-Construction</a>
-			<a href="<?php echo esc_url(home_url('/airbnb-cleaning/')); ?>">Airbnb Turnover</a>
+			<a href="<?php echo esc_url(home_url('/airbnb-cleaning/')); ?>">Airbnb &amp; Rental Turnover</a>
 		</div>
 		<!-- Company -->
 		<div class="footer-col">
 			<h4>Company</h4>
-			<a href="<?php echo esc_url( kfs_section_url( 'why' ) ); ?>">Why Choose Us</a>
 			<a href="<?php echo esc_url( kfs_section_url( 'reviews' ) ); ?>">Reviews</a>
-			<a href="<?php echo esc_url( kfs_section_url( 'gallery' ) ); ?>">Gallery</a>
+			<a href="<?php echo esc_url( kfs_section_url( 'gallery' ) ); ?>">Our Work</a>
+			<a href="<?php echo esc_url( kfs_section_url( 'areas' ) ); ?>">Towns We Serve</a>
 			<a href="<?php echo esc_url( kfs_section_url( 'faq' ) ); ?>">FAQ</a>
-			<a href="<?php echo esc_url( kfs_section_url( 'areas' ) ); ?>">Service Areas</a>
 			<a href="<?php echo esc_url(home_url('/blog/')); ?>">Blog</a>
-			<a href="<?php echo esc_url( kfs_quote_url() ); ?>">Contact Us</a>
 		</div>
 		<!-- Contact -->
 		<div class="footer-col">
 			<h4>Contact</h4>
-			<div class="footer-contact-row">
-				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00C8E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-				<a href="tel:+19782199787">(978) 219-9787</a>
-			</div>
-			<div class="footer-contact-row">
-				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00C8E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-				<a href="mailto:support@kfscleaning.com">support@kfscleaning.com</a>
-			</div>
-			<div class="footer-contact-row">
-				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00C8E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-				<span>Massachusetts &amp; New Hampshire</span>
-			</div>
+			<div class="footer-contact-row"><a href="tel:+19782199787">(978) 219-9787</a></div>
+			<div class="footer-contact-row"><a href="mailto:support@kfscleaning.com">support@kfscleaning.com</a></div>
+			<div class="footer-contact-row">Office hours Mon&ndash;Sat, 8am&ndash;6pm</div>
 			<a href="<?php echo esc_url( kfs_quote_url() ); ?>" class="footer-quote-btn">Get a Free Quote</a>
 		</div>
 	</div>
 	<div class="footer-bottom">
 		<div class="wrap footer-bottom-inner">
 			<span>&copy; <?php echo esc_html( date( 'Y' ) ); ?> KFS Cleaning Services. All rights reserved.</span>
-			<span>MA &amp; NH &middot; Licensed &amp; Insured</span>
+			<span>Licensed &amp; insured in Massachusetts and New Hampshire</span>
 		</div>
 	</div>
 </footer>

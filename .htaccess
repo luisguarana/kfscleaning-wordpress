@@ -1,0 +1,37 @@
+# BEGIN WordPress
+# The directives (lines) between "BEGIN WordPress" and "END WordPress" are
+# dynamically generated, and should only be modified via WordPress filters.
+# Any changes to the directives between these markers will be overwritten.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress
+
+
+
+# BEGIN Headers Security Advanced & HSTS WP 5.3.2
+<IfModule mod_headers.c>
+Header set Access-Control-Allow-Methods "GET,POST"
+Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+Header set Content-Security-Policy "upgrade-insecure-requests;"
+Header set Cross-Origin-Embedder-Policy "unsafe-none; report-to='default'"
+Header set Cross-Origin-Embedder-Policy-Report-Only "unsafe-none; report-to='default'"
+Header set Cross-Origin-Opener-Policy "unsafe-none"
+Header set Cross-Origin-Opener-Policy-Report-Only "unsafe-none; report-to='default'"
+Header set Cross-Origin-Resource-Policy "cross-origin"
+Header set Permissions-Policy "accelerometer=(), autoplay=(), camera=(), cross-origin-isolated=(), display-capture=(self), encrypted-media=(), fullscreen=*, geolocation=(self), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), payment=*, picture-in-picture=*, publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=*, usb=(), xr-spatial-tracking=(), gamepad=(), serial=()"
+Header set Referrer-Policy "strict-origin-when-cross-origin"
+Header set Strict-Transport-Security "max-age=63072000"
+Header set X-Content-Security-Policy "default-src 'self'; img-src *; media-src * data:;"
+Header set X-Content-Type-Options "nosniff"
+Header set X-Frame-Options "SAMEORIGIN"
+Header set X-Permitted-Cross-Domain-Policies "none"
+</IfModule>
+# END Headers Security Advanced & HSTS WP

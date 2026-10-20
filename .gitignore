@@ -1,0 +1,28 @@
+# kfscleaning.com — this repo tracks ONLY the site's custom code.
+# Everything is ignored by default; the exceptions below ARE the site.
+# WordPress core, stock themes/plugins, uploads and config are
+# re-downloadable / secret and must never be committed.
+*
+!*/
+!/.gitignore
+!/README.md
+!/.htaccess
+!/llms.txt
+
+# Custom theme (design + all page templates)
+!wp-content/
+wp-content/*
+!wp-content/themes/
+wp-content/themes/*
+!wp-content/themes/kfs-cleaning/
+!wp-content/themes/kfs-cleaning/**
+
+# Standalone calculator app
+!calculator/
+!calculator/**
+calculator/.vercel/
+
+# Hard stops, whatever happens
+wp-config.php
+*.sql
+.private/

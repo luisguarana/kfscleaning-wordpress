@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KFS Cleaning – Pricing & Estimator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Space+Grotesk:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#eef3f5;font-family:'Public Sans',system-ui,sans-serif;color:#15303a;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+button,input,select,textarea{font-family:inherit;font-size:inherit}
+input:focus,textarea:focus,select:focus{outline:2px solid #0f5a6e;outline-offset:-1px}
+input[type=range]{-webkit-appearance:none;appearance:none;height:6px;border-radius:3px;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#0f5a6e;border:3px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.25)}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#0f5a6e;border:3px solid #fff}
+input[type=number]{-moz-appearance:textfield;font-size:16px}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
+button{cursor:pointer;transition:opacity .1s}
+button:active{opacity:.8}
+@keyframes kfsUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(13,40,50,.5);z-index:60;align-items:flex-start;justify-content:center;padding:34px 16px;overflow-y:auto;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+.modal-bg.open{display:flex}
+.modal-box{background:#fff;border-radius:16px;width:100%;max-width:480px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:kfsUp .22s ease}
+#price-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;background:linear-gradient(135deg,#0f5a6e,#0a3d4c);color:#fff;padding:12px 16px calc(14px + env(safe-area-inset-bottom));align-items:center;justify-content:space-between;box-shadow:0 -4px 20px rgba(10,61,76,.25)}
+.mob-summary{display:none}
+@media(max-width:700px){
+  #price-bar{display:flex}
+  .right-col{display:none!important}
+  .mob-summary{display:block}
+  main{padding-bottom:100px!important}
+}
+@media print{
+  body *{visibility:hidden!important}
+  #print-area,#print-area *{visibility:visible!important}
+  #print-area{position:absolute!important;left:0;top:0;width:100%;box-shadow:none!important;background:#fff!important}
+  .noprint{display:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- AUTH SCREEN -->
+<div id="auth-screen" style="display:none;height:100svh;min-height:-webkit-fill-available;background:linear-gradient(160deg,#0a3d4c 0%,#0f5a6e 50%,#1a7a8a 100%);align-items:center;justify-content:center;padding:16px;overflow:hidden">
+  <div style="width:100%;max-width:400px;animation:kfsUp .3s ease">
+    <div style="text-align:center;margin-bottom:16px">
+      <img src="/logo.png" alt="KFS Cleaning Services" style="width:180px;height:auto;margin-bottom:6px;filter:drop-shadow(0 4px 18px rgba(63,182,196,.45))">
+      <div style="font-size:13px;color:#9fcdd6;margin-top:2px">Pricing & Estimator</div>
+    </div>
+    <div style="background:#fff;border-radius:18px;padding:20px 22px;box-shadow:0 24px 60px rgba(0,0,0,.3)">
+      <div id="auth-tabs" style="display:flex;background:#f0f4f6;border-radius:10px;padding:3px;margin-bottom:22px">
+        <button id="tab-login" onclick="window._authMode('login')" style="flex:1;padding:9px;border:none;border-radius:8px;font-weight:600;font-size:14px;background:#fff;color:#0f5a6e;box-shadow:0 1px 3px rgba(0,0,0,.1)">Log in</button>
+        <button id="tab-signup" onclick="window._authMode('signup')" style="flex:1;padding:9px;border:none;border-radius:8px;font-weight:600;font-size:14px;background:transparent;color:#8499a1">Create account</button>
+      </div>
+      <div id="auth-form" style="display:flex;flex-direction:column;gap:9px">
+        <div id="signup-name-wrap" style="display:none">
+          <input id="auth-name" type="text" placeholder="Full name" autocomplete="name" style="width:100%;padding:12px 14px;border:1.5px solid #dce6ea;border-radius:10px;font-size:15px">
+        </div>
+        <input id="auth-email" type="email" placeholder="Email" autocomplete="email" style="width:100%;padding:12px 14px;border:1.5px solid #dce6ea;border-radius:10px;font-size:15px">
+        <input id="auth-pass" type="password" placeholder="Password" autocomplete="current-password" style="width:100%;padding:12px 14px;border:1.5px solid #dce6ea;border-radius:10px;font-size:15px">
+        <div id="forgot-wrap" style="text-align:right;margin-top:-4px"><button type="button" onclick="window._forgotPass()" style="background:none;border:none;color:#0f5a6e;font-size:13px;cursor:pointer;font-weight:600;padding:2px 0">Forgot password?</button></div>
+        <div id="auth-error" style="display:none;background:#fff0f0;border:1px solid #f5c6cb;border-radius:8px;padding:9px 12px;font-size:13px;color:#c14d57"></div>
+        <div id="auth-success" style="display:none;background:#f0fff4;border:1px solid #b2dfdb;border-radius:8px;padding:9px 12px;font-size:13px;color:#1f8a6d"></div>
+        <button id="auth-btn" onclick="window._authSubmit()" style="background:#0f5a6e;color:#fff;border:none;border-radius:11px;padding:14px;font-weight:700;font-size:15px;font-family:'Sora',sans-serif;margin-top:4px">Log in</button>
+        <div style="display:flex;align-items:center;gap:10px;margin:4px 0 2px">
+          <div style="flex:1;height:1px;background:#e4edf0"></div>
+          <span style="font-size:12.5px;color:#aabdc4;font-weight:500">or</span>
+          <div style="flex:1;height:1px;background:#e4edf0"></div>
+        </div>
+        <button onclick="window._googleSignIn()" style="display:flex;align-items:center;justify-content:center;gap:10px;background:#fff;color:#26424c;border:1.5px solid #dce6ea;border-radius:11px;padding:13px;font-weight:600;font-size:14.5px;cursor:pointer;width:100%">
+          <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.348 2.825.957 4.039l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.293C4.672 5.166 6.656 3.58 9 3.58z"/></svg>
+          Continue with Google
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LOADING SCREEN -->
+<script>
+// If Firebase CDN never loads, show auth screen after 10s
+window._appFallback=setTimeout(function(){
+  var ls=document.getElementById('loading-screen');
+  var as=document.getElementById('auth-screen');
+  if(ls&&ls.style.display!=='none'&&as){ls.style.display='none';as.style.display='flex';}
+},10000);
+</script>
+<div id="loading-screen" style="display:flex;min-height:100vh;align-items:center;justify-content:center;background:#eef3f5;flex-direction:column;gap:14px">
+  <div style="width:38px;height:38px;border-radius:10px;background:#0f5a6e;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-weight:700;color:#fff;font-size:14px">KFS</div>
+  <div style="width:28px;height:28px;border:3px solid #cfe6eb;border-top-color:#0f5a6e;border-radius:50%;animation:spin .8s linear infinite"></div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app-screen" style="display:none">
+  <header style="background:linear-gradient(180deg,#0a3d4c,#0f5a6e);color:#fff;position:sticky;top:0;z-index:40;box-shadow:0 2px 12px rgba(10,61,76,.18)">
+    <div style="max-width:1180px;margin:0 auto;padding:10px 16px 0">
+      <div style="display:flex;align-items:center;gap:10px">
+        <img src="/logo.png" alt="KFS Cleaning Services" style="height:40px;width:auto;flex-shrink:0;filter:brightness(0) invert(1) drop-shadow(0 1px 4px rgba(0,0,0,.3))">
+        <div style="flex:1;min-width:0">
+          <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:15px;letter-spacing:.3px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">KFS CLEANING</div>
+          <div id="user-label" style="font-size:11px;color:#a9d3da;letter-spacing:.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></div>
+        </div>
+        <button onclick="window._signOut()" style="flex-shrink:0;background:rgba(255,255,255,.12);color:#cfe6eb;border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:7px 12px;font-weight:600;font-size:12px">Sign out</button>
+      </div>
+      <nav id="nav" style="display:flex;gap:4px;overflow-x:auto;padding:10px 0 10px;-webkit-overflow-scrolling:touch;scrollbar-width:none"></nav>
+    </div>
+  </header>
+
+  <div id="price-bar">
+    <div>
+      <div id="pb-svc" style="font-size:11px;color:#9fcdd6;letter-spacing:.4px;text-transform:uppercase"></div>
+      <div id="pb-total" style="font-family:'Space Grotesk',monospace;font-weight:700;font-size:28px"></div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button onclick="window.openModal('print')" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:9px;padding:10px 14px;font-weight:600;font-size:14px">Quote</button>
+      <button onclick="window.openModal('save')" style="background:#3fb6c4;color:#06303c;border:none;border-radius:9px;padding:10px 16px;font-weight:700;font-size:14px;font-family:'Sora',sans-serif">Save</button>
+    </div>
+  </div>
+
+  <main id="main" style="max-width:1180px;width:100%;margin:0 auto;padding:24px 20px 90px"></main>
+</div>
+
+<!-- SAVE MODAL -->
+<div class="modal-bg" id="save-modal">
+  <div class="modal-box" onclick="event.stopPropagation()" style="max-width:460px">
+    <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:19px;margin-bottom:3px">Save this job</div>
+    <div id="save-summary" style="font-size:13px;color:#8499a1;margin-bottom:16px"></div>
+    <div id="save-existing-wrap">
+      <div style="font-size:12px;color:#5e7480;font-weight:600;margin-bottom:6px">Add to existing customer</div>
+      <select id="save-cust-select" style="width:100%;padding:10px;border:1px solid #cfdbe0;border-radius:9px;background:#fff;margin-bottom:14px" onchange="window.onSaveSelectChange()">
+        <option value="">— New customer —</option>
+      </select>
+    </div>
+    <div id="save-new-wrap">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <input id="sv-name" placeholder="Customer name" style="padding:11px;border:1px solid #cfdbe0;border-radius:9px">
+        <div style="display:flex;gap:10px">
+          <input id="sv-phone" placeholder="Phone" style="flex:1;min-width:0;padding:11px;border:1px solid #cfdbe0;border-radius:9px">
+          <input id="sv-email" placeholder="Email" style="flex:1;min-width:0;padding:11px;border:1px solid #cfdbe0;border-radius:9px">
+        </div>
+        <input id="sv-addr" placeholder="Address" style="padding:11px;border:1px solid #cfdbe0;border-radius:9px">
+        <textarea id="sv-notes" rows="2" placeholder="Notes – pets, gate code, preferences…" style="padding:11px;border:1px solid #cfdbe0;border-radius:9px;resize:vertical"></textarea>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:18px">
+      <button onclick="window.closeModal('save')" style="flex:1;background:#f0f4f6;color:#5e7480;border:none;border-radius:10px;padding:12px;font-weight:600">Cancel</button>
+      <button id="save-job-btn" onclick="window.doSaveJob()" style="flex:2;background:#0f5a6e;color:#fff;border:none;border-radius:10px;padding:12px;font-weight:600;font-family:'Sora',sans-serif">Save job</button>
+    </div>
+  </div>
+</div>
+
+<!-- CUSTOMER DETAIL MODAL -->
+<div class="modal-bg" id="detail-modal">
+  <div class="modal-box" id="detail-box" onclick="event.stopPropagation()" style="max-width:560px"></div>
+</div>
+
+<!-- PRINT MODAL -->
+<div class="modal-bg" id="print-modal" style="padding:28px 16px">
+  <div style="width:100%;max-width:560px" onclick="event.stopPropagation()">
+    <div class="noprint" style="display:flex;justify-content:flex-end;gap:10px;margin-bottom:12px">
+      <button onclick="window.closeModal('print')" style="background:#fff;color:#5e7480;border:none;border-radius:9px;padding:10px 16px;font-weight:600">Close</button>
+      <button onclick="window.print()" style="background:#0f5a6e;color:#fff;border:none;border-radius:9px;padding:10px 20px;font-weight:600;font-family:'Sora',sans-serif">Print / Save PDF</button>
+    </div>
+    <div id="print-area" style="background:#fff;border-radius:14px;padding:38px 38px 34px;box-shadow:0 20px 60px rgba(0,0,0,.3)"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#15303a;color:#fff;padding:13px 22px;border-radius:11px;font-weight:600;font-size:14px;z-index:80;box-shadow:0 8px 26px rgba(0,0,0,.3);animation:kfsUp .25s ease;white-space:nowrap"></div>
+
+<script>
+firebase.initializeApp({
+  apiKey:"AIzaSyDzDmby3wjTN9r7iYjWjAtL15lwzo-Av4U",
+  authDomain:"kfs-cleaning.firebaseapp.com",
+  projectId:"kfs-cleaning",
+  storageBucket:"kfs-cleaning.firebasestorage.app",
+  messagingSenderId:"258491694220",
+  appId:"1:258491694220:web:0bdcb5704d9478ebb30fa9",
+});
+const auth           = firebase.auth();
+const db             = firebase.firestore();
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+const tdoc = (p,ms=6000) => Promise.race([p, new Promise((_,r)=>setTimeout(()=>r(new Error('timeout')),ms))]);
+let unsubCustomers = null;
+let ratesSaveTimer = null;
+let currentUser    = null;
+let saving         = false;
+let isAdmin        = false;
+
+// ── HELPERS ───────────────────────────────────────────────────────────────
+const esc    = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const el     = id => document.getElementById(id);
+const money  = n => { if(isNaN(n)||n==null)return'$0'; const neg=n<0; n=Math.abs(n); const r=Math.round(n*100)/100; return(neg?'−':'')+' $'+r.toLocaleString('en-US',{minimumFractionDigits:r%1===0?0:2,maximumFractionDigits:2}); };
+const money0 = n => '$'+Math.round(n||0).toLocaleString('en-US');
+const initials   = n => (n||'?').trim().split(/\s+/).slice(0,2).map(w=>w[0]||'').join('').toUpperCase()||'?';
+const avatarColor= n => { const cs=['#0f5a6e','#3fb6c4','#1f8a6d','#5a7d8c','#c1734d','#7d5a9c']; let h=0; for(const c of (n||'')) h=(h*31+c.charCodeAt(0))>>>0; return cs[h%cs.length]; };
+const fmtDate    = iso => { try{ return new Date(iso).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}); }catch(e){return '';} };
+let _toastT;
+const showToast  = msg => { const t=el('toast'); t.textContent=msg; t.style.display='block'; clearTimeout(_toastT); _toastT=setTimeout(()=>t.style.display='none',2200); };
+
+// ── DEFAULT RATES ─────────────────────────────────────────────────────────
+function defaultRates() {
+  return {
+    res:{
+      deep:        {label:'Deep Clean',      sub:'First / detailed clean', rate:.28, min:250,spm:5},
+      standard:    {label:'Standard Clean',  sub:'Recurring maintenance',  rate:.17, min:175,spm:8},
+      moveinout:   {label:'Move In / Out',   sub:'Empty home',             rate:.35, min:300,spm:4},
+      construction:{label:'Construction',    sub:'Post-build cleanup',     rate:.525,min:500,spm:2.5},
+    },
+    discounts:{monthly:5,biweekly:15,weekly:20},
+    com:{
+      office:    {name:'Office',            rate:.15,sph:600},
+      medical:   {name:'Medical / Clinic',  rate:.30,sph:400},
+      retail:    {name:'Retail',            rate:.13,sph:700},
+      restaurant:{name:'Restaurant',        rate:.22,sph:350},
+      postcon:   {name:'Post-Construction', rate:.45,sph:150},
+      industrial:{name:'Industrial',        rate:.15,sph:800},
+    },
+    comMin:{small:150,mid:275},
+    resAddons:[
+      {name:'Inside Oven',            price:65,type:'flag'},
+      {name:'Clean Inside Fridge',    price:65,type:'flag'},
+      {name:'Inside Dishwasher',      price:65,type:'flag'},
+      {name:'Sink of Dishes',         price:30,type:'flag'},
+      {name:'Extra Pet Hair Shed',    price:35,type:'qty',unit:'pet'},
+      {name:'Wet Wipe Window Blinds', price:15,type:'qty',unit:'blind'},
+      {name:'Wash & Fold Laundry',    price:35,type:'qty',unit:'load'},
+      {name:'Interior Windows',       price:8, type:'qty',unit:'window'},
+    ],
+    comAddons:[
+      {name:'Floor Waxing / Buffing',    price:.5, type:'qty',unit:'sq ft'},
+      {name:'Carpet Cleaning',           price:.25,type:'qty',unit:'sq ft'},
+      {name:'Window Cleaning',           price:7,  type:'qty',unit:'pane'},
+      {name:'Pressure Washing',          price:.35,type:'qty',unit:'sq ft'},
+      {name:'Restroom Sanitizing',       price:45, type:'qty',unit:'restroom'},
+      {name:'Disinfection / Sanitizing', price:.15,type:'qty',unit:'sq ft'},
+    ],
+    biz:{laborHourly:25,laborPct:40,suppliesPct:8,taxPct:0},
+  };
+}
+function mergeWithDefaults(saved) {
+  const d=defaultRates(); if(!saved)return d;
+  const m=JSON.parse(JSON.stringify(d));
+  for(const k of ['discounts','comMin','biz'])if(saved[k])Object.assign(m[k],saved[k]);
+  for(const k of ['res','com'])if(saved[k])for(const sk in m[k])if(saved[k][sk])Object.assign(m[k][sk],saved[k][sk]);
+  if(Array.isArray(saved.resAddons)&&saved.resAddons.length)m.resAddons=saved.resAddons;
+  if(Array.isArray(saved.comAddons)&&saved.comAddons.length)m.comAddons=saved.comAddons;
+  return m;
+}
+
+// ── STATE ─────────────────────────────────────────────────────────────────
+const state = {
+  tab:'estimate', rates:defaultRates(), customers:[],
+  mode:'residential', service:'deep', comService:'office',
+  sqft:2000, freq:'onetime', cleaners:1, payMode:'hourly',
+  addons:{}, comAddons:{}, activeCustId:null, saveCustId:'', authMode:'login',
+};
+
+// ── FIRESTORE HELPERS ─────────────────────────────────────────────────────
+const uDoc = (...p) => db.doc(['users',currentUser.uid,...p].join('/'));
+const uCol = name  => db.collection('users/'+currentUser.uid+'/'+name);
+
+function saveRatesToFirestore() {
+  if(!isAdmin)return;
+  clearTimeout(ratesSaveTimer);
+  ratesSaveTimer=setTimeout(async()=>{
+    if(!currentUser||!isAdmin)return;
+    try{
+      await db.doc('config/rates').set(JSON.parse(JSON.stringify(state.rates)));
+    }catch(e){
+      console.error('Rates save error:',e);
+      showToast('⚠ Rates not saved: '+(e.message||e.code));
+    }
+  },600);
+}
+
+async function persistCustomer(c) {
+  if(!currentUser)throw new Error('Not logged in');
+  const{id,...data}=c;
+  const clean=JSON.parse(JSON.stringify(data));
+  clean.updatedAt=new Date().toISOString();
+  await uDoc('customers',id).set(clean);
+}
+
+async function removeCustomerFromDB(id) {
+  if(!currentUser)return;
+  await uDoc('customers',id).delete();
+}
+
+// ── ALLOWLIST ─────────────────────────────────────────────────────────────
+async function isEmailAllowed(email) {
+  try{
+    const snap=await tdoc(db.doc('config/allowlist').get());
+    if(!snap.exists)return true;
+    const emails=(snap.data().emails||[]).map(e=>e.toLowerCase().trim());
+    return emails.includes((email||'').toLowerCase().trim());
+  }catch(e){ return true; } // timeout or error = allow through
+}
+async function saveAllowlist(emails) {
+  await db.doc('config/allowlist').set({emails});
+}
+
+async function isAdminEmail(email) {
+  try{
+    const snap=await tdoc(db.doc('config/admins').get());
+    if(!snap.exists)return false;
+    const emails=(snap.data().emails||[]).map(e=>e.toLowerCase().trim());
+    return emails.includes((email||'').toLowerCase().trim());
+  }catch(e){ return false; }
+}
+
+// ── AUTH ──────────────────────────────────────────────────────────────────
+function setAuthMode(mode) {
+  state.authMode=mode;
+  const tl=el('tab-login'),ts=el('tab-signup');
+  tl.style.background=mode==='login'?'#fff':'transparent'; tl.style.color=mode==='login'?'#0f5a6e':'#8499a1'; tl.style.boxShadow=mode==='login'?'0 1px 3px rgba(0,0,0,.1)':'none';
+  ts.style.background=mode==='signup'?'#fff':'transparent'; ts.style.color=mode==='signup'?'#0f5a6e':'#8499a1'; ts.style.boxShadow=mode==='signup'?'0 1px 3px rgba(0,0,0,.1)':'none';
+  el('signup-name-wrap').style.display=mode==='signup'?'':'none';
+  el('forgot-wrap').style.display=mode==='login'?'':'none';
+  el('auth-btn').textContent=mode==='login'?'Log in':'Create account';
+  el('auth-error').style.display='none';
+  el('auth-success').style.display='none';
+}
+
+async function authSubmit() {
+  const email=el('auth-email').value.trim(), pass=el('auth-pass').value, btn=el('auth-btn');
+  el('auth-error').style.display='none';
+  if(!email||!pass){showAuthErr('Enter your email and password.');return;}
+  btn.disabled=true; btn.textContent='…';
+  try {
+    if(state.authMode==='login'){
+      await auth.signInWithEmailAndPassword(email,pass);
+    } else {
+      if(pass.length<6)throw{code:'auth/weak-password'};
+      const name=el('auth-name').value.trim()||email.split('@')[0];
+      const cred=await auth.createUserWithEmailAndPassword(email,pass);
+      await cred.user.updateProfile({displayName:name});
+      try{await cred.user.sendEmailVerification();}catch(ev){console.warn('verify email error',ev);}
+      showAuthSuccess('Account created! Check your email to verify your address.');
+    }
+  } catch(e) {
+    const msgs={'auth/user-not-found':'No account with that email.','auth/wrong-password':'Wrong password.','auth/invalid-credential':'Incorrect email or password.','auth/email-already-in-use':'An account with this email already exists.','auth/weak-password':'Password must be at least 6 characters.','auth/invalid-email':'Enter a valid email address.','auth/network-request-failed':'Network error — check your connection.'};
+    showAuthErr(msgs[e.code]||'Something went wrong. Try again.');
+    btn.disabled=false; btn.textContent=state.authMode==='login'?'Log in':'Create account';
+  }
+}
+function showAuthErr(msg){const e=el('auth-error');e.textContent=msg;e.style.display='block';el('auth-success').style.display='none';}
+function showAuthSuccess(msg){const e=el('auth-success');e.textContent=msg;e.style.display='block';el('auth-error').style.display='none';}
+
+async function forgotPassword() {
+  const email=el('auth-email').value.trim();
+  if(!email){el('auth-email').focus();showAuthErr('Enter your email address first.');return;}
+  const btn=el('auth-btn');btn.disabled=true;
+  try{
+    await auth.sendPasswordResetEmail(email);
+    showAuthSuccess('Password reset email sent to '+email+'. Check your inbox (and spam folder).');
+  }catch(e){
+    const msgs={'auth/user-not-found':'No account with that email.','auth/invalid-email':'Enter a valid email address.','auth/network-request-failed':'Network error — check your connection.'};
+    showAuthErr(msgs[e.code]||'Could not send reset email. Try again.');
+  }
+  btn.disabled=false;
+}
+
+async function googleSignIn() {
+  try{
+    await auth.signInWithPopup(googleProvider);
+  }catch(e){
+    const msgs={'auth/popup-closed-by-user':'Sign-in cancelled.','auth/network-request-failed':'Network error — check your connection.'};
+    showAuthErr(msgs[e.code]||'Google sign-in failed. Try again.');
+  }
+}
+
+async function doSignOut() {
+  if(unsubCustomers){unsubCustomers();unsubCustomers=null;}
+  state.customers=[]; state.rates=defaultRates(); state.activeCustId=null; isAdmin=false;
+  await auth.signOut();
+}
+
+// ── SCREEN ────────────────────────────────────────────────────────────────
+function showScreen(name) {
+  el('loading-screen').style.display=name==='loading'?'flex':'none';
+  el('auth-screen').style.display   =name==='auth'   ?'flex':'none';
+  el('app-screen').style.display    =name==='app'    ?'block':'none';
+}
+
+async function onLogin(user) {
+  currentUser=user; showScreen('loading');
+  try{
+    const allowed=await tdoc(isEmailAllowed(user.email));
+    if(!allowed){currentUser=null;await auth.signOut();showAuthErr('Access denied. Your email ('+user.email+') is not on the authorized list. Contact the app owner.');return;}
+  }catch(e){/* timeout = allow through */}
+  const [adminResult, ratesResult] = await Promise.allSettled([
+    tdoc(isAdminEmail(user.email)),
+    tdoc(db.doc('config/rates').get())
+  ]);
+  isAdmin = adminResult.status==='fulfilled' ? adminResult.value : false;
+  if(ratesResult.status==='fulfilled' && ratesResult.value.exists) {
+    state.rates=mergeWithDefaults(ratesResult.value.data());
+  } else { state.rates=defaultRates(); }
+  if(unsubCustomers)unsubCustomers();
+  unsubCustomers=uCol('customers').onSnapshot(snap=>{
+    state.customers=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>{
+      const ta=b.createdAt?.seconds?b.createdAt.seconds*1000:new Date(b.createdAt||0).getTime();
+      const tb=a.createdAt?.seconds?a.createdAt.seconds*1000:new Date(a.createdAt||0).getTime();
+      return ta-tb;
+    });
+    render();
+  },err=>{console.warn('Firestore listener error',err);showToast('Sync error — check Firestore rules');});
+  const name=user.displayName||user.email||'';
+  el('user-label').textContent=name+' · Massachusetts';
+  showScreen('app'); render();
+}
+
+auth.onAuthStateChanged(user=>{ if(user)onLogin(user); else{currentUser=null;showScreen('auth');setAuthMode(state.authMode);} });
+
+// ── FAILSAFE: never stuck on loading screen ───────────────────────────────
+setTimeout(()=>{
+  if(el('loading-screen').style.display!=='none'){
+    showScreen('auth'); setAuthMode('login');
+    showAuthErr('Connection is slow — check your internet and try again.');
+  }
+},7000);
+
+// ── COMPUTE ───────────────────────────────────────────────────────────────
+function compute() {
+  const{mode,service,comService,sqft:rSq,freq,cleaners:rCl,payMode,addons,comAddons}=state;
+  const r=state.rates, sqft=Number(rSq)||0, cleaners=Math.max(1,Number(rCl)||1);
+  let base=0,hours=0,serviceLabel='',minApplied=false,freqLabel='';
+  if(mode==='residential'){
+    const svc=r.res[service],raw=sqft*svc.rate; minApplied=raw<svc.min;
+    let p=Math.max(raw,svc.min); serviceLabel=svc.label;
+    if(service==='standard'){const d=r.discounts;if(freq==='monthly'){p*=(1-d.monthly/100);freqLabel='Monthly recurring';}else if(freq==='biweekly'){p*=(1-d.biweekly/100);freqLabel='Bi-weekly recurring';}else if(freq==='weekly'){p*=(1-d.weekly/100);freqLabel='Weekly recurring';}else freqLabel='One-time';}
+    base=p; hours=svc.spm>0?sqft/(svc.spm*60):0;
+  }else{
+    const svc=r.com[comService],raw=sqft*svc.rate,min=sqft<1500?r.comMin.small:(sqft<=3500?r.comMin.mid:r.comMin.small);
+    minApplied=raw<min; base=Math.max(raw,min); serviceLabel=svc.name+' (commercial)'; hours=svc.sph>0?sqft/svc.sph:0;
+  }
+  const addList=mode==='residential'?r.resAddons:r.comAddons,addStore=mode==='residential'?addons:comAddons;
+  let addonsTotal=0;
+  const lineItems=[{label:serviceLabel+' · '+sqft.toLocaleString()+' sq ft',amt:money(base)}];
+  addList.forEach(a=>{const q=Number(addStore[a.name])||0;if(q>0){const lt=a.price*q;addonsTotal+=lt;lineItems.push({label:a.name+(a.type==='qty'&&q>1?' ×'+q:''),amt:money(lt)});}});
+  const subtotal=base+addonsTotal,taxPct=Number(r.biz.taxPct)||0,tax=subtotal*taxPct/100,total=subtotal+tax;
+  const labor=payMode==='hourly'?hours*(Number(r.biz.laborHourly)||0):subtotal*(Number(r.biz.laborPct)||0)/100;
+  const supplies=subtotal*(Number(r.biz.suppliesPct)||0)/100,netProfit=subtotal-labor-supplies;
+  return{base,addonsTotal,subtotal,tax,taxPct,total,labor,supplies,netProfit,margin:subtotal>0?netProfit/subtotal:0,effHourly:hours>0?netProfit/hours:0,hours,cleaners,serviceLabel,minApplied,freqLabel,lineItems};
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────────
+function render(){renderNav();const t=state.tab;if(t==='estimate')renderEstimate();else if(t==='customers')renderCustomers();else if(t==='dashboard')renderDashboard();else renderSettings();renderPriceBar();}
+function navBtn(a){return`background:${a?'#fff':'rgba(255,255,255,.1)'};color:${a?'#0a3d4c':'#cfe6eb'};border:none;border-radius:9px;padding:9px 15px;font-weight:600;font-size:13.5px;font-family:'Sora',sans-serif;cursor:pointer;`;}
+function renderNav(){const tabs=[['estimate','Estimate'],['customers','Customers'],['dashboard','Dashboard'],...(isAdmin?[['settings','⚙ Settings']]:[])] ;el('nav').innerHTML=tabs.map(([k,l])=>`<button style="${navBtn(state.tab===k)}" onclick="window.setTab('${k}')">${l}</button>`).join('');}
+function renderPriceBar(){const q=compute();el('pb-svc').textContent=q.serviceLabel;el('pb-total').textContent=money(q.total);}
+
+// ── ESTIMATE ──────────────────────────────────────────────────────────────
+function renderEstimate() {
+  const q=compute(),r=state.rates,{mode,service,comService,sqft,freq,cleaners,payMode,addons,comAddons}=state;
+  const slPct=((sqft/8000)*100).toFixed(1);
+  const mBtn=a=>`background:${a?'#0f5a6e':'#f0f4f6'};color:${a?'#fff':'#5e7480'};border:none;border-radius:9px;padding:11px;font-weight:600;font-size:14px;font-family:'Sora',sans-serif;cursor:pointer;flex:1;`;
+  const sBtn=a=>`text-align:left;background:${a?'#0f5a6e':'#f6f9fa'};color:${a?'#fff':'#26424c'};border:1.5px solid ${a?'#0f5a6e':'#e4edf0'};border-radius:11px;padding:13px;cursor:pointer;width:100%`;
+  let svcBtns='';
+  if(mode==='residential'){for(const k of ['deep','standard','moveinout','construction']){const s=r.res[k];svcBtns+=`<button style="${sBtn(service===k)}" onclick="window.setState('service','${k}')"><span style="font-family:'Sora',sans-serif;font-weight:600;font-size:14.5px;display:block">${esc(s.label)}</span><span style="font-size:11.5px;opacity:.78;display:block;margin-top:2px">${esc(s.sub)}</span></button>`;}}
+  else{for(const k of Object.keys(r.com)){const s=r.com[k];svcBtns+=`<button style="${sBtn(comService===k)}" onclick="window.setState('comService','${k}')"><span style="font-family:'Sora',sans-serif;font-weight:600;font-size:14.5px;display:block">${esc(s.name)}</span><span style="font-size:11.5px;opacity:.78;display:block;margin-top:2px">${money(s.rate)} / sq ft</span></button>`;}}
+  const showFreq=mode==='residential'&&service==='standard';
+  const fPill=a=>`background:${a?'#0f5a6e':'#f6f9fa'};color:${a?'#fff':'#46606a'};border:1.5px solid ${a?'#0f5a6e':'#e4edf0'};border-radius:9px;padding:11px;cursor:pointer;text-align:center;width:100%`;
+  const freqBtns=[['onetime','One-time',''],['monthly','Monthly','-'+r.discounts.monthly+'%'],['biweekly','Bi-weekly','-'+r.discounts.biweekly+'%'],['weekly','Weekly','-'+r.discounts.weekly+'%']].map(([k,l,off])=>`<button style="${fPill(freq===k)}" onclick="window.setState('freq','${k}')"><span style="font-weight:600;font-size:14px">${l}</span>${off?`<span style="font-size:11px;opacity:.8;margin-left:5px;color:${freq===k?'#9fcdd6':'#1f8a6d'}">${off}</span>`:''}</button>`).join('');
+  const storeKey=mode==='residential'?'addons':'comAddons';
+  const addList=mode==='residential'?r.resAddons:r.comAddons,addStore=mode==='residential'?addons:comAddons;
+  const addonRows=addList.map(a=>{const q=Number(addStore[a.name])||0,on=q>0,isQty=a.type==='qty';const bx=`width:24px;height:24px;flex:none;border-radius:7px;border:1.5px solid ${on?'#0f5a6e':'#cfdbe0'};background:${on?'#0f5a6e':'#fff'};color:#fff;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;`;const qi=isQty&&on?`<input type="number" min="0" value="${q}" onchange="window.setAddon('${storeKey}','${esc(a.name)}',+this.value)" style="width:62px;padding:6px 8px;border:1px solid #cfdbe0;border-radius:8px;text-align:center;font-family:'Space Grotesk',monospace;font-size:14px;outline:none">`:'';return`<div style="display:flex;align-items:center;gap:12px;padding:9px 4px;border-bottom:1px solid #eef3f5"><button style="${bx}" onclick="window.toggleAddon('${storeKey}','${esc(a.name)}')">${on?'✓':''}</button><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14px;color:#26424c">${esc(a.name)}</div><div style="font-size:12px;color:#8499a1">${isQty?money(a.price)+' / '+a.unit:money(a.price)}</div></div>${qi}<div style="width:72px;text-align:right;font-family:'Space Grotesk',monospace;font-weight:600;font-size:14px;color:${on?'#0f5a6e':'#cfdbe0'}">${on?money(a.price*q):'—'}</div></div>`;}).join('');
+  const pTog=a=>`background:${a?'#fff':'transparent'};color:${a?'#0f5a6e':'#8499a1'};border:none;border-radius:6px;padding:6px 12px;font-weight:600;font-size:12.5px;cursor:pointer;box-shadow:${a?'0 1px 3px rgba(0,0,0,.1)':'none'}`;
+  const mc=q.margin>=.4?'#1f8a6d':(q.margin>=.2?'#b9842b':'#c14d57');
+  const bRows=[{label:'Revenue (pre-tax)',val:money(q.subtotal),c:'#1b333c',w:'600',sz:'14px'},{label:payMode==='hourly'?`Cleaner pay · ${q.hours.toFixed(1)}h × ${money0(r.biz.laborHourly)}`:`Cleaner pay · ${r.biz.laborPct}% of job`,val:money(-q.labor),c:'#c14d57',w:'500',sz:'14px'},{label:`Supplies & overhead (${r.biz.suppliesPct}%)`,val:money(-q.supplies),c:'#c14d57',w:'500',sz:'14px'},{label:'Net profit',val:money(q.netProfit),c:q.netProfit>=0?'#1f8a6d':'#c14d57',w:'700',sz:'17px'}].map(b=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px solid #f0f4f6"><span style="font-size:13.5px;color:#46606a;font-weight:${b.w}">${esc(b.label)}</span><span style="font-family:'Space Grotesk',monospace;font-weight:${b.w};font-size:${b.sz};color:${b.c}">${esc(b.val)}</span></div>`).join('');
+  const liHtml=[...q.lineItems,...(q.tax>0?[{label:`Tax (${q.taxPct}%)`,amt:money(q.tax)}]:[])].map(li=>`<div style="display:flex;justify-content:space-between;font-size:13.5px;color:#dcecef"><span style="opacity:.92">${esc(li.label)}</span><span style="font-family:'Space Grotesk',monospace">${esc(li.amt)}</span></div>`).join('');
+  const mobMet=[{lbl:'Margin',val:Math.round(q.margin*100)+'%',c:mc},{lbl:'Profit/hr',val:money0(q.effHourly),c:'#a8f0dc'},{lbl:'Time',val:q.hours.toFixed(1)+'h',c:'#9fcdd6'}].map(m=>`<div style="flex:1;background:rgba(255,255,255,.10);border-radius:9px;padding:8px 10px"><div style="font-size:10.5px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.3px">${m.lbl}</div><div style="font-family:'Space Grotesk',monospace;font-weight:700;font-size:17px;color:${m.c}">${m.val}</div></div>`).join('');
+  const lnkC=state.activeCustId?state.customers.find(c=>c.id===state.activeCustId):null;
+  el('main').innerHTML=`<div style="display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap">
+<div style="flex:1 1 460px;min-width:300px;display:flex;flex-direction:column;gap:18px">
+<div style="background:#fff;border:1px solid #dce6ea;border-radius:14px;padding:18px 18px 20px"><div style="font-family:'Sora',sans-serif;font-weight:600;font-size:13px;letter-spacing:.4px;text-transform:uppercase;color:#5e7480;margin-bottom:12px">Job type</div><div style="display:flex;gap:8px;margin-bottom:18px"><button style="${mBtn(mode==='residential')}" onclick="window.setState('mode','residential')">Residential</button><button style="${mBtn(mode==='commercial')}" onclick="window.setState('mode','commercial')">Commercial</button></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">${svcBtns}</div></div>
+<div style="background:#fff;border:1px solid #dce6ea;border-radius:14px;padding:18px"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px"><div style="font-family:'Sora',sans-serif;font-weight:600;font-size:13px;letter-spacing:.4px;text-transform:uppercase;color:#5e7480">Square footage</div><div id="sqft-display" style="font-family:'Space Grotesk',monospace;font-weight:600;font-size:22px;color:#0f5a6e">${Number(sqft).toLocaleString()}<span style="font-size:13px;color:#9fb2ba;font-weight:500"> sq ft</span></div></div><input type="range" min="0" max="8000" step="50" value="${sqft}" oninput="window.onSqftSlide(+this.value)" style="width:100%;margin:8px 0 12px;background:linear-gradient(to right,#3fb6c4 0%,#3fb6c4 ${slPct}%,#dce6ea ${slPct}%,#dce6ea 100%)"><input type="number" min="0" value="${sqft}" onchange="window.setState('sqft',Math.max(0,+this.value||0))" style="width:100%;padding:10px 12px;border:1px solid #cfdbe0;border-radius:9px;font-size:15px;font-family:'Space Grotesk',monospace;outline:none"></div>
+${showFreq?`<div style="background:#fff;border:1px solid #dce6ea;border-radius:14px;padding:18px"><div style="font-family:'Sora',sans-serif;font-weight:600;font-size:13px;letter-spacing:.4px;text-transform:uppercase;color:#5e7480;margin-bottom:12px">Frequency</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">${freqBtns}</div></div>`:''}
+<div class="mob-summary"><div style="background:linear-gradient(165deg,#0f5a6e,#0a3d4c);color:#fff;border-radius:16px;padding:20px"><div style="font-size:12px;letter-spacing:.5px;text-transform:uppercase;color:#9fcdd6">${esc(q.serviceLabel)}</div><div style="font-family:'Space Grotesk',monospace;font-weight:700;font-size:42px;line-height:1.1;margin:4px 0 2px">${money(q.total)}</div><div style="font-size:13px;color:#bfe0e6;margin-bottom:14px">${esc(q.freqLabel||'One-time')} · ${Number(sqft).toLocaleString()} sq ft</div><div style="display:flex;gap:8px">${mobMet}</div></div></div>
+<div style="background:#fff;border:1px solid #dce6ea;border-radius:14px;padding:18px"><div style="font-family:'Sora',sans-serif;font-weight:600;font-size:13px;letter-spacing:.4px;text-transform:uppercase;color:#5e7480;margin-bottom:13px">Add-ons</div><div>${addonRows}</div></div>
+</div>
+<div class="right-col" style="flex:1 1 360px;min-width:300px;position:sticky;top:88px;display:flex;flex-direction:column;gap:16px">
+<div style="background:linear-gradient(165deg,#0f5a6e,#0a3d4c);color:#fff;border-radius:16px;padding:22px;box-shadow:0 8px 26px rgba(10,61,76,.22)"><div style="font-size:12.5px;letter-spacing:.5px;text-transform:uppercase;color:#9fcdd6">${esc(q.serviceLabel)}</div><div style="font-family:'Space Grotesk',monospace;font-weight:700;font-size:50px;line-height:1.05;margin:6px 0 2px">${money(q.total)}</div><div style="font-size:13px;color:#bfe0e6">${esc(q.freqLabel||'One-time')} · ${Number(sqft).toLocaleString()} sq ft · ${q.hours.toFixed(1)} hrs</div>${q.minApplied?'<div style="margin-top:10px;display:inline-block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);border-radius:7px;padding:4px 9px;font-size:11.5px;color:#d6eef2">Minimum price applied</div>':''}${lnkC?`<div style="margin-top:10px;font-size:12.5px;color:#9fcdd6">Quoting for <strong style="color:#fff">${esc(lnkC.name)}</strong></div>`:''}<div style="margin-top:16px;border-top:1px solid rgba(255,255,255,.15);padding-top:13px;display:flex;flex-direction:column;gap:7px">${liHtml}</div></div>
+<div style="background:#fff;border:1px solid #dce6ea;border-radius:16px;padding:18px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-family:'Sora',sans-serif;font-weight:600;font-size:13px;letter-spacing:.4px;text-transform:uppercase;color:#5e7480">Profit breakdown</div><div style="display:flex;gap:4px;background:#eef3f5;border-radius:8px;padding:3px"><button style="${pTog(payMode==='hourly')}" onclick="window.setState('payMode','hourly');window.render()">Hourly</button><button style="${pTog(payMode==='pct')}" onclick="window.setState('payMode','pct');window.render()">% Split</button></div></div>${payMode==='hourly'?`<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;background:#f6f9fa;border:1px solid #e4edf0;border-radius:9px;padding:9px 12px;margin-bottom:7px"><span style="font-size:12.5px;color:#5e7480">Cleaner pay / hr</span><div style="display:flex;align-items:center;gap:6px"><span style="color:#8499a1">$</span><input type="number" min="0" value="${r.biz.laborHourly}" onchange="window.setRates(rr=>{rr.biz.laborHourly=+this.value||0})" style="width:66px;padding:5px 8px;border:1px solid #cfdbe0;border-radius:7px;text-align:right;font-family:'Space Grotesk',monospace;outline:none"></div></div>`:`<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;background:#f6f9fa;border:1px solid #e4edf0;border-radius:9px;padding:9px 12px;margin-bottom:7px"><span style="font-size:12.5px;color:#5e7480">Cleaner % of job</span><div style="display:flex;align-items:center;gap:6px"><input type="number" min="0" max="100" value="${r.biz.laborPct}" onchange="window.setRates(rr=>{rr.biz.laborPct=+this.value||0})" style="width:66px;padding:5px 8px;border:1px solid #cfdbe0;border-radius:7px;text-align:right;font-family:'Space Grotesk',monospace;outline:none"><span style="color:#8499a1">%</span></div></div>`}<div style="display:flex;flex-direction:column;gap:1px;margin-top:6px">${bRows}</div><div style="display:flex;gap:8px;margin-top:12px"><div style="flex:1;background:#eef6f3;border:1px solid #d4e9e1;border-radius:9px;padding:9px 11px"><div style="font-size:11px;color:#5e7480;text-transform:uppercase;letter-spacing:.3px">Margin</div><div style="font-family:'Space Grotesk',monospace;font-weight:700;font-size:19px;color:${mc}">${Math.round(q.margin*100)}%</div></div><div style="flex:1;background:#eef6f3;border:1px solid #d4e9e1;border-radius:9px;padding:9px 11px"><div style="font-size:11px;color:#5e7480;text-transform:uppercase;letter-spacing:.3px">Profit / hr</div><div style="font-family:'Space Grotesk',monospace;font-weight:700;font-size:19px;color:#1f8a6d">${money0(q.effHourly)}</div></div><div style="flex:1;background:#f6f9fa;border:1px solid #e4edf0;border-radius:9px;padding:9px 11px"><div style="font-size:11px;color:#5e7480;text-transform:uppercase;letter-spacing:.3px">Est. time</div><div style="font-family:'Space Grotesk',monospace;font-weight:700;font-size:19px;color:#0f5a6e">${q.hours.toFixed(1)}h</div></div></div><div style="font-size:11.5px;color:#9fb2ba;margin-top:8px">${q.cleaners>1?`≈ ${(q.hours/q.cleaners).toFixed(1)} hrs on-site with ${q.cleaners} cleaners`:'Solo job · adjust cleaner count below'}</div></div>
+<div style="display:flex;gap:10px"><button onclick="window.openModal('save')" style="flex:1;background:#0f5a6e;color:#fff;border:none;border-radius:11px;padding:14px;font-weight:600;font-size:15px;font-family:'Sora',sans-serif;cursor:pointer;box-shadow:0 4px 14px rgba(15,90,110,.25)">Save to customer</button><button onclick="window.openModal('print')" style="flex:0 0 auto;background:#fff;color:#0f5a6e;border:1.5px solid #bcd3da;border-radius:11px;padding:14px 18px;font-weight:600;font-size:15px;font-family:'Sora',sans-serif;cursor:pointer">Quote</button></div>
+<div style="display:flex;align-items:center;justify-content:center;gap:8px;font-size:12.5px;color:#8499a1"><span>Cleaners on job</span><input type="number" min="1" max="6" value="${cleaners}" onchange="window.setState('cleaners',Math.max(1,+this.value||1))" style="width:52px;padding:5px 8px;border:1px solid #cfdbe0;border-radius:7px;text-align:center;font-family:'Space Grotesk',monospace;outline:none"></div>
+</div></div>`;
+}
+
+// ── CUSTOMERS ────────────────────────────────────────────────────────────
+function renderCustomers() {
+  const custs=state.customers;
+  const cards=custs.map(c=>{
+    const lifetime=(c.jobs||[]).reduce((s,j)=>s+(Number(j.total)||0),0);
+    let dueLabel='',dueColor='#9fb2ba';
+    if(c.nextDue){const days=Math.ceil((new Date(c.nextDue)-new Date())/86400000);if(days<0){dueLabel='Overdue';dueColor='#c14d57';}else if(days===0){dueLabel='Due today';dueColor='#c1734d';}else{dueLabel='Due in '+days+'d';dueColor=days<=3?'#c1734d':'#1f8a6d';}}
+    const fl=({weekly:'Weekly',biweekly:'Bi-weekly',monthly:'Monthly'}[c.frequency])||'One-time / ad-hoc';
+    return`<button onclick="window.openDetail('${c.id}')" style="text-align:left;background:#fff;border:1px solid #dce6ea;border-radius:14px;padding:16px;cursor:pointer;display:flex;flex-direction:column;gap:10px;width:100%"><div style="display:flex;align-items:center;gap:11px"><div style="width:40px;height:40px;border-radius:11px;background:${avatarColor(c.name)};color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-weight:700;font-size:16px;flex-shrink:0">${initials(c.name)}</div><div style="min-width:0"><div style="font-family:'Sora',sans-serif;font-weight:600;font-size:16px;color:#1b333c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(c.name)}</div><div style="font-size:12.5px;color:#8499a1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc([c.phone,c.email].filter(Boolean).join(' · ')||c.address||'—')}</div></div></div><div style="display:flex;gap:8px"><div style="flex:1;background:#f6f9fa;border-radius:8px;padding:7px 9px"><div style="font-size:10.5px;color:#8499a1;text-transform:uppercase;letter-spacing:.3px">Jobs</div><div style="font-family:'Space Grotesk',monospace;font-weight:600;font-size:16px;color:#1b333c">${(c.jobs||[]).length}</div></div><div style="flex:1.4;background:#f6f9fa;border-radius:8px;padding:7px 9px"><div style="font-size:10.5px;color:#8499a1;text-transform:uppercase;letter-spacing:.3px">Lifetime</div><div style="font-family:'Space Grotesk',monospace;font-weight:600;font-size:16px;color:#0f5a6e">${money0(lifetime)}</div></div></div><div style="display:flex;justify-content:space-between;align-items:center;font-size:12.5px"><span style="color:#7e939b">${esc(fl)}</span><span style="color:${dueColor};font-weight:600">${esc(dueLabel)}</span></div></button>`;
+  }).join('');
+  el('main').innerHTML=`<div><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px"><div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:24px">Customers</div><div style="font-size:13.5px;color:#7e939b">${custs.length} customer${custs.length!==1?'s':''} · synced across all devices</div></div><button onclick="window.setTab('estimate');window.openModal('save')" style="background:#0f5a6e;color:#fff;border:none;border-radius:10px;padding:11px 18px;font-weight:600;font-family:'Sora',sans-serif;cursor:pointer">+ New customer</button></div>${custs.length?`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px">${cards}</div>`:`<div style="background:#fff;border:1px dashed #cfdbe0;border-radius:14px;padding:50px 20px;text-align:center;color:#8499a1"><div style="font-family:'Sora',sans-serif;font-weight:600;font-size:17px;color:#5e7480;margin-bottom:5px">No customers yet</div><div style="font-size:13.5px">Build an estimate and tap "Save to customer".</div></div>`}</div>`;
+}
+
+// ── DASHBOARD ─────────────────────────────────────────────────────────────
+function renderDashboard() {
+  const allJobs=[];state.customers.forEach(c=>(c.jobs||[]).forEach(j=>allJobs.push({...j,customerName:c.name})));
+  allJobs.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  const now=new Date(),curKey=now.getFullYear()+'-'+now.getMonth();
+  const mJs=allJobs.filter(j=>{const d=new Date(j.date);return d.getFullYear()+'-'+d.getMonth()===curKey;});
+  const sum=(arr,f)=>arr.reduce((s,j)=>s+(Number(j[f])||0),0);
+  const mR=sum(mJs,'subtotal'),mP=sum(mJs,'netProfit'),aR=sum(allJobs,'subtotal'),aP=sum(allJobs,'netProfit');
+  const stats=[{label:'THIS MONTH REVENUE',val:money0(mR),sub:mJs.length+' jobs',c:'#0f5a6e'},{label:'THIS MONTH PROFIT',val:money0(mP),sub:mR>0?Math.round(mP/mR*100)+'% margin':'—',c:'#1f8a6d'},{label:'ALL-TIME REVENUE',val:money0(aR),sub:allJobs.length+' jobs',c:'#0f5a6e'},{label:'ALL-TIME PROFIT',val:money0(aP),sub:aR>0?Math.round(aP/aR*100)+'% margin':'—',c:'#1f8a6d'}].map(s=>`<div style="background:#fff;border:1px solid #dce6ea;border-radius:14px;padding:16px"><div style="font-size:11.5px;color:#8499a1;text-transform:uppercase;letter-spacing:.4px">${s.label}</div><div style="font-family:'Space Grotesk',monospace;font-weight:700;font-size:27px;color:${s.c};margin-top:3px">${s.val}</div><div style="font-size:11.5px;color:#9fb2ba">${s.sub}</div></div>`).join('');
+  const months=[];for(let i=5;i>=0;i--){const d=new Date(now.getFullYear(),now.getMonth()-i,1);months.push(d);}
+  const mAgg=months.map(d=>{const key=d.getFullYear()+'-'+d.getMonth();const js=allJobs.filter(j=>{const jd=new Date(j.date);return jd.getFullYear()+'-'+jd.getMonth()===key;});return{label:d.toLocaleDateString('en-US',{month:'short'}),rev:sum(js,'subtotal'),prof:Math.max(0,sum(js,'netProfit'))};});
+  const maxR=Math.max(1,...mAgg.map(m=>m.rev));
+  const bars=mAgg.map(m=>`<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end"><div style="font-family:'Space Grotesk',monospace;font-size:10.5px;color:#7e939b;height:14px">${m.rev>0?money0(m.rev):''}</div><div style="width:100%;display:flex;gap:3px;align-items:flex-end;height:120px"><div style="flex:1;background:#0f5a6e;border-radius:4px 4px 0 0;height:${Math.round(m.rev/maxR*100)}%;min-height:${m.rev>0?2:0}px"></div><div style="flex:1;background:#3fb6c4;border-radius:4px 4px 0 0;height:${Math.round(m.prof/maxR*100)}%;min-height:${m.prof>0?2:0}px"></div></div><div style="font-size:11px;color:#8499a1">${m.label}</div></div>`).join('');
+  const upcoming=state.customers.filter(c=>c.nextDue).map(c=>({c,days:Math.ceil((new Date(c.nextDue)-now)/86400000)})).sort((a,b)=>a.days-b.days).slice(0,6);
+  const upHtml=upcoming.length===0?`<div style="color:#9fb2ba;font-size:13px;padding:12px 0">No recurring jobs scheduled yet.</div>`:upcoming.map(({c,days})=>{const due=days<0?'Overdue':(days===0?'Today':'In '+days+'d');const dc=days<=0?'#c14d57':(days<=3?'#c1734d':'#1f8a6d');const fr=({weekly:'Weekly',biweekly:'Bi-weekly',monthly:'Monthly'}[c.frequency])||'Recurring';return`<div style="display:flex;justify-content:space-between;align-items:center;padding:9px 11px;background:#f6f9fa;border-radius:9px"><div><div style="font-weight:600;font-size:14px;color:#1b333c">${esc(c.name)}</div><div style="font-size:12px;color:#8499a1">${esc(fr)}</div></div><div style="text-align:right"><div style="font-weight:600;font-size:13px;color:${dc}">${due}</div><div style="font-family:'Space Grotesk',monospace;font-size:12px;color:#0f5a6e">${money0(c.lastRate||0)}</div></div></div>`;}).join('');
+  const rjHtml=allJobs.slice(0,8).length===0?`<div style="color:#9fb2ba;font-size:13px;padding:12px 0">No saved jobs yet.</div>`:`<div><div style="display:grid;grid-template-columns:1.4fr 1.4fr 1fr 1fr 1fr;gap:8px;padding:0 4px 8px;font-size:11px;color:#8499a1;text-transform:uppercase;letter-spacing:.3px;border-bottom:1px solid #eef3f5"><span>Customer</span><span>Service</span><span style="text-align:right">Revenue</span><span style="text-align:right">Cleaner</span><span style="text-align:right">Profit</span></div>${allJobs.slice(0,8).map(j=>`<div style="display:grid;grid-template-columns:1.4fr 1.4fr 1fr 1fr 1fr;gap:8px;padding:10px 4px;border-bottom:1px solid #f2f6f7;align-items:center"><div><div style="font-weight:600;font-size:13.5px;color:#1b333c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(j.customerName)}</div><div style="font-size:11px;color:#9fb2ba">${fmtDate(j.date)}</div></div><span style="font-size:13px;color:#5e7480">${esc(j.service)}</span><span style="text-align:right;font-family:'Space Grotesk',monospace;font-size:13.5px;color:#1b333c">${money(j.subtotal)}</span><span style="text-align:right;font-family:'Space Grotesk',monospace;font-size:13.5px;color:#c14d57">${money(j.labor)}</span><span style="text-align:right;font-family:'Space Grotesk',monospace;font-size:13.5px;font-weight:600;color:#1f8a6d">${money(j.netProfit)}</span></div>`).join('')}</div>`;
+  el('main').innerHTML=`<div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:24px;margin-bottom:4px">Dashboard</div><div style="font-size:13.5px;color:#7e939b;margin-bottom:18px">${now.toLocaleDateString('en-US',{month:'long',year:'numeric'})} · ${allJobs.length} jobs tracked</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:13px;margin-bottom:18px">${stats}</div><div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:18px"><div style="flex:1 1 380px;background:#fff;border:1px solid #dce6ea;border-radius:14px;padding:18px"><div style="font-family:'Sora',sans-serif;font-weight:600;font-size:14px;margin-bottom:16px">Revenue & profit · last 6 months</div><div style="display:flex;align-items:flex-end;gap:10px;height:150px;padding-top:14px">${bars}</div><div style="display:flex;gap:16px;margin-top:12px;font-size:12px;color:#7e939b"><span style="display:flex;align-items:center;gap:5px"><span style="width:11px;height:11px;border-radius:3px;background:#0f5a6e;display:inline-block"></span>Revenue</span><span style="display:flex;align-items:center;gap:5px"><span style="width:11px;height:11px;border-radius:3px;background:#3fb6c4;display:inline-block"></span>Net profit</span></div></div><div style="flex:1 1 300px;background:#fff;border:1px solid #dce6ea;border-radius:14px;padding:18px"><div style="font-family:'Sora',sans-serif;font-weight:600;font-size:14px;margin-bottom:12px">Upcoming recurring</div><div style="display:flex;flex-direction:column;gap:8px">${upHtml}</div></div></div><div style="background:#fff;border:1px solid #dce6ea;border-radius:14px;padding:18px"><div style="font-family:'Sora',sans-serif;font-weight:600;font-size:14px;margin-bottom:12px">Recent jobs</div>${rjHtml}</div></div>`;
+}
+
+// ── SETTINGS ──────────────────────────────────────────────────────────────
+function renderSettings() {
+  const r=state.rates;
+  const nf=(lbl,val,pre,suf,step,w,fn)=>`<div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><span style="font-size:13.5px;color:#46606a">${esc(lbl)}</span><div style="display:flex;align-items:center;gap:4px;background:#f6f9fa;border:1px solid #e0eaed;border-radius:8px;padding:2px 8px"><span style="color:#9fb2ba;font-size:13px">${esc(pre||'')}</span><input type="number" step="${step||'0.01'}" value="${val}" onchange="${esc(fn)}" style="width:${w||'56px'};padding:6px 4px;border:none;background:transparent;text-align:right;font-family:'Space Grotesk',monospace;font-size:14px;outline:none"><span style="color:#9fb2ba;font-size:13px">${esc(suf||'')}</span></div></div>`;
+  const card=(title,note,fields)=>`<div style="background:#fff;border:1px solid #dce6ea;border-radius:14px;padding:18px"><div style="font-family:'Sora',sans-serif;font-weight:600;font-size:15px;margin-bottom:3px">${esc(title)}</div><div style="font-size:12px;color:#9fb2ba;margin-bottom:14px">${esc(note)}</div><div style="display:flex;flex-direction:column;gap:9px">${fields}</div></div>`;
+  const addonRows=r.resAddons.map((a,i)=>`<div style="display:flex;align-items:center;gap:8px"><input value="${esc(a.name)}" onchange="window.setRates(rr=>{rr.resAddons[${i}].name=this.value})" style="flex:1;min-width:0;padding:7px 9px;border:1px solid #e0eaed;border-radius:8px;font-size:13px;outline:none"><div style="display:flex;align-items:center;gap:3px;background:#f6f9fa;border:1px solid #e0eaed;border-radius:8px;padding:2px 8px"><span style="color:#9fb2ba">$</span><input type="number" step="1" value="${a.price}" onchange="window.setRates(rr=>{rr.resAddons[${i}].price=+this.value})" style="width:54px;padding:6px 2px;border:none;background:transparent;text-align:right;font-family:'Space Grotesk',monospace;outline:none"></div><button onclick="window.setRates(rr=>{rr.resAddons.splice(${i},1)})" style="background:none;border:none;color:#c0ccd1;cursor:pointer;font-size:20px;line-height:1;padding:2px 4px">×</button></div>`).join('');
+  el('main').innerHTML=`<div><div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;margin-bottom:18px"><div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:24px">Rates & settings</div><div style="font-size:13.5px;color:#7e939b">Edit any rate — estimates update instantly. Saved per profile.</div></div><button onclick="window.resetRates()" style="background:#fff;color:#c14d57;border:1.5px solid #e7c4c8;border-radius:10px;padding:10px 16px;font-weight:600;cursor:pointer">Reset to defaults</button></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;align-items:start">
+${card('Residential rates','Per sq ft, with minimum charge.',nf('Deep clean / sq ft',r.res.deep.rate,'$','',0.01,'60px',"window.setRates(rr=>{rr.res.deep.rate=+this.value})")+nf('Deep clean minimum',r.res.deep.min,'$','',5,'60px',"window.setRates(rr=>{rr.res.deep.min=+this.value})")+nf('Standard / sq ft',r.res.standard.rate,'$','',0.01,'60px',"window.setRates(rr=>{rr.res.standard.rate=+this.value})")+nf('Standard minimum',r.res.standard.min,'$','',5,'60px',"window.setRates(rr=>{rr.res.standard.min=+this.value})")+nf('Move in/out / sq ft',r.res.moveinout.rate,'$','',0.01,'60px',"window.setRates(rr=>{rr.res.moveinout.rate=+this.value})")+nf('Move in/out minimum',r.res.moveinout.min,'$','',5,'60px',"window.setRates(rr=>{rr.res.moveinout.min=+this.value})")+nf('Construction / sq ft',r.res.construction.rate,'$','',0.01,'60px',"window.setRates(rr=>{rr.res.construction.rate=+this.value})")+nf('Construction minimum',r.res.construction.min,'$','',5,'60px',"window.setRates(rr=>{rr.res.construction.min=+this.value})"))}
+${card('Recurring discounts','% off the standard base price.',nf('Monthly',r.discounts.monthly,'','%',1,'44px',"window.setRates(rr=>{rr.discounts.monthly=+this.value})")+nf('Bi-weekly',r.discounts.biweekly,'','%',1,'44px',"window.setRates(rr=>{rr.discounts.biweekly=+this.value})")+nf('Weekly',r.discounts.weekly,'','%',1,'44px',"window.setRates(rr=>{rr.discounts.weekly=+this.value})"))}
+${card('Productivity','Sq ft cleaned per minute per cleaner.',nf('Deep — sq ft / min',r.res.deep.spm,'','',0.5,'48px',"window.setRates(rr=>{rr.res.deep.spm=+this.value})")+nf('Standard — sq ft / min',r.res.standard.spm,'','',0.5,'48px',"window.setRates(rr=>{rr.res.standard.spm=+this.value})")+nf('Move in/out — sq ft / min',r.res.moveinout.spm,'','',0.5,'48px',"window.setRates(rr=>{rr.res.moveinout.spm=+this.value})")+nf('Construction — sq ft / min',r.res.construction.spm,'','',0.5,'48px',"window.setRates(rr=>{rr.res.construction.spm=+this.value})"))}
+${card('Business & profit','Defaults used in every estimate.',nf('Cleaner pay / hour',r.biz.laborHourly,'$','',1,'52px',"window.setRates(rr=>{rr.biz.laborHourly=+this.value})")+nf('Cleaner % split',r.biz.laborPct,'','%',1,'44px',"window.setRates(rr=>{rr.biz.laborPct=+this.value})")+nf('Supplies & overhead',r.biz.suppliesPct,'','%',1,'44px',"window.setRates(rr=>{rr.biz.suppliesPct=+this.value})")+nf('Sales tax',r.biz.taxPct,'','%',0.25,'44px',"window.setRates(rr=>{rr.biz.taxPct=+this.value})"))}
+${card('Commercial · per sq ft','Recommended rate per visit.',Object.keys(r.com).map(k=>nf(r.com[k].name,r.com[k].rate,'$','',0.01,'60px',`window.setRates(rr=>{rr.com['${k}'].rate=+this.value})`)).join(''))}
+${card('Commercial · minimums & speed','Min charge + productivity.',nf('Min (under 1,500 sf)',r.comMin.small,'$','',5,'56px',"window.setRates(rr=>{rr.comMin.small=+this.value})")+nf('Min (1.5k–3.5k sf)',r.comMin.mid,'$','',5,'56px',"window.setRates(rr=>{rr.comMin.mid=+this.value})")+nf('Office sq ft / hr',r.com.office.sph,'','',25,'56px',"window.setRates(rr=>{rr.com.office.sph=+this.value})")+nf('Medical sq ft / hr',r.com.medical.sph,'','',25,'56px',"window.setRates(rr=>{rr.com.medical.sph=+this.value})"))}
+<div style="background:#fff;border:1px solid #dce6ea;border-radius:14px;padding:18px"><div style="font-family:'Sora',sans-serif;font-weight:600;font-size:15px;margin-bottom:3px">Residential add-ons</div><div style="font-size:12px;color:#9fb2ba;margin-bottom:14px">Name & price for each extra.</div><div style="display:flex;flex-direction:column;gap:8px">${addonRows}</div><button onclick="window.setRates(rr=>{rr.resAddons.push({name:'New add-on',price:25,type:'flag'})})" style="margin-top:12px;width:100%;background:#eef6f8;color:#0f5a6e;border:1px dashed #aacdd6;border-radius:9px;padding:9px;font-weight:600;cursor:pointer">+ Add add-on</button></div>
+<div id="access-card" style="background:#fff;border:1px solid #dce6ea;border-radius:14px;padding:18px;grid-column:1/-1"><div style="font-family:'Sora',sans-serif;font-weight:600;font-size:15px;margin-bottom:3px">Access control</div><div style="font-size:12px;color:#9fb2ba;margin-bottom:14px">Only these email addresses can log in. Leave empty to allow any signed-in user.</div><div id="allowlist-rows" style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px"><div style="font-size:13px;color:#9fb2ba;padding:8px 0">Loading…</div></div><div style="display:flex;gap:8px"><input id="new-allowed-email" type="email" placeholder="Add email address…" style="flex:1;padding:9px 11px;border:1px solid #e0eaed;border-radius:9px;font-size:14px;outline:none"><button onclick="window.addAllowedEmail()" style="background:#0f5a6e;color:#fff;border:none;border-radius:9px;padding:9px 16px;font-weight:600;cursor:pointer">Add</button></div></div>
+</div></div>`;
+  loadAllowlistUI();
+}
+
+// ── MODALS ────────────────────────────────────────────────────────────────
+function openModal(type) {
+  if(type==='save'){
+    const q=compute();
+    el('save-summary').textContent=q.serviceLabel+' · '+money(q.total)+' · profit '+money(q.netProfit);
+    const sel=el('save-cust-select');
+    sel.innerHTML='<option value="">— New customer —</option>'+state.customers.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('');
+    sel.value=state.saveCustId||'';
+    el('save-existing-wrap').style.display=state.customers.length?'':'none';
+    onSaveSelectChange();
+    el('save-modal').classList.add('open');
+    el('save-modal').onclick=e=>{if(e.target===el('save-modal'))closeModal('save');};
+  }else if(type==='print'){
+    renderPrintCard();el('print-modal').classList.add('open');
+    el('print-modal').onclick=e=>{if(e.target===el('print-modal').firstElementChild?.parentElement)closeModal('print');};
+  }
+}
+function closeModal(type){el(type+'-modal').classList.remove('open');}
+function onSaveSelectChange(){const v=el('save-cust-select').value;state.saveCustId=v;el('save-new-wrap').style.display=v?'none':'';}
+
+async function doSaveJob() {
+  if(saving)return;
+  // Capture all form values BEFORE closing modal
+  const custName = el('sv-name').value.trim();
+  const custPhone= el('sv-phone').value.trim();
+  const custEmail= el('sv-email').value.trim();
+  const custAddr = el('sv-addr').value.trim();
+  const custNotes= el('sv-notes').value.trim();
+  const isNew = !state.saveCustId;
+  if(isNew && !custName){el('sv-name').focus();showToast('Enter a customer name');return;}
+  saving=true;
+  const btn=el('save-job-btn');
+  if(btn){btn.disabled=true;btn.textContent='Saving…';}
+  closeModal('save');
+  try{
+    const q=compute();
+    const freqKey=({onetime:'one-time',monthly:'monthly',biweekly:'biweekly',weekly:'weekly'})[state.freq]||'one-time';
+    const nd=computeNextDue(freqKey);
+    const job={id:'j'+Date.now(),date:new Date().toISOString(),mode:state.mode,service:q.serviceLabel,freq:q.freqLabel||'',sqft:Number(state.sqft)||0,base:q.base,subtotal:q.subtotal,tax:q.tax,total:q.total,labor:q.labor,supplies:q.supplies,netProfit:q.netProfit,hours:q.hours,payMode:state.payMode};
+    if(state.saveCustId){
+      const cu=state.customers.find(c=>c.id===state.saveCustId);
+      if(cu){cu.jobs=(cu.jobs||[]);cu.jobs.unshift(job);cu.lastService=q.serviceLabel;cu.lastRate=q.total;if(state.mode==='residential'&&state.service==='standard'){cu.frequency=freqKey;cu.nextDue=nd;}await persistCustomer(cu);}
+    }else{
+      const nc={id:'c'+Date.now(),name:custName,phone:custPhone,email:custEmail,address:custAddr,notes:custNotes,sqft:Number(state.sqft)||0,frequency:freqKey,nextDue:nd,lastService:q.serviceLabel,lastRate:q.total,createdAt:new Date().toISOString(),jobs:[job]};
+      await persistCustomer(nc);
+    }
+    showToast('✓ Job saved');
+  }catch(e){
+    console.error('doSaveJob error:',e);
+    showToast('⚠ Save failed: '+(e.message||e.code||'unknown error'));
+  }finally{
+    saving=false;
+    if(btn){btn.disabled=false;btn.textContent='Save job';}
+  }
+}
+function computeNextDue(k){if(k==='one-time'||!k)return null;const d=new Date();d.setDate(d.getDate()+({weekly:7,biweekly:14,monthly:30}[k]||0));return d.toISOString();}
+
+function openDetail(id) {
+  const c=state.customers.find(x=>x.id===id);if(!c)return;
+  state.activeCustId=id;
+  const contact=[c.phone,c.email].filter(Boolean).join(' · ')||'No contact info';
+  const meta=[];
+  if(c.address)meta.push({label:'Address',val:c.address});
+  if(c.sqft)meta.push({label:'Size',val:c.sqft.toLocaleString()+' sq ft'});
+  meta.push({label:'Frequency',val:({weekly:'Weekly',biweekly:'Bi-weekly',monthly:'Monthly'}[c.frequency])||'One-time'});
+  if(c.nextDue)meta.push({label:'Next due',val:fmtDate(c.nextDue)});
+  const mH=meta.map(m=>`<div style="background:#f6f9fa;border:1px solid #e4edf0;border-radius:9px;padding:7px 11px"><div style="font-size:10.5px;color:#9fb2ba;text-transform:uppercase;letter-spacing:.3px">${esc(m.label)}</div><div style="font-size:13.5px;color:#26424c;font-weight:600">${esc(m.val)}</div></div>`).join('');
+  const jH=(c.jobs||[]).map(j=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:#f6f9fa;border-radius:9px"><div><div style="font-weight:600;font-size:14px;color:#1b333c">${esc(j.service)}</div><div style="font-size:11.5px;color:#9fb2ba">${fmtDate(j.date)} · ${(j.sqft||0).toLocaleString()} sq ft</div></div><div style="text-align:right"><div style="font-family:'Space Grotesk',monospace;font-weight:600;font-size:15px;color:#0f5a6e">${money(j.total)}</div><div style="font-size:11.5px;color:#1f8a6d">profit ${money(j.netProfit)}</div></div></div>`).join('');
+  el('detail-box').innerHTML=`<div style="display:flex;align-items:flex-start;gap:13px;margin-bottom:16px"><div style="width:48px;height:48px;border-radius:13px;background:${avatarColor(c.name)};color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-weight:700;font-size:19px;flex-shrink:0">${initials(c.name)}</div><div style="flex:1;min-width:0"><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:20px">${esc(c.name)}</div><div style="font-size:13px;color:#8499a1">${esc(contact)}</div></div><button onclick="window.closeModal('detail')" style="background:#f0f4f6;border:none;border-radius:8px;width:32px;height:32px;font-size:18px;color:#7e939b;cursor:pointer;flex-shrink:0">×</button></div>${meta.length?`<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">${mH}</div>`:''}${c.notes?`<div style="background:#fffaf0;border:1px solid #f0e2c4;border-radius:9px;padding:11px 13px;font-size:13px;color:#7a6534;margin-bottom:16px">${esc(c.notes)}</div>`:''}<div style="font-family:'Sora',sans-serif;font-weight:600;font-size:13px;color:#5e7480;margin-bottom:8px">Job history</div><div style="display:flex;flex-direction:column;gap:7px;max-height:230px;overflow-y:auto">${jH||'<div style="color:#9fb2ba;font-size:13px;padding:8px 0">No jobs yet.</div>'}</div><div style="display:flex;gap:10px;margin-top:18px"><button onclick="window.deleteCustomer('${c.id}')" style="background:#fff;color:#c14d57;border:1.5px solid #e7c4c8;border-radius:10px;padding:11px 16px;font-weight:600;cursor:pointer">Delete</button><button onclick="window.newQuoteFor('${c.id}')" style="flex:1;background:#0f5a6e;color:#fff;border:none;border-radius:10px;padding:11px;font-weight:600;font-family:'Sora',sans-serif;cursor:pointer">New quote for ${esc((c.name||'').split(' ')[0])}</button></div>`;
+  el('detail-modal').classList.add('open');
+  el('detail-modal').onclick=e=>{if(e.target===el('detail-modal'))closeModal('detail');};
+}
+async function deleteCustomer(id){await removeCustomerFromDB(id);if(state.activeCustId===id)state.activeCustId=null;closeModal('detail');showToast('Customer deleted');}
+function newQuoteFor(id){state.activeCustId=id;closeModal('detail');state.tab='estimate';render();const c=state.customers.find(x=>x.id===id);if(c)showToast('Quoting for '+(c.name.split(' ')[0]));openModal('save');}
+
+function renderPrintCard() {
+  const q=compute(),lnk=state.activeCustId?state.customers.find(c=>c.id===state.activeCustId):null;
+  const today=new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  const liH=[...q.lineItems,...(q.tax>0?[{label:`Tax (${q.taxPct}%)`,amt:money(q.tax)}]:[])].map(li=>`<tr style="border-bottom:1px solid #eef3f5"><td style="padding:10px 0;font-size:14px;color:#26424c">${esc(li.label)}</td><td style="padding:10px 0;text-align:right;font-family:'Space Grotesk',monospace;font-size:14px;color:#1b333c">${esc(li.amt)}</td></tr>`).join('');
+  el('print-area').innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #0f5a6e;padding-bottom:16px;margin-bottom:22px"><div style="display:flex;align-items:center;gap:11px"><div style="width:42px;height:42px;border-radius:11px;background:#0f5a6e;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-weight:700;color:#fff;font-size:16px">KFS</div><div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:18px;color:#0a3d4c">KFS CLEANING</div><div style="font-size:12px;color:#8499a1">Massachusetts · Licensed & Insured</div></div></div><div style="text-align:right"><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:16px;color:#0f5a6e">ESTIMATE</div><div style="font-size:12px;color:#8499a1">${today}</div></div></div>${lnk?`<div style="margin-bottom:20px"><div style="font-size:11px;color:#9fb2ba;text-transform:uppercase;letter-spacing:.4px">Prepared for</div><div style="font-size:15px;font-weight:600;color:#1b333c">${esc(lnk.name)}</div></div>`:''}<div style="font-size:14px;color:#46606a;margin-bottom:6px">${esc(q.serviceLabel)} · ${Number(state.sqft||0).toLocaleString()} sq ft</div><table style="width:100%;border-collapse:collapse;margin-bottom:18px"><tbody>${liH}</tbody></table><div style="display:flex;justify-content:space-between;align-items:center;background:#0f5a6e;color:#fff;border-radius:11px;padding:16px 20px"><span style="font-family:'Sora',sans-serif;font-weight:600;font-size:16px">Total estimate</span><span style="font-family:'Space Grotesk',monospace;font-weight:700;font-size:26px">${money(q.total)}</span></div><div style="font-size:11.5px;color:#9fb2ba;margin-top:18px;line-height:1.5">Estimate valid 30 days. Final price may vary with on-site conditions, heavy soil, or added scope. Minimums apply. Thank you for choosing KFS Cleaning.</div>`;
+}
+
+// ── GLOBAL HANDLERS ───────────────────────────────────────────────────────
+function setTab(t){state.tab=t;render();}
+function setState(k,v){state[k]=v;render();}
+function setRates(fn){const r=JSON.parse(JSON.stringify(state.rates));fn(r);state.rates=r;saveRatesToFirestore();render();}
+function toggleAddon(store,name){const q=Number(state[store][name])||0;state[store]={...state[store],[name]:q>0?0:1};render();}
+function setAddon(store,name,qty){state[store]={...state[store],[name]:Math.max(0,qty)};render();}
+function onSqftSlide(v){state.sqft=v;const pct=(v/8000*100).toFixed(1);const sl=document.querySelector('input[type=range]');if(sl)sl.style.background=`linear-gradient(to right,#3fb6c4 0%,#3fb6c4 ${pct}%,#dce6ea ${pct}%,#dce6ea 100%)`;const ni=document.querySelectorAll('input[type=number]')[0];if(ni)ni.value=v;const sd=el('sqft-display');if(sd)sd.firstChild.textContent=Number(v).toLocaleString();renderPriceBar();}
+function resetRates(){if(confirm('Reset all rates to defaults?')){state.rates=defaultRates();saveRatesToFirestore();showToast('Rates reset');render();}}
+
+// ── ALLOWLIST UI ──────────────────────────────────────────────────────────
+let _allowEmails = null;
+async function loadAllowlistUI() {
+  const wrap = el('allowlist-rows'); if(!wrap)return;
+  try{
+    const snap=await db.doc('config/allowlist').get();
+    _allowEmails=snap.exists?(snap.data().emails||[]):[];
+  }catch(e){ _allowEmails=[]; }
+  renderAllowlistRows();
+}
+function renderAllowlistRows() {
+  const wrap=el('allowlist-rows'); if(!wrap)return;
+  if(!_allowEmails||_allowEmails.length===0){wrap.innerHTML='<div style="font-size:13px;color:#9fb2ba;padding:6px 0">No restrictions — any logged-in user can access.</div>';return;}
+  wrap.innerHTML=_allowEmails.map((em,i)=>`<div style="display:flex;align-items:center;gap:8px;background:#f6f9fa;border:1px solid #e4edf0;border-radius:9px;padding:8px 11px"><span style="flex:1;font-size:14px;color:#26424c">${esc(em)}</span><button onclick="window.removeAllowedEmail(${i})" style="background:none;border:none;color:#c0ccd1;cursor:pointer;font-size:20px;line-height:1;padding:2px 6px">×</button></div>`).join('');
+}
+async function addAllowedEmail() {
+  const inp=el('new-allowed-email'),email=(inp.value||'').trim().toLowerCase();
+  if(!email||!email.includes('@')){showToast('Enter a valid email');return;}
+  if(_allowEmails===null)_allowEmails=[];
+  if(_allowEmails.includes(email)){showToast('Already in list');return;}
+  _allowEmails=[..._allowEmails,email];
+  inp.value='';
+  try{ await saveAllowlist(_allowEmails); renderAllowlistRows(); showToast('✓ Access list updated'); }
+  catch(e){ showToast('Save failed — check Firestore rules'); _allowEmails=_allowEmails.filter(e=>e!==email); }
+}
+async function removeAllowedEmail(i) {
+  if(!confirm('Remove '+_allowEmails[i]+' from access list?'))return;
+  _allowEmails=_allowEmails.filter((_,idx)=>idx!==i);
+  try{ await saveAllowlist(_allowEmails); renderAllowlistRows(); showToast('✓ Removed'); }
+  catch(e){ showToast('Save failed'); }
+}
+
+Object.assign(window,{setTab,setState,setRates,toggleAddon,setAddon,onSqftSlide,resetRates,openModal,closeModal,onSaveSelectChange,doSaveJob,openDetail,deleteCustomer,newQuoteFor,render,addAllowedEmail,removeAllowedEmail});
+window._authMode    = setAuthMode;
+window._authSubmit  = authSubmit;
+window._signOut     = doSignOut;
+window._forgotPass  = forgotPassword;
+window._googleSignIn= googleSignIn;
+</script>
+</body>
+</html>

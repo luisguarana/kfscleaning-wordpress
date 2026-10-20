@@ -8,6 +8,8 @@
 !/README.md
 !/.htaccess
 !/llms.txt
+!/CLAUDE.md
+!/AGENTS.md
 
 # Custom theme (design + all page templates)
 !wp-content/

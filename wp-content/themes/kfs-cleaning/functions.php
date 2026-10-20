@@ -21,7 +21,7 @@ function kfs_enqueue_assets() {
 		'kfs-main',
 		get_template_directory_uri() . '/assets/css/main.css',
 		array( 'kfs-fonts' ),
-		'1.4.1'
+		'1.4.2'
 	);
 	wp_enqueue_script(
 		'kfs-main',

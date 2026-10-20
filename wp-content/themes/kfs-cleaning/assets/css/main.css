@@ -719,6 +719,7 @@ input, select, textarea { font-family: inherit; }
   cursor: zoom-in;
 }
 .gal-item.gal-wide { grid-column: span 2; }
+.gal-item:focus-visible { border-radius: var(--radius); }
 .gal-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
 .gal-item:hover img,
 .gal-item:focus-visible img { transform: scale(1.03); }

@@ -300,7 +300,7 @@ async function isEmailAllowed(email) {
     if(!snap.exists)return true;
     const emails=(snap.data().emails||[]).map(e=>e.toLowerCase().trim());
     return emails.includes((email||'').toLowerCase().trim());
-  }catch(e){ return true; } // timeout or error = allow through
+  }catch(e){ return null; } // could not check — caller denies
 }
 async function saveAllowlist(emails) {
   await db.doc('config/allowlist').set({emails});
@@ -345,7 +345,7 @@ async function authSubmit() {
       showAuthSuccess('Account created! Check your email to verify your address.');
     }
   } catch(e) {
-    const msgs={'auth/user-not-found':'No account with that email.','auth/wrong-password':'Wrong password.','auth/invalid-credential':'Incorrect email or password.','auth/email-already-in-use':'An account with this email already exists.','auth/weak-password':'Password must be at least 6 characters.','auth/invalid-email':'Enter a valid email address.','auth/network-request-failed':'Network error — check your connection.'};
+    const msgs={'auth/user-not-found':'No account with that email.','auth/wrong-password':'Wrong password.','auth/invalid-credential':'Incorrect email or password.','auth/email-already-in-use':'An account with this email already exists.','auth/weak-password':'Password must be at least 6 characters.','auth/invalid-email':'Enter a valid email address.','auth/network-request-failed':'Network error — check your connection.','auth/admin-restricted-operation':'Accounts are by invitation only — contact the owner.'};
     showAuthErr(msgs[e.code]||'Something went wrong. Try again.');
     btn.disabled=false; btn.textContent=state.authMode==='login'?'Log in':'Create account';
   }
@@ -371,7 +371,7 @@ async function googleSignIn() {
   try{
     await auth.signInWithPopup(googleProvider);
   }catch(e){
-    const msgs={'auth/popup-closed-by-user':'Sign-in cancelled.','auth/network-request-failed':'Network error — check your connection.'};
+    const msgs={'auth/admin-restricted-operation':'Accounts are by invitation only — contact the owner.','auth/popup-closed-by-user':'Sign-in cancelled.','auth/network-request-failed':'Network error — check your connection.'};
     showAuthErr(msgs[e.code]||'Google sign-in failed. Try again.');
   }
 }
@@ -391,10 +391,15 @@ function showScreen(name) {
 
 async function onLogin(user) {
   currentUser=user; showScreen('loading');
-  try{
-    const allowed=await tdoc(isEmailAllowed(user.email));
-    if(!allowed){currentUser=null;await auth.signOut();showAuthErr('Access denied. Your email ('+user.email+') is not on the authorized list. Contact the app owner.');return;}
-  }catch(e){/* timeout = allow through */}
+  let allowed=null;
+  try{ allowed=await tdoc(isEmailAllowed(user.email)); }catch(e){}
+  if(allowed!==true){
+    currentUser=null; await auth.signOut();
+    showAuthErr(allowed===false
+      ?'Access denied. Your email ('+user.email+') is not on the authorized list. Contact the app owner.'
+      :'Could not verify your access — check your connection and try again.');
+    return;
+  }
   const [adminResult, ratesResult] = await Promise.allSettled([
     tdoc(isAdminEmail(user.email)),
     tdoc(db.doc('config/rates').get())
@@ -438,7 +443,7 @@ function compute() {
     if(service==='standard'){const d=r.discounts;if(freq==='monthly'){p*=(1-d.monthly/100);freqLabel='Monthly recurring';}else if(freq==='biweekly'){p*=(1-d.biweekly/100);freqLabel='Bi-weekly recurring';}else if(freq==='weekly'){p*=(1-d.weekly/100);freqLabel='Weekly recurring';}else freqLabel='One-time';}
     base=p; hours=svc.spm>0?sqft/(svc.spm*60):0;
   }else{
-    const svc=r.com[comService],raw=sqft*svc.rate,min=sqft<1500?r.comMin.small:(sqft<=3500?r.comMin.mid:r.comMin.small);
+    const svc=r.com[comService],raw=sqft*svc.rate,min=sqft<1500?r.comMin.small:r.comMin.mid;
     minApplied=raw<min; base=Math.max(raw,min); serviceLabel=svc.name+' (commercial)'; hours=svc.sph>0?sqft/svc.sph:0;
   }
   const addList=mode==='residential'?r.resAddons:r.comAddons,addStore=mode==='residential'?addons:comAddons;
@@ -538,7 +543,7 @@ ${card('Recurring discounts','% off the standard base price.',nf('Monthly',r.dis
 ${card('Productivity','Sq ft cleaned per minute per cleaner.',nf('Deep — sq ft / min',r.res.deep.spm,'','',0.5,'48px',"window.setRates(rr=>{rr.res.deep.spm=+this.value})")+nf('Standard — sq ft / min',r.res.standard.spm,'','',0.5,'48px',"window.setRates(rr=>{rr.res.standard.spm=+this.value})")+nf('Move in/out — sq ft / min',r.res.moveinout.spm,'','',0.5,'48px',"window.setRates(rr=>{rr.res.moveinout.spm=+this.value})")+nf('Construction — sq ft / min',r.res.construction.spm,'','',0.5,'48px',"window.setRates(rr=>{rr.res.construction.spm=+this.value})"))}
 ${card('Business & profit','Defaults used in every estimate.',nf('Cleaner pay / hour',r.biz.laborHourly,'$','',1,'52px',"window.setRates(rr=>{rr.biz.laborHourly=+this.value})")+nf('Cleaner % split',r.biz.laborPct,'','%',1,'44px',"window.setRates(rr=>{rr.biz.laborPct=+this.value})")+nf('Supplies & overhead',r.biz.suppliesPct,'','%',1,'44px',"window.setRates(rr=>{rr.biz.suppliesPct=+this.value})")+nf('Sales tax',r.biz.taxPct,'','%',0.25,'44px',"window.setRates(rr=>{rr.biz.taxPct=+this.value})"))}
 ${card('Commercial · per sq ft','Recommended rate per visit.',Object.keys(r.com).map(k=>nf(r.com[k].name,r.com[k].rate,'$','',0.01,'60px',`window.setRates(rr=>{rr.com['${k}'].rate=+this.value})`)).join(''))}
-${card('Commercial · minimums & speed','Min charge + productivity.',nf('Min (under 1,500 sf)',r.comMin.small,'$','',5,'56px',"window.setRates(rr=>{rr.comMin.small=+this.value})")+nf('Min (1.5k–3.5k sf)',r.comMin.mid,'$','',5,'56px',"window.setRates(rr=>{rr.comMin.mid=+this.value})")+nf('Office sq ft / hr',r.com.office.sph,'','',25,'56px',"window.setRates(rr=>{rr.com.office.sph=+this.value})")+nf('Medical sq ft / hr',r.com.medical.sph,'','',25,'56px',"window.setRates(rr=>{rr.com.medical.sph=+this.value})"))}
+${card('Commercial · minimums & speed','Min charge + productivity.',nf('Min (under 1,500 sf)',r.comMin.small,'$','',5,'56px',"window.setRates(rr=>{rr.comMin.small=+this.value})")+nf('Min (1,500+ sf)',r.comMin.mid,'$','',5,'56px',"window.setRates(rr=>{rr.comMin.mid=+this.value})")+nf('Office sq ft / hr',r.com.office.sph,'','',25,'56px',"window.setRates(rr=>{rr.com.office.sph=+this.value})")+nf('Medical sq ft / hr',r.com.medical.sph,'','',25,'56px',"window.setRates(rr=>{rr.com.medical.sph=+this.value})"))}
 <div style="background:#fff;border:1px solid #dce6ea;border-radius:14px;padding:18px"><div style="font-family:'Sora',sans-serif;font-weight:600;font-size:15px;margin-bottom:3px">Residential add-ons</div><div style="font-size:12px;color:#9fb2ba;margin-bottom:14px">Name & price for each extra.</div><div style="display:flex;flex-direction:column;gap:8px">${addonRows}</div><button onclick="window.setRates(rr=>{rr.resAddons.push({name:'New add-on',price:25,type:'flag'})})" style="margin-top:12px;width:100%;background:#eef6f8;color:#0f5a6e;border:1px dashed #aacdd6;border-radius:9px;padding:9px;font-weight:600;cursor:pointer">+ Add add-on</button></div>
 <div id="access-card" style="background:#fff;border:1px solid #dce6ea;border-radius:14px;padding:18px;grid-column:1/-1"><div style="font-family:'Sora',sans-serif;font-weight:600;font-size:15px;margin-bottom:3px">Access control</div><div style="font-size:12px;color:#9fb2ba;margin-bottom:14px">Only these email addresses can log in. Leave empty to allow any signed-in user.</div><div id="allowlist-rows" style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px"><div style="font-size:13px;color:#9fb2ba;padding:8px 0">Loading…</div></div><div style="display:flex;gap:8px"><input id="new-allowed-email" type="email" placeholder="Add email address…" style="flex:1;padding:9px 11px;border:1px solid #e0eaed;border-radius:9px;font-size:14px;outline:none"><button onclick="window.addAllowedEmail()" style="background:#0f5a6e;color:#fff;border:none;border-radius:9px;padding:9px 16px;font-weight:600;cursor:pointer">Add</button></div></div>
 </div></div>`;

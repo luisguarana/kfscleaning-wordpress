@@ -375,7 +375,7 @@ get_header();
 				</div>
 				<div class="fld">
 					<label for="email">Email Address <span class="req" aria-hidden="true">*</span></label>
-					<input type="email" id="email" name="Email" required autocomplete="email" aria-required="true">
+					<input type="email" id="email" name="email" required autocomplete="email" aria-required="true">
 				</div>
 				<div class="form-row">
 					<div class="fld">

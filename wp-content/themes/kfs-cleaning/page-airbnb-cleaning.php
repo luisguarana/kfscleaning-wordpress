@@ -162,7 +162,7 @@
           <div class="fld"><label for="full-name">Full Name <span class="req" aria-hidden="true">*</span></label><input type="text" id="full-name" name="Full Name" placeholder="Jane Smith" required autocomplete="name"></div>
           <div class="fld"><label for="phone">Phone <span class="req" aria-hidden="true">*</span></label><input type="tel" id="phone" name="Phone" placeholder="(978) 555-0100" required autocomplete="tel"></div>
         </div>
-        <div class="fld"><label for="email">Email <span class="req" aria-hidden="true">*</span></label><input type="email" id="email" name="Email" placeholder="jane@example.com" required autocomplete="email"></div>
+        <div class="fld"><label for="email">Email <span class="req" aria-hidden="true">*</span></label><input type="email" id="email" name="email" placeholder="jane@example.com" required autocomplete="email"></div>
         <div class="form-row">
           <div class="fld"><label for="service">Service Needed</label><select id="service" name="Service"><option>Regular Home Cleaning</option><option>Deep Cleaning</option><option>Move-In / Move-Out</option><option>Commercial &amp; Office</option><option>Post-Construction</option><option selected>Airbnb / STR Turnover</option><option>Not Sure / Other</option></select></div>
           <div class="fld"><label for="frequency">Frequency</label><select id="frequency" name="Frequency"><option value="">— How often? —</option><option>One-Time</option><option>Weekly</option><option>Bi-Weekly (Every 2 weeks)</option><option>Monthly</option></select></div>

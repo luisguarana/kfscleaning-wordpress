@@ -230,14 +230,15 @@ Why Blog Button Wasn't Working:
 PART 6 — REPLACING GALLERY PHOTOS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Current gallery uses placeholder images. Here's how to replace them:
+Gallery photos live in assets/images/gallery/ (kitchen-deep-clean.jpg,
+kitchen-refresh.jpg, office-cleaning.jpg, bathroom-detail.jpg,
+move-out-clean.jpg, post-construction-clean.jpg, commercial-cleaning.jpg).
 
 Option A — Replace the files directly (simplest):
-  1. Upload your real photos via: Media → Add New
-  2. Name them: placeholder-1.jpg through placeholder-6.jpg
-  3. Go to: cPanel → File Manager → wp-content/themes/kfs-cleaning/assets/images/gallery/
-  4. Delete the old placeholder files, upload your new ones with the same filenames
-  5. The gallery updates automatically on all pages
+  1. Resize the new photo to max 1600px wide, saved as JPG
+  2. Give it the same filename as the photo it replaces
+  3. Commit it to the repo and deploy (git pull on the server)
+  4. The gallery updates automatically on all pages
 
 Option B — Update the PHP arrays:
   1. In front-page.php, find $kfs_gallery array

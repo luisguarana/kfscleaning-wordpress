@@ -51,11 +51,16 @@ if ( ! defined( 'WPSEO_VERSION' ) && ! defined( 'RANK_MATH_VERSION' ) && ! defin
     "addressCountry": "US"
   },
   "openingHours": "Mo-Sa 08:00-18:00",
+<?php
+// Real Google rating as last synced by the Trustindex reviews plugin; omitted if unavailable.
+$kfs_reviews = get_option( 'trustindex-google-page-details' );
+if ( is_array( $kfs_reviews ) && ! empty( $kfs_reviews['rating_number'] ) ) : ?>
   "aggregateRating": {
     "@type": "AggregateRating",
-    "ratingValue": "5.0",
-    "reviewCount": "200"
+    "ratingValue": "<?php echo esc_js( number_format( (float) $kfs_reviews['rating_score'], 1 ) ); ?>",
+    "reviewCount": "<?php echo (int) $kfs_reviews['rating_number']; ?>"
   },
+<?php endif; ?>
   "image": "<?php echo esc_js( $og_image ); ?>"
 }
 </script>

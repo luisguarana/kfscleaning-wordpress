@@ -124,12 +124,12 @@
     <div class="svc-gallery-grid">
       <?php
       $svc_imgs = array(
-        array('src' => get_template_directory_uri().'/assets/images/gallery/placeholder-1.jpg', 'alt' => 'Kitchen Deep Clean'),
-        array('src' => get_template_directory_uri().'/assets/images/gallery/placeholder-2.jpg', 'alt' => 'Kitchen Refresh'),
-        array('src' => get_template_directory_uri().'/assets/images/gallery/placeholder-3.jpg', 'alt' => 'Office Cleaning'),
-        array('src' => get_template_directory_uri().'/assets/images/gallery/placeholder-4.jpg', 'alt' => 'Bathroom Detail'),
-        array('src' => get_template_directory_uri().'/assets/images/gallery/placeholder-5.jpg', 'alt' => 'Move-Out Clean'),
-        array('src' => get_template_directory_uri().'/assets/images/gallery/placeholder-6.jpg', 'alt' => 'Post-Construction Clean'),
+        array('src' => get_template_directory_uri().'/assets/images/gallery/kitchen-deep-clean.jpg', 'alt' => 'Kitchen Deep Clean'),
+        array('src' => get_template_directory_uri().'/assets/images/gallery/kitchen-refresh.jpg', 'alt' => 'Kitchen Refresh'),
+        array('src' => get_template_directory_uri().'/assets/images/gallery/office-cleaning.jpg', 'alt' => 'Office Cleaning'),
+        array('src' => get_template_directory_uri().'/assets/images/gallery/bathroom-detail.jpg', 'alt' => 'Bathroom Detail'),
+        array('src' => get_template_directory_uri().'/assets/images/gallery/move-out-clean.jpg', 'alt' => 'Move-Out Clean'),
+        array('src' => get_template_directory_uri().'/assets/images/gallery/post-construction-clean.jpg', 'alt' => 'Post-Construction Clean'),
       );
       foreach ( $svc_imgs as $img ) : ?>
       <div class="svc-gal-item reveal">

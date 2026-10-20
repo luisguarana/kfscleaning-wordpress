@@ -39,13 +39,13 @@ $kfs_services = array(
 );
 
 $kfs_gallery = array(
-	array( 'src' => get_template_directory_uri() . '/assets/images/gallery/placeholder-1.jpg', 'label' => 'Kitchen Deep Clean', 'span' => 2 ),
-	array( 'src' => get_template_directory_uri() . '/assets/images/gallery/placeholder-2.jpg', 'label' => 'Kitchen Refresh',        'span' => 1 ),
-	array( 'src' => get_template_directory_uri() . '/assets/images/gallery/placeholder-3.jpg', 'label' => 'Office Cleaning',        'span' => 1 ),
-	array( 'src' => get_template_directory_uri() . '/assets/images/gallery/placeholder-4.jpg', 'label' => 'Bathroom Detail',        'span' => 1 ),
-	array( 'src' => get_template_directory_uri() . '/assets/images/gallery/placeholder-5.jpg', 'label' => 'Move-Out Clean',         'span' => 1 ),
-	array( 'src' => get_template_directory_uri() . '/assets/images/gallery/placeholder-6.jpg', 'label' => 'Post-Construction',      'span' => 2 ),
-	array( 'src' => get_template_directory_uri() . '/assets/images/gallery/placeholder-7.jpg', 'label' => 'Commercial Cleaning',         'span' => 1 ),
+	array( 'src' => get_template_directory_uri() . '/assets/images/gallery/kitchen-deep-clean.jpg', 'label' => 'Kitchen Deep Clean', 'span' => 2 ),
+	array( 'src' => get_template_directory_uri() . '/assets/images/gallery/kitchen-refresh.jpg', 'label' => 'Kitchen Refresh',        'span' => 1 ),
+	array( 'src' => get_template_directory_uri() . '/assets/images/gallery/office-cleaning.jpg', 'label' => 'Office Cleaning',        'span' => 1 ),
+	array( 'src' => get_template_directory_uri() . '/assets/images/gallery/bathroom-detail.jpg', 'label' => 'Bathroom Detail',        'span' => 1 ),
+	array( 'src' => get_template_directory_uri() . '/assets/images/gallery/move-out-clean.jpg', 'label' => 'Move-Out Clean',         'span' => 1 ),
+	array( 'src' => get_template_directory_uri() . '/assets/images/gallery/post-construction-clean.jpg', 'label' => 'Post-Construction',      'span' => 2 ),
+	array( 'src' => get_template_directory_uri() . '/assets/images/gallery/commercial-cleaning.jpg', 'label' => 'Commercial Cleaning',         'span' => 1 ),
 );
 
 $kfs_faq = array(

@@ -702,9 +702,7 @@ input, select, textarea { font-family: inherit; }
 .tc-content h3 { font-size: 17px; margin-bottom: 6px; color: var(--white); }
 .tc-content p  { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
 
-/* ── GALLERY + LIGHTBOX ─────────────────────────────────────────────────
-   Mirrors the live WP Customizer CSS (Appearance → Customize → Additional
-   CSS) so the repo carries the real styles. */
+/* ── GALLERY + LIGHTBOX ───────────────────────────────────────────────── */
 .gallery-section { padding: 88px 0; }
 .gallery-grid {
   display: grid;
@@ -724,6 +722,18 @@ input, select, textarea { font-family: inherit; }
 .gal-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
 .gal-item:hover img,
 .gal-item:focus-visible img { transform: scale(1.03); }
+.gal-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(6,14,28,.12);
+  opacity: 0;
+  transition: opacity .25s ease;
+  pointer-events: none;
+}
+.gal-item:hover::after,
+.gal-item:focus-visible::after { opacity: 1; }
 .gal-caption {
   position: absolute;
   left: 0; right: 0; bottom: 0;
@@ -735,6 +745,7 @@ input, select, textarea { font-family: inherit; }
   background: linear-gradient(to top, rgba(6,14,28,.96), rgba(6,14,28,.8) 58%, rgba(6,14,28,0));
   pointer-events: none;
 }
+.gal-caption-text { width: 100%; }
 .gal-title { margin: 0; font-size: 16px; line-height: 1.2; color: var(--white); }
 .gal-subtitle { margin: 2px 0 0; font-size: 12px; line-height: 1.2; color: rgba(255,255,255,.72); }
 

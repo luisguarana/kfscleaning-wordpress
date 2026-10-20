@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
 <title>KFS Cleaning – Pricing & Estimator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Space+Grotesk:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -48,7 +49,7 @@ button:active{opacity:.8}
 <div id="auth-screen" style="display:none;height:100svh;min-height:-webkit-fill-available;background:linear-gradient(160deg,#0a3d4c 0%,#0f5a6e 50%,#1a7a8a 100%);align-items:center;justify-content:center;padding:16px;overflow:hidden">
   <div style="width:100%;max-width:400px;animation:kfsUp .3s ease">
     <div style="text-align:center;margin-bottom:16px">
-      <img src="/logo.png" alt="KFS Cleaning Services" style="width:180px;height:auto;margin-bottom:6px;filter:drop-shadow(0 4px 18px rgba(63,182,196,.45))">
+      <img src="logo.png" alt="KFS Cleaning Services" style="width:180px;height:auto;margin-bottom:6px;filter:drop-shadow(0 4px 18px rgba(63,182,196,.45))">
       <div style="font-size:13px;color:#9fcdd6;margin-top:2px">Pricing & Estimator</div>
     </div>
     <div style="background:#fff;border-radius:18px;padding:20px 22px;box-shadow:0 24px 60px rgba(0,0,0,.3)">
@@ -99,7 +100,7 @@ window._appFallback=setTimeout(function(){
   <header style="background:linear-gradient(180deg,#0a3d4c,#0f5a6e);color:#fff;position:sticky;top:0;z-index:40;box-shadow:0 2px 12px rgba(10,61,76,.18)">
     <div style="max-width:1180px;margin:0 auto;padding:10px 16px 0">
       <div style="display:flex;align-items:center;gap:10px">
-        <img src="/logo.png" alt="KFS Cleaning Services" style="height:40px;width:auto;flex-shrink:0;filter:brightness(0) invert(1) drop-shadow(0 1px 4px rgba(0,0,0,.3))">
+        <img src="logo.png" alt="KFS Cleaning Services" style="height:40px;width:auto;flex-shrink:0;filter:brightness(0) invert(1) drop-shadow(0 1px 4px rgba(0,0,0,.3))">
         <div style="flex:1;min-width:0">
           <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:15px;letter-spacing:.3px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">KFS CLEANING</div>
           <div id="user-label" style="font-size:11px;color:#a9d3da;letter-spacing:.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></div>
@@ -139,8 +140,8 @@ window._appFallback=setTimeout(function(){
       <div style="display:flex;flex-direction:column;gap:10px">
         <input id="sv-name" placeholder="Customer name" style="padding:11px;border:1px solid #cfdbe0;border-radius:9px">
         <div style="display:flex;gap:10px">
-          <input id="sv-phone" placeholder="Phone" style="flex:1;min-width:0;padding:11px;border:1px solid #cfdbe0;border-radius:9px">
-          <input id="sv-email" placeholder="Email" style="flex:1;min-width:0;padding:11px;border:1px solid #cfdbe0;border-radius:9px">
+          <input id="sv-phone" type="tel" placeholder="Phone" style="flex:1;min-width:0;padding:11px;border:1px solid #cfdbe0;border-radius:9px">
+          <input id="sv-email" type="email" placeholder="Email" style="flex:1;min-width:0;padding:11px;border:1px solid #cfdbe0;border-radius:9px">
         </div>
         <input id="sv-addr" placeholder="Address" style="padding:11px;border:1px solid #cfdbe0;border-radius:9px">
         <textarea id="sv-notes" rows="2" placeholder="Notes – pets, gate code, preferences…" style="padding:11px;border:1px solid #cfdbe0;border-radius:9px;resize:vertical"></textarea>
@@ -194,6 +195,7 @@ let isAdmin        = false;
 // ── HELPERS ───────────────────────────────────────────────────────────────
 const esc    = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const el     = id => document.getElementById(id);
+const jsq    = s => esc(String(s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'")); // value for a '...' JS string inside an HTML attribute
 const money  = n => { if(isNaN(n)||n==null)return'$0'; const neg=n<0; n=Math.abs(n); const r=Math.round(n*100)/100; return(neg?'−':'')+' $'+r.toLocaleString('en-US',{minimumFractionDigits:r%1===0?0:2,maximumFractionDigits:2}); };
 const money0 = n => '$'+Math.round(n||0).toLocaleString('en-US');
 const initials   = n => (n||'?').trim().split(/\s+/).slice(0,2).map(w=>w[0]||'').join('').toUpperCase()||'?';
@@ -469,7 +471,7 @@ function renderEstimate() {
   const freqBtns=[['onetime','One-time',''],['monthly','Monthly','-'+r.discounts.monthly+'%'],['biweekly','Bi-weekly','-'+r.discounts.biweekly+'%'],['weekly','Weekly','-'+r.discounts.weekly+'%']].map(([k,l,off])=>`<button style="${fPill(freq===k)}" onclick="window.setState('freq','${k}')"><span style="font-weight:600;font-size:14px">${l}</span>${off?`<span style="font-size:11px;opacity:.8;margin-left:5px;color:${freq===k?'#9fcdd6':'#1f8a6d'}">${off}</span>`:''}</button>`).join('');
   const storeKey=mode==='residential'?'addons':'comAddons';
   const addList=mode==='residential'?r.resAddons:r.comAddons,addStore=mode==='residential'?addons:comAddons;
-  const addonRows=addList.map(a=>{const q=Number(addStore[a.name])||0,on=q>0,isQty=a.type==='qty';const bx=`width:24px;height:24px;flex:none;border-radius:7px;border:1.5px solid ${on?'#0f5a6e':'#cfdbe0'};background:${on?'#0f5a6e':'#fff'};color:#fff;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;`;const qi=isQty&&on?`<input type="number" min="0" value="${q}" onchange="window.setAddon('${storeKey}','${esc(a.name)}',+this.value)" style="width:62px;padding:6px 8px;border:1px solid #cfdbe0;border-radius:8px;text-align:center;font-family:'Space Grotesk',monospace;font-size:14px;outline:none">`:'';return`<div style="display:flex;align-items:center;gap:12px;padding:9px 4px;border-bottom:1px solid #eef3f5"><button style="${bx}" onclick="window.toggleAddon('${storeKey}','${esc(a.name)}')">${on?'✓':''}</button><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14px;color:#26424c">${esc(a.name)}</div><div style="font-size:12px;color:#8499a1">${isQty?money(a.price)+' / '+a.unit:money(a.price)}</div></div>${qi}<div style="width:72px;text-align:right;font-family:'Space Grotesk',monospace;font-weight:600;font-size:14px;color:${on?'#0f5a6e':'#cfdbe0'}">${on?money(a.price*q):'—'}</div></div>`;}).join('');
+  const addonRows=addList.map(a=>{const q=Number(addStore[a.name])||0,on=q>0,isQty=a.type==='qty';const bx=`width:24px;height:24px;flex:none;border-radius:7px;border:1.5px solid ${on?'#0f5a6e':'#cfdbe0'};background:${on?'#0f5a6e':'#fff'};color:#fff;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;`;const qi=isQty&&on?`<input type="number" min="0" value="${q}" onchange="window.setAddon('${storeKey}','${jsq(a.name)}',+this.value)" style="width:62px;padding:6px 8px;border:1px solid #cfdbe0;border-radius:8px;text-align:center;font-family:'Space Grotesk',monospace;font-size:14px;outline:none">`:'';return`<div style="display:flex;align-items:center;gap:12px;padding:9px 4px;border-bottom:1px solid #eef3f5"><button style="${bx}" onclick="window.toggleAddon('${storeKey}','${jsq(a.name)}')">${on?'✓':''}</button><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14px;color:#26424c">${esc(a.name)}</div><div style="font-size:12px;color:#8499a1">${isQty?money(a.price)+' / '+a.unit:money(a.price)}</div></div>${qi}<div style="width:72px;text-align:right;font-family:'Space Grotesk',monospace;font-weight:600;font-size:14px;color:${on?'#0f5a6e':'#cfdbe0'}">${on?money(a.price*q):'—'}</div></div>`;}).join('');
   const pTog=a=>`background:${a?'#fff':'transparent'};color:${a?'#0f5a6e':'#8499a1'};border:none;border-radius:6px;padding:6px 12px;font-weight:600;font-size:12.5px;cursor:pointer;box-shadow:${a?'0 1px 3px rgba(0,0,0,.1)':'none'}`;
   const mc=q.margin>=.4?'#1f8a6d':(q.margin>=.2?'#b9842b':'#c14d57');
   const bRows=[{label:'Revenue (pre-tax)',val:money(q.subtotal),c:'#1b333c',w:'600',sz:'14px'},{label:payMode==='hourly'?`Cleaner pay · ${q.hours.toFixed(1)}h × ${money0(r.biz.laborHourly)}`:`Cleaner pay · ${r.biz.laborPct}% of job`,val:money(-q.labor),c:'#c14d57',w:'500',sz:'14px'},{label:`Supplies & overhead (${r.biz.suppliesPct}%)`,val:money(-q.supplies),c:'#c14d57',w:'500',sz:'14px'},{label:'Net profit',val:money(q.netProfit),c:q.netProfit>=0?'#1f8a6d':'#c14d57',w:'700',sz:'17px'}].map(b=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px solid #f0f4f6"><span style="font-size:13.5px;color:#46606a;font-weight:${b.w}">${esc(b.label)}</span><span style="font-family:'Space Grotesk',monospace;font-weight:${b.w};font-size:${b.sz};color:${b.c}">${esc(b.val)}</span></div>`).join('');
@@ -561,6 +563,7 @@ function openModal(type) {
   }
 }
 function closeModal(type){el(type+'-modal').classList.remove('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal-bg.open').forEach(m=>m.classList.remove('open'));});
 function onSaveSelectChange(){const v=el('save-cust-select').value;state.saveCustId=v;el('save-new-wrap').style.display=v?'none':'';}
 
 async function doSaveJob() {
@@ -589,9 +592,11 @@ async function doSaveJob() {
       const nc={id:'c'+Date.now(),name:custName,phone:custPhone,email:custEmail,address:custAddr,notes:custNotes,sqft:Number(state.sqft)||0,frequency:freqKey,nextDue:nd,lastService:q.serviceLabel,lastRate:q.total,createdAt:new Date().toISOString(),jobs:[job]};
       await persistCustomer(nc);
     }
+    if(isNew)['sv-name','sv-phone','sv-email','sv-addr','sv-notes'].forEach(id=>el(id).value='');
     showToast('✓ Job saved');
   }catch(e){
     console.error('doSaveJob error:',e);
+    el('save-modal').classList.add('open'); // reopen with the typed details intact
     showToast('⚠ Save failed: '+(e.message||e.code||'unknown error'));
   }finally{
     saving=false;
@@ -615,14 +620,17 @@ function openDetail(id) {
   el('detail-modal').classList.add('open');
   el('detail-modal').onclick=e=>{if(e.target===el('detail-modal'))closeModal('detail');};
 }
-async function deleteCustomer(id){await removeCustomerFromDB(id);if(state.activeCustId===id)state.activeCustId=null;closeModal('detail');showToast('Customer deleted');}
+async function deleteCustomer(id){
+  const c=state.customers.find(x=>x.id===id);
+  if(!confirm('Delete '+(c?c.name:'this customer')+' and all '+((c&&c.jobs)||[]).length+' saved jobs? This cannot be undone.'))return;
+  try{await removeCustomerFromDB(id);}catch(e){showToast('⚠ Delete failed: '+(e.message||e.code));return;}if(state.activeCustId===id)state.activeCustId=null;closeModal('detail');showToast('Customer deleted');}
 function newQuoteFor(id){state.activeCustId=id;closeModal('detail');state.tab='estimate';render();const c=state.customers.find(x=>x.id===id);if(c)showToast('Quoting for '+(c.name.split(' ')[0]));openModal('save');}
 
 function renderPrintCard() {
   const q=compute(),lnk=state.activeCustId?state.customers.find(c=>c.id===state.activeCustId):null;
   const today=new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
   const liH=[...q.lineItems,...(q.tax>0?[{label:`Tax (${q.taxPct}%)`,amt:money(q.tax)}]:[])].map(li=>`<tr style="border-bottom:1px solid #eef3f5"><td style="padding:10px 0;font-size:14px;color:#26424c">${esc(li.label)}</td><td style="padding:10px 0;text-align:right;font-family:'Space Grotesk',monospace;font-size:14px;color:#1b333c">${esc(li.amt)}</td></tr>`).join('');
-  el('print-area').innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #0f5a6e;padding-bottom:16px;margin-bottom:22px"><div style="display:flex;align-items:center;gap:11px"><div style="width:42px;height:42px;border-radius:11px;background:#0f5a6e;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-weight:700;color:#fff;font-size:16px">KFS</div><div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:18px;color:#0a3d4c">KFS CLEANING</div><div style="font-size:12px;color:#8499a1">Massachusetts · Licensed & Insured</div></div></div><div style="text-align:right"><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:16px;color:#0f5a6e">ESTIMATE</div><div style="font-size:12px;color:#8499a1">${today}</div></div></div>${lnk?`<div style="margin-bottom:20px"><div style="font-size:11px;color:#9fb2ba;text-transform:uppercase;letter-spacing:.4px">Prepared for</div><div style="font-size:15px;font-weight:600;color:#1b333c">${esc(lnk.name)}</div></div>`:''}<div style="font-size:14px;color:#46606a;margin-bottom:6px">${esc(q.serviceLabel)} · ${Number(state.sqft||0).toLocaleString()} sq ft</div><table style="width:100%;border-collapse:collapse;margin-bottom:18px"><tbody>${liH}</tbody></table><div style="display:flex;justify-content:space-between;align-items:center;background:#0f5a6e;color:#fff;border-radius:11px;padding:16px 20px"><span style="font-family:'Sora',sans-serif;font-weight:600;font-size:16px">Total estimate</span><span style="font-family:'Space Grotesk',monospace;font-weight:700;font-size:26px">${money(q.total)}</span></div><div style="font-size:11.5px;color:#9fb2ba;margin-top:18px;line-height:1.5">Estimate valid 30 days. Final price may vary with on-site conditions, heavy soil, or added scope. Minimums apply. Thank you for choosing KFS Cleaning.</div>`;
+  el('print-area').innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #0f5a6e;padding-bottom:16px;margin-bottom:22px"><div style="display:flex;align-items:center;gap:11px"><div style="width:42px;height:42px;border-radius:11px;background:#0f5a6e;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-weight:700;color:#fff;font-size:16px">KFS</div><div><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:18px;color:#0a3d4c">KFS CLEANING</div><div style="font-size:12px;color:#8499a1">Massachusetts & New Hampshire · Licensed & Insured</div><div style="font-size:12px;color:#46606a">(978) 219-9787 · support@kfscleaning.com · kfscleaning.com</div></div></div><div style="text-align:right"><div style="font-family:'Sora',sans-serif;font-weight:700;font-size:16px;color:#0f5a6e">ESTIMATE</div><div style="font-size:12px;color:#8499a1;white-space:nowrap">${today}</div></div></div>${lnk?`<div style="margin-bottom:20px"><div style="font-size:11px;color:#9fb2ba;text-transform:uppercase;letter-spacing:.4px">Prepared for</div><div style="font-size:15px;font-weight:600;color:#1b333c">${esc(lnk.name)}</div></div>`:''}<table style="width:100%;border-collapse:collapse;margin-bottom:18px"><tbody>${liH}</tbody></table><div style="display:flex;justify-content:space-between;align-items:center;background:#0f5a6e;color:#fff;border-radius:11px;padding:16px 20px"><span style="font-family:'Sora',sans-serif;font-weight:600;font-size:16px">Total estimate</span><span style="font-family:'Space Grotesk',monospace;font-weight:700;font-size:26px">${money(q.total)}</span></div><div style="font-size:11.5px;color:#9fb2ba;margin-top:18px;line-height:1.5">Estimate valid 30 days. Final price may vary with on-site conditions, heavy soil, or added scope. Minimums apply. Thank you for choosing KFS Cleaning.<br>Questions or ready to book? Call (978) 219-9787 or email support@kfscleaning.com.</div>`;
 }
 
 // ── GLOBAL HANDLERS ───────────────────────────────────────────────────────

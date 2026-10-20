@@ -3,9 +3,9 @@
 	<div class="wrap footer-grid">
 		<!-- Brand -->
 		<div class="footer-brand">
-			<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/kfs-logo.png' ); ?>" alt="KFS Cleaning Services" width="120" style="filter:brightness(0) invert(1) opacity(.7);margin-bottom:14px;">
+			<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/kfs-logo.png' ); ?>" alt="KFS Cleaning Services" width="120" height="80" loading="lazy" class="footer-logo">
 			<p>Professional residential &amp; commercial cleaning across Massachusetts &amp; New Hampshire. Licensed, insured, and satisfaction guaranteed.</p>
-			<p style="margin-top:10px;">
+			<p class="footer-brand-contact">
 				<a href="tel:+19782199787">(978) 219-9787</a><br>
 				<a href="mailto:support@kfscleaning.com">support@kfscleaning.com</a>
 			</p>
@@ -23,13 +23,13 @@
 		<!-- Company -->
 		<div class="footer-col">
 			<h4>Company</h4>
-			<a href="<?php echo esc_url(home_url('#why')); ?>">Why Choose Us</a>
-			<a href="<?php echo esc_url(home_url('#reviews')); ?>">Reviews</a>
-			<a href="<?php echo esc_url(home_url('#gallery')); ?>">Gallery</a>
-			<a href="<?php echo esc_url(home_url('#faq')); ?>">FAQ</a>
-			<a href="<?php echo esc_url(home_url('#areas')); ?>">Service Areas</a>
+			<a href="<?php echo esc_url( kfs_section_url( 'why' ) ); ?>">Why Choose Us</a>
+			<a href="<?php echo esc_url( kfs_section_url( 'reviews' ) ); ?>">Reviews</a>
+			<a href="<?php echo esc_url( kfs_section_url( 'gallery' ) ); ?>">Gallery</a>
+			<a href="<?php echo esc_url( kfs_section_url( 'faq' ) ); ?>">FAQ</a>
+			<a href="<?php echo esc_url( kfs_section_url( 'areas' ) ); ?>">Service Areas</a>
 			<a href="<?php echo esc_url(home_url('/blog/')); ?>">Blog</a>
-			<a href="#quote">Contact Us</a>
+			<a href="<?php echo esc_url( kfs_quote_url() ); ?>">Contact Us</a>
 		</div>
 		<!-- Contact -->
 		<div class="footer-col">
@@ -46,7 +46,7 @@
 				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00C8E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
 				<span>Massachusetts &amp; New Hampshire</span>
 			</div>
-			<a href="#quote" class="footer-quote-btn">Get a Free Quote</a>
+			<a href="<?php echo esc_url( kfs_quote_url() ); ?>" class="footer-quote-btn">Get a Free Quote</a>
 		</div>
 	</div>
 	<div class="footer-bottom">
@@ -76,46 +76,6 @@ if ( ! defined( 'WPSEO_VERSION' ) && ! defined( 'RANK_MATH_VERSION' ) && ! defin
 }
 </script>
 <?php endif; ?>
-
-<?php if ( ! is_front_page() ) { ?>
-<script>
-(function(){
-document.querySelectorAll('.faq-item').forEach(function(item){
-  var btn = item.querySelector('.faq-q'),
-      ans = item.querySelector('.faq-a');
-  if(!btn || !ans) return;
-
-  btn.addEventListener('click', function(){
-    var o = item.classList.contains('open');
-
-    document.querySelectorAll('.faq-item').forEach(function(x){
-      x.classList.remove('open');
-      var b = x.querySelector('.faq-q');
-      if(b) b.setAttribute('aria-expanded','false');
-    });
-
-    item.classList.toggle('open', !o);
-    btn.setAttribute('aria-expanded', String(!o));
-  });
-});
-
-var revs = document.querySelectorAll('.reveal');
-if('IntersectionObserver' in window){
-  var obs = new IntersectionObserver(function(es){
-    es.forEach(function(e){
-      if(e.isIntersecting){
-        e.target.classList.add('in');
-        obs.unobserve(e.target);
-      }
-    });
-  }, {threshold:.12, rootMargin:'0px 0px -40px 0px'});
-  revs.forEach(function(el){ obs.observe(el); });
-} else {
-  revs.forEach(function(el){ el.classList.add('in'); });
-}
-})();
-</script>
-<?php } ?>
 
 <?php wp_footer(); ?>
 </body>

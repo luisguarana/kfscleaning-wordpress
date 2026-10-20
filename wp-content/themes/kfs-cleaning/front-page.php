@@ -85,7 +85,7 @@ get_header();
 
 		<!-- Right: Glassmorphism Card -->
 		<div class="hero-card" role="complementary" aria-label="Why clients choose KFS">
-			<h2 style="font-size:1.75rem;font-weight:700;line-height:1.4;margin-bottom:1rem;">Why Clients Choose KFS</h2>
+			<h2>Why Clients Choose KFS</h2>
 			<ul class="hero-checks" aria-label="Key benefits">
 				<li><?php echo kfs_icon('check-circle', 20, 'check-svg'); ?> Licensed &amp; Insured in MA &amp; NH</li>
 				<li><?php echo kfs_icon('check-circle', 20, 'check-svg'); ?> 100% Satisfaction Guaranteed</li>
@@ -121,14 +121,6 @@ get_header();
 	</div>
 </div>
 
-<!-- ===================== MARQUEE STRIP ===================== -->
-<div class="marquee-strip" aria-hidden="true">
-	<div class="marquee-track" id="marquee-track">
-		<span>Regular Cleaning <span class="mdot">✦</span> Deep Cleans <span class="mdot">✦</span> Move-In / Move-Out <span class="mdot">✦</span> Commercial &amp; Office <span class="mdot">✦</span> Post-Construction <span class="mdot">✦</span> Airbnb Turnover <span class="mdot">✦</span> Licensed &amp; Insured <span class="mdot">✦</span> Satisfaction Guaranteed <span class="mdot">✦</span>&nbsp;</span>
-		<span>Regular Cleaning <span class="mdot">✦</span> Deep Cleans <span class="mdot">✦</span> Move-In / Move-Out <span class="mdot">✦</span> Commercial &amp; Office <span class="mdot">✦</span> Post-Construction <span class="mdot">✦</span> Airbnb Turnover <span class="mdot">✦</span> Licensed &amp; Insured <span class="mdot">✦</span> Satisfaction Guaranteed <span class="mdot">✦</span>&nbsp;</span>
-	</div>
-</div>
-
 <!-- ===================== SERVICES ===================== -->
 <section class="services-section section-alt" id="services" aria-label="Services">
 	<div class="wrap">
@@ -139,7 +131,7 @@ get_header();
 		</div>
 		<div class="services-grid" role="list">
 			<?php foreach ( $kfs_services as $svc ) : ?>
-			<div class="svc-card reveal" role="listitem" tabindex="0">
+			<div class="svc-card reveal" role="listitem">
 				<div class="svc-top">
 					<div class="svc-icon-wrap"><?php echo kfs_icon( $svc['icon'], 26, 'svc-svg' ); ?></div>
 					<span class="svc-num"><?php echo esc_html( $svc['num'] ); ?></span>
@@ -147,7 +139,7 @@ get_header();
 				<h3><?php echo $svc['title']; ?></h3>
 				<p><?php echo $svc['desc']; ?></p>
 				<a href="<?php echo esc_url( home_url( '/' . $svc['slug'] . '/' ) ); ?>" class="svc-link" aria-label="Learn more about <?php echo esc_attr( $svc['title'] ); ?>">
-					Learn More &rarr; <?php echo kfs_icon('arrow-right', 14); ?>
+					Learn More <?php echo kfs_icon('arrow-right', 14); ?>
 				</a>
 			</div>
 			<?php endforeach; ?>
@@ -215,12 +207,12 @@ get_header();
 			<h2>See the Difference</h2>
 			<p>Real results from real jobs across Massachusetts and New Hampshire.</p>
 		</div>
-		<div class="gallery-grid" role="list" id="gallery-grid">
+		<div class="gallery-grid" id="gallery-grid">
 			<?php foreach ( $kfs_gallery as $i => $img ) : ?>
 <div class="gal-item<?php echo ( isset( $img['span'] ) && $img['span'] > 1 ) ? ' gal-wide' : ''; ?>"
 	 data-src="<?php echo esc_url( $img['src'] ); ?>"
 	 data-index="<?php echo esc_attr( $i ); ?>"
-	 role="listitem"
+	 role="button"
 	 tabindex="0"
 	 aria-label="View <?php echo esc_attr( $img['label'] ); ?>">
 
@@ -262,11 +254,14 @@ get_header();
 			<p>See verified feedback from our customers on Google and Thumbtack.</p>
 		</div>
 
-		<div class="reviews-widget" style="margin-top:32px; min-height:120px;">
+		<div class="reviews-widget">
 			<?php
 			$google_reviews = do_shortcode('[trustindex no-registration=google]');
 			if ( ! empty( trim( $google_reviews ) ) && $google_reviews !== '[trustindex no-registration=google]' ) {
 				echo $google_reviews;
+			} else {
+				// Widget unavailable: point people to the reviews instead of showing an empty box.
+				echo '<p class="reviews-fallback">Read what our customers say on <a href="' . esc_url( 'https://www.google.com/search?q=KFS+Cleaning+Services+reviews' ) . '" target="_blank" rel="noopener">Google Reviews</a>.</p>';
 			}
 			?>
 		</div>
@@ -361,9 +356,10 @@ get_header();
 		<div class="form-card">
 			<h3>Get a Free Quote</h3>
 			<p class="form-sub">No commitment required &mdash; we respond within 24 hours.</p>
-			<form action="https://formsubmit.co/support@kfscleaning.com" method="POST" class="quote-form" novalidate>
+			<p class="form-legend"><span class="req" aria-hidden="true">*</span> Required</p>
+			<form action="https://formsubmit.co/support@kfscleaning.com" method="POST" class="quote-form">
 				<input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
-				<input type="hidden" name="_next" value="<?php echo esc_url( home_url( '/?thanks=1' ) ); ?>">
+				<input type="hidden" name="_next" value="<?php echo esc_url( kfs_thanks_url() ); ?>">
 				<input type="hidden" name="_subject" value="New Quote Request from kfscleaning.com">
 				<input type="hidden" name="_captcha" value="false">
 				<input type="hidden" name="_template" value="table">
@@ -374,7 +370,7 @@ get_header();
 					</div>
 					<div class="fld">
 						<label for="phone">Phone <span class="req" aria-hidden="true">*</span></label>
-						<input type="tel" id="phone" name="Phone" required autocomplete="tel" aria-required="true">
+						<input type="tel" id="phone" name="Phone" required autocomplete="tel" aria-required="true" placeholder="(978) 555-0100">
 					</div>
 				</div>
 				<div class="fld">
@@ -409,16 +405,16 @@ get_header();
 				<div class="form-row">
 					<div class="fld">
 						<label for="bedrooms">Bedrooms</label>
-						<input type="number" id="bedrooms" name="Bedrooms" min="0" max="20" placeholder="e.g. 3">
+						<input type="number" id="bedrooms" name="Bedrooms" min="0" max="20" inputmode="numeric" placeholder="e.g. 3">
 					</div>
 					<div class="fld">
 						<label for="bathrooms">Bathrooms</label>
-						<input type="number" id="bathrooms" name="Bathrooms" min="0" max="20" placeholder="e.g. 2">
+						<input type="number" id="bathrooms" name="Bathrooms" min="0" max="20" step="0.5" inputmode="decimal" placeholder="e.g. 2">
 					</div>
 				</div>
 				<div class="fld">
-					<label for="sqft">Square Footage of Your Space</label>
-					<input type="number" id="sqft" name="Square Footage" min="100" max="20000" placeholder="e.g. 1500 sq ft — type your home or office size">
+					<label for="sqft">Square Footage <span class="fld-hint">(approximate is fine)</span></label>
+					<input type="number" id="sqft" name="Square Footage" min="100" max="20000" inputmode="numeric" placeholder="e.g. 1500">
 				</div>
 				<div class="fld">
 					<label for="message">Special Requests or Notes</label>
@@ -430,12 +426,6 @@ get_header();
 		</div>
 	</div>
 </section>
-
-<?php if ( isset( $_GET['thanks'] ) && $_GET['thanks'] === '1' ) : ?>
-<div class="thanks-banner" role="alert" aria-live="polite">
-	&#10003; Thanks! Your quote request was sent. We&rsquo;ll be in touch within 24 hours.
-</div>
-<?php endif; ?>
 
 </main>
 

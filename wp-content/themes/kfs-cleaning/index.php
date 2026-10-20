@@ -2,8 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 get_header();
 ?>
-<?php echo '<!-- HOME TEMPLATE LOADED -->'; ?>
-<main class="kfs-fallback">
+<main id="main-content" class="kfs-fallback">
 	<div class="wrap" style="padding:100px 0;text-align:center;">
 		<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 		<h1 style="color:var(--white);font-size:2rem;margin-bottom:16px;"><?php the_title(); ?></h1>

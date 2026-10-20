@@ -1,7 +1,8 @@
 /* KFS Cleaning Services — main.js v1.2
    Vanilla JS — no jQuery dependency
    V8: marquee pause-on-hover, improved accessibility, reduced-motion guard
-   V9: nav dropdown touch/keyboard support */
+   V9: nav dropdown touch/keyboard support
+   V10: Escape closes menus, lightbox focus trap, form sending state */
 (function () {
   'use strict';
 
@@ -18,37 +19,67 @@
   /* ── HAMBURGER / MOBILE MENU ────────────────────────────────────────── */
   var hamburger  = document.getElementById('hamburger');
   var mobileMenu = document.getElementById('mobile-menu');
+  function setMobileMenu(open) {
+    mobileMenu.classList.toggle('open', open);
+    hamburger.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', String(open));
+    hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    mobileMenu.setAttribute('aria-hidden', String(!open));
+  }
   if (hamburger && mobileMenu) {
     hamburger.addEventListener('click', function () {
-      var isOpen = mobileMenu.classList.contains('open');
-      mobileMenu.classList.toggle('open', !isOpen);
-      hamburger.classList.toggle('open', !isOpen);
-      hamburger.setAttribute('aria-expanded', String(!isOpen));
-      mobileMenu.setAttribute('aria-hidden', String(isOpen));
+      setMobileMenu(!mobileMenu.classList.contains('open'));
     });
     mobileMenu.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        mobileMenu.classList.remove('open');
-        hamburger.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
-        mobileMenu.setAttribute('aria-hidden', 'true');
-      });
+      link.addEventListener('click', function () { setMobileMenu(false); });
     });
   }
 
   /* ── NAV DROPDOWN (touch/keyboard support) ─────────────────────────────── */
-  document.querySelectorAll('.nav-dropdown-toggle').forEach(function(toggle) {
-    toggle.addEventListener('click', function(e) {
+  function closeDropdowns() {
+    document.querySelectorAll('.nav-dropdown').forEach(function (d) {
+      d.classList.remove('open');
+      var t = d.querySelector('.nav-dropdown-toggle');
+      if (t) t.setAttribute('aria-expanded', 'false');
+    });
+  }
+  document.querySelectorAll('.nav-dropdown-toggle').forEach(function (toggle) {
+    toggle.addEventListener('click', function (e) {
       var dropdown = this.closest('.nav-dropdown');
       var isOpen = dropdown.classList.contains('open');
-      // close all other dropdowns
-      document.querySelectorAll('.nav-dropdown').forEach(function(d) { d.classList.remove('open'); });
-      if (!isOpen) { dropdown.classList.add('open'); e.preventDefault(); }
+      closeDropdowns();
+      // First tap opens the menu (touch has no hover); second tap follows the link.
+      if (!isOpen) {
+        dropdown.classList.add('open');
+        this.setAttribute('aria-expanded', 'true');
+        e.preventDefault();
+      }
     });
   });
-  document.addEventListener('click', function(e) {
-    if (!e.target.closest('.nav-dropdown')) {
-      document.querySelectorAll('.nav-dropdown').forEach(function(d) { d.classList.remove('open'); });
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.nav-dropdown')) closeDropdowns();
+  });
+  document.querySelectorAll('.nav-dropdown').forEach(function (d) {
+    d.addEventListener('mouseleave', function () { d.classList.remove('dismissed'); });
+    d.addEventListener('focusout', function (e) {
+      if (!d.contains(e.relatedTarget)) d.classList.remove('dismissed');
+    });
+  });
+
+  /* ── ESCAPE closes menus ────────────────────────────────────────────── */
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    var openDropdown = document.querySelector('.nav-dropdown.open, .nav-dropdown:focus-within');
+    if (openDropdown) {
+      closeDropdowns();
+      // .dismissed overrides the :hover / :focus-within reveal until the pointer or focus leaves.
+      openDropdown.classList.add('dismissed');
+      var t = openDropdown.querySelector('.nav-dropdown-toggle');
+      if (t) t.focus();
+    }
+    if (mobileMenu && mobileMenu.classList.contains('open')) {
+      setMobileMenu(false);
+      hamburger.focus();
     }
   });
 
@@ -72,11 +103,13 @@
 
   /* ── FAQ ACCORDION ──────────────────────────────────────────────────── */
   var faqItems = document.querySelectorAll('.faq-item');
-  faqItems.forEach(function (item) {
+  faqItems.forEach(function (item, idx) {
     var btn = item.querySelector('.faq-q');
     var ans = item.querySelector('.faq-a');
     if (!btn || !ans) return;
     ans.removeAttribute('hidden');
+    if (!ans.id) ans.id = 'faq-a-auto-' + idx;
+    btn.setAttribute('aria-controls', ans.id);
     btn.addEventListener('click', function () {
       var isOpen = item.classList.contains('open');
       faqItems.forEach(function (other) {
@@ -109,6 +142,7 @@
     lbImg.alt = img ? (img.getAttribute('alt') || 'Gallery image') : 'Gallery image';
     lightbox.classList.add('open');
     lightbox.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('lightbox-open');
     document.body.style.overflow = 'hidden';
     if (lbClose) lbClose.focus();
   }
@@ -116,6 +150,7 @@
     if (!lightbox) return;
     lightbox.classList.remove('open');
     lightbox.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('lightbox-open');
     document.body.style.overflow = '';
     if (galItems[currentIdx]) galItems[currentIdx].focus();
   }
@@ -131,33 +166,30 @@
   if (lbClose)   lbClose.addEventListener('click', closeLightbox);
   if (lbNext)    lbNext.addEventListener('click', showNext);
   if (lbPrev)    lbPrev.addEventListener('click', showPrev);
-  if (lightbox)  lightbox.addEventListener('click', function (e) { if (e.target === lightbox) closeLightbox(); });
+  // Clicking anywhere except the photo or its buttons closes the lightbox.
+  if (lightbox)  lightbox.addEventListener('click', function (e) {
+    if (e.target === lbImg || e.target.closest('button')) return;
+    closeLightbox();
+  });
 
   document.addEventListener('keydown', function (e) {
     if (!lightbox || !lightbox.classList.contains('open')) return;
     if (e.key === 'Escape')     closeLightbox();
     if (e.key === 'ArrowRight') showNext();
     if (e.key === 'ArrowLeft')  showPrev();
+    // Keep Tab focus inside the open lightbox.
+    if (e.key === 'Tab') {
+      var btns = Array.from(lightbox.querySelectorAll('button'));
+      var first = btns[0], last = btns[btns.length - 1];
+      if (btns.indexOf(document.activeElement) === -1) { e.preventDefault(); first.focus(); }
+      else if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
   });
-
-  /* ── MARQUEE PAUSE ON HOVER ─────────────────────────────────────────── */
-  // CSS handles pause via .marquee-strip:hover, no JS needed unless user
-  // wants keyboard focus pause too.
-  var marqueeStrip = document.querySelector('.marquee-strip');
-  if (marqueeStrip) {
-    marqueeStrip.addEventListener('focusin', function () {
-      var track = marqueeStrip.querySelector('.marquee-track');
-      if (track) track.style.animationPlayState = 'paused';
-    });
-    marqueeStrip.addEventListener('focusout', function () {
-      var track = marqueeStrip.querySelector('.marquee-track');
-      if (track) track.style.animationPlayState = '';
-    });
-  }
 
   /* ── SCROLL REVEAL ──────────────────────────────────────────────────── */
   var revealEls = document.querySelectorAll(
-    '.svc-card, .trust-card, .review-card, .faq-item, .area-card, .stat-box, .hero-card, .section-head, .mid-cta'
+    '.reveal, .svc-card, .trust-card, .faq-item, .area-card, .stat-box, .hero-card, .section-head, .mid-cta'
   );
   revealEls.forEach(function (el) { el.classList.add('reveal'); });
 
@@ -177,14 +209,28 @@
     revealEls.forEach(function (el) { el.classList.add('in'); });
   }
 
-  /* ── THANKS BANNER AUTO-HIDE ────────────────────────────────────────── */
+  /* ── THANKS BANNER (stays until dismissed) ──────────────────────────── */
   var thanksBanner = document.querySelector('.thanks-banner');
   if (thanksBanner) {
-    setTimeout(function () {
-      thanksBanner.style.transition = 'opacity .6s';
-      thanksBanner.style.opacity = '0';
-      setTimeout(function () { thanksBanner.remove(); }, 700);
-    }, 5000);
+    var thanksClose = thanksBanner.querySelector('.thanks-close');
+    if (thanksClose) thanksClose.addEventListener('click', function () { thanksBanner.remove(); });
   }
+
+  /* ── QUOTE FORMS: sending state ─────────────────────────────────────── */
+  // Browser validation (required / email / tel) runs first; submit only fires when valid.
+  document.querySelectorAll('.quote-form').forEach(function (form) {
+    var btn = form.querySelector('button[type="submit"]');
+    if (!btn) return;
+    var label = btn.innerHTML;
+    form.addEventListener('submit', function () {
+      btn.disabled = true;
+      btn.textContent = 'Sending\u2026';
+    });
+    // Restore the button if the visitor returns with the browser Back button.
+    window.addEventListener('pageshow', function () {
+      btn.disabled = false;
+      btn.innerHTML = label;
+    });
+  });
 
 }());

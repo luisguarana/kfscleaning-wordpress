@@ -21,17 +21,40 @@ function kfs_enqueue_assets() {
 		'kfs-main',
 		get_template_directory_uri() . '/assets/css/main.css',
 		array( 'kfs-fonts' ),
-		'1.3'
+		'1.4'
 	);
 	wp_enqueue_script(
 		'kfs-main',
 		get_template_directory_uri() . '/assets/js/main.js',
 		array(),
-		'1.3',
+		'1.4',
 		true
 	);
 }
 add_action( 'wp_enqueue_scripts', 'kfs_enqueue_assets' );
+
+// Pages that render their own #quote form: the front page and the service
+// pages (each has a page-{slug}.php template).
+function kfs_has_quote_form() {
+	if ( is_front_page() ) return true;
+	return is_page() && file_exists( get_template_directory() . '/page-' . get_post_field( 'post_name' ) . '.php' );
+}
+
+// Link to a homepage section — a same-page jump on the homepage, a full URL elsewhere.
+function kfs_section_url( $id ) {
+	return is_front_page() ? '#' . $id : home_url( '/#' . $id );
+}
+
+// Quote-form link: the form on this page if there is one, otherwise the homepage form.
+function kfs_quote_url() {
+	return kfs_has_quote_form() ? '#quote' : home_url( '/#quote' );
+}
+
+// Where FormSubmit sends the visitor after a quote request: back to the same page, at the form.
+function kfs_thanks_url() {
+	$base = is_front_page() ? home_url( '/' ) : get_permalink();
+	return add_query_arg( 'thanks', '1', $base ) . '#quote';
+}
 
 // Remove emoji bloat
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );

@@ -211,7 +211,7 @@ get_header();
 	<div class="wrap hero-grid">
 
 		<div class="hero-copy">
-			<h1 id="hero-title">Every room, done right.</h1>
+			<h1 id="hero-title">The cleaners you trust with your keys.</h1>
 			<p class="hero-sub">Katia&rsquo;s team has cleaned homes in Massachusetts and New Hampshire for over 25 years. We take our time and don&rsquo;t leave until you&rsquo;re happy. Tap a room to see what gets cleaned.</p>
 		</div>
 

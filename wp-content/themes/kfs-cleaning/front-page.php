@@ -212,7 +212,7 @@ get_header();
 
 		<div class="hero-copy">
 			<h1 id="hero-title">Every room, done right.</h1>
-			<p class="hero-sub">Katia&rsquo;s team takes its time and doesn&rsquo;t leave until you&rsquo;re happy. Tap a room to see what gets cleaned.</p>
+			<p class="hero-sub">Katia&rsquo;s team has cleaned homes in Massachusetts and New Hampshire for 25 years. We take our time and don&rsquo;t leave until you&rsquo;re happy. Tap a room to see what gets cleaned.</p>
 		</div>
 
 		<noscript><style>.house.is-settling .room { opacity: 1; transform: none; }</style></noscript>
@@ -425,7 +425,7 @@ get_header();
 		</div>
 		<div class="quote-card">
 			<h2 class="quote-card-title">Your free quote</h2>
-			<p class="quote-card-sub">A few details and we&rsquo;ll send a flat-rate number within 24 hours.</p>
+			<p class="quote-card-sub">A few details and we&rsquo;ll send a flat-rate number within 24 hours. That&rsquo;s the price you pay, unless you ask us to add extra work.</p>
 			<?php kfs_quote_form( 'q-', true ); ?>
 		</div>
 	</div>

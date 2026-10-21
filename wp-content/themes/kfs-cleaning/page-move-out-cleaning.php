@@ -12,7 +12,7 @@
         </div>
       <?php endif; ?>
 
-      <h1>Move-In &amp; Move-Out Cleaning<br>in <span class="accent">MA &amp; NH</span></h1>
+      <h1>Move-in &amp; move-out cleaning in <span class="accent">MA &amp; NH</span></h1>
       <p class="page-hero-sub">Leave your old place spotless or step into a fresh new home. Inspection-ready results for tenants, landlords, and realtors.</p>
       <div class="pill-row">
         <span class="pill">Deposit-Back Results</span>

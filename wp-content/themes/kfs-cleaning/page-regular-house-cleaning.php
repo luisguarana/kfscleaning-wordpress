@@ -12,7 +12,7 @@
         </div>
       <?php endif; ?>
 
-      <h1>Professional House Cleaning<br>Services in <span class="accent">MA &amp; NH</span></h1>
+      <h1>House cleaning in <span class="accent">MA &amp; NH</span></h1>
       <p class="page-hero-sub">Weekly, bi-weekly, or monthly recurring cleans — done right every single time. Over 500 homes cleaned across the North Shore and Southern NH.</p>
       <div class="pill-row">
         <span class="pill">Licensed &amp; Insured</span>

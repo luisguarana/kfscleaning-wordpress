@@ -12,7 +12,7 @@
         </div>
       <?php endif; ?>
 
-      <h1>Professional Deep Cleaning<br>Services in <span class="accent">MA &amp; NH</span></h1>
+      <h1>Deep cleaning in <span class="accent">MA &amp; NH</span></h1>
       <p class="page-hero-sub">A top-to-bottom scrub that reaches inside appliances, behind furniture, grout lines, baseboards, vents, and everywhere buildup hides.</p>
       <div class="pill-row">
         <span class="pill">Licensed &amp; Insured</span>

@@ -12,7 +12,7 @@
         </div>
       <?php endif; ?>
 
-      <h1>Airbnb &amp; STR Cleaning<br>in <span class="accent">MA &amp; NH</span></h1>
+      <h1>Airbnb &amp; STR cleaning in <span class="accent">MA &amp; NH</span></h1>
       <p class="page-hero-sub">A 5-star guest experience starts with a spotless property. One bad cleanliness review costs you months of bookings &#8212; don&#8217;t risk it.</p>
       <div class="pill-row">
         <span class="pill">Flexible Timing</span>

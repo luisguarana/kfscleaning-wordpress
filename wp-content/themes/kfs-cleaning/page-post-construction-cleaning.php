@@ -12,7 +12,7 @@
         </div>
       <?php endif; ?>
 
-      <h1>Post-Construction Cleaning<br>Services in <span class="accent">MA &amp; NH</span></h1>
+      <h1>Post-construction cleaning in <span class="accent">MA &amp; NH</span></h1>
       <p class="page-hero-sub">Contractors build it. We make it livable. KFS removes drywall dust, adhesive residue, paint overspray, and debris from every corner.</p>
       <div class="pill-row">
         <span class="pill">Licensed &amp; Insured</span>

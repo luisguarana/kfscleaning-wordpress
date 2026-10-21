@@ -12,7 +12,7 @@
         </div>
       <?php endif; ?>
 
-      <h1>Commercial &amp; Office Cleaning<br>Services in <span class="accent">MA &amp; NH</span></h1>
+      <h1>Commercial &amp; office cleaning in <span class="accent">MA &amp; NH</span></h1>
       <p class="page-hero-sub">Your workspace reflects your business. KFS Cleaning keeps it spotless &#8212; with flexible scheduling that doesn&#8217;t disrupt your workday.</p>
       <div class="pill-row">
         <span class="pill">Licensed &amp; Insured</span>

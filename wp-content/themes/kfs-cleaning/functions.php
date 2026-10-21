@@ -71,20 +71,34 @@ function kfs_service_schema( $data ) {
 		'@id'        => get_permalink() . '#service',
 		'name'       => get_the_title(),
 		'url'        => get_permalink(),
-		'areaServed' => array(
-			array( '@type' => 'State', 'name' => 'Massachusetts' ),
-			array( '@type' => 'State', 'name' => 'New Hampshire' ),
-		),
+		'areaServed' => kfs_area_served(),
 	);
 	$desc = get_post_meta( get_the_ID(), 'rank_math_description', true );
-	// Rank Math runs wp_kses_post_deep over the graph, which re-encodes a bare &; say "and".
-	if ( $desc ) $service['description'] = str_replace( ' & ', ' and ', html_entity_decode( $desc, ENT_QUOTES, 'UTF-8' ) );
+	if ( $desc ) $service['description'] = html_entity_decode( $desc, ENT_QUOTES, 'UTF-8' );
 	if ( ! empty( $data['publisher']['@id'] ) ) $service['provider'] = array( '@id' => $data['publisher']['@id'] );
 	if ( ! empty( $data['WebPage']['@id'] ) ) $service['mainEntityOfPage'] = array( '@id' => $data['WebPage']['@id'] );
 	$data['kfsService'] = $service;
 	return $data;
 }
 add_filter( 'rank_math/json_ld', 'kfs_service_schema', 99 );
+
+function kfs_area_served() {
+	return array(
+		array( '@type' => 'State', 'name' => 'Massachusetts' ),
+		array( '@type' => 'State', 'name' => 'New Hampshire' ),
+	);
+}
+
+// Every page: the business serves MA and NH, and schema text says "and" for "&"
+// (Rank Math runs wp_kses_post_deep over the graph, which turns a bare & into a literal &amp;).
+function kfs_schema_cleanup( $data ) {
+	if ( isset( $data['publisher'] ) && empty( $data['publisher']['areaServed'] ) ) $data['publisher']['areaServed'] = kfs_area_served();
+	array_walk_recursive( $data, function ( &$v ) {
+		if ( is_string( $v ) ) $v = str_replace( array( ' &amp; ', ' & ' ), ' and ', $v );
+	} );
+	return $data;
+}
+add_filter( 'rank_math/json_ld', 'kfs_schema_cleanup', 100 );
 
 // Remove emoji bloat
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );

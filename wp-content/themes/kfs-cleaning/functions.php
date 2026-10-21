@@ -21,13 +21,13 @@ function kfs_enqueue_assets() {
 		'kfs-main',
 		get_template_directory_uri() . '/assets/css/main.css',
 		array( 'kfs-fonts' ),
-		'3.0.0'
+		filemtime( get_template_directory() . '/assets/css/main.css' )
 	);
 	wp_enqueue_script(
 		'kfs-main',
 		get_template_directory_uri() . '/assets/js/main.js',
 		array(),
-		'3.0',
+		filemtime( get_template_directory() . '/assets/js/main.js' ),
 		true
 	);
 }

@@ -274,7 +274,7 @@ get_header();
 			</div>
 			<div class="proof">
 				<span><?php echo $kfs_star; ?>5-star rated on Google</span>
-				<span>500+ homes cleaned</span>
+				<span>500+ cleans completed</span>
 				<span>Flat-rate pricing</span>
 			</div>
 		</div>

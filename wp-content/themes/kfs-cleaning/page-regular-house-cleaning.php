@@ -13,7 +13,7 @@
       <?php endif; ?>
 
       <h1>House cleaning in MA &amp; NH</h1>
-      <p class="page-hero-sub">Weekly, bi-weekly, or monthly recurring cleans — done right every single time. Over 500 homes cleaned across the North Shore and Southern NH.</p>
+      <p class="page-hero-sub">Weekly, bi-weekly, or monthly recurring cleans — done right every single time. Over 500 cleans completed across the North Shore and Southern NH.</p>
       <div class="pill-row">
         <span class="pill">Licensed &amp; Insured</span>
         <span class="pill">Satisfaction Guarantee</span>

@@ -56,6 +56,35 @@ function kfs_thanks_url() {
 	return add_query_arg( 'thanks', '1', $base ) . '#quote';
 }
 
+// Rank Math marks every page as an Article by a Person. On the homepage drop
+// both; on service pages replace them with a Service offered by the business.
+function kfs_service_schema( $data ) {
+	if ( ! kfs_has_quote_form() ) return $data;
+	unset( $data['ProfilePage'] );
+	if ( isset( $data['WebPage']['author'] ) ) unset( $data['WebPage']['author'] );
+	foreach ( $data as $key => $node ) {
+		if ( is_array( $node ) && isset( $node['@type'] ) && in_array( 'Article', (array) $node['@type'], true ) ) unset( $data[ $key ] );
+	}
+	if ( is_front_page() ) return $data;
+	$service = array(
+		'@type'      => 'Service',
+		'@id'        => get_permalink() . '#service',
+		'name'       => get_the_title(),
+		'url'        => get_permalink(),
+		'areaServed' => array(
+			array( '@type' => 'State', 'name' => 'Massachusetts' ),
+			array( '@type' => 'State', 'name' => 'New Hampshire' ),
+		),
+	);
+	$desc = get_post_meta( get_the_ID(), 'rank_math_description', true );
+	if ( $desc ) $service['description'] = $desc;
+	if ( ! empty( $data['publisher']['@id'] ) ) $service['provider'] = array( '@id' => $data['publisher']['@id'] );
+	if ( ! empty( $data['WebPage']['@id'] ) ) $service['mainEntityOfPage'] = array( '@id' => $data['WebPage']['@id'] );
+	$data['kfsService'] = $service;
+	return $data;
+}
+add_filter( 'rank_math/json_ld', 'kfs_service_schema', 99 );
+
 // Remove emoji bloat
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 remove_action( 'wp_print_styles', 'print_emoji_styles' );

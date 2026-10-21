@@ -77,7 +77,8 @@ function kfs_service_schema( $data ) {
 		),
 	);
 	$desc = get_post_meta( get_the_ID(), 'rank_math_description', true );
-	if ( $desc ) $service['description'] = html_entity_decode( $desc, ENT_QUOTES, 'UTF-8' );
+	// Rank Math runs wp_kses_post_deep over the graph, which re-encodes a bare &; say "and".
+	if ( $desc ) $service['description'] = str_replace( ' & ', ' and ', html_entity_decode( $desc, ENT_QUOTES, 'UTF-8' ) );
 	if ( ! empty( $data['publisher']['@id'] ) ) $service['provider'] = array( '@id' => $data['publisher']['@id'] );
 	if ( ! empty( $data['WebPage']['@id'] ) ) $service['mainEntityOfPage'] = array( '@id' => $data['WebPage']['@id'] );
 	$data['kfsService'] = $service;

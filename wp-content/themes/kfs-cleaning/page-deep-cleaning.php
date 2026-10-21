@@ -12,7 +12,7 @@
         </div>
       <?php endif; ?>
 
-      <h1>Deep cleaning in <span class="accent">MA &amp; NH</span></h1>
+      <h1>Deep cleaning in MA &amp; NH</h1>
       <p class="page-hero-sub">A top-to-bottom scrub that reaches inside appliances, behind furniture, grout lines, baseboards, vents, and everywhere buildup hides.</p>
       <div class="pill-row">
         <span class="pill">Licensed &amp; Insured</span>
@@ -29,8 +29,8 @@
   <div class="wrap">
     <div class="two-col-grid">
       <div>
-        <h2>What Deep Cleaning <span class="accent">Covers</span></h2>
-        <p style="color:var(--text-muted);font-size:16px;line-height:1.7;margin-bottom:8px">We go well beyond the surface — hitting every spot that regular cleaning misses.</p>
+        <h2>What deep cleaning covers</h2>
+        <p class="section-lead">We go well beyond the surface — hitting every spot that regular cleaning misses.</p>
         <div class="inc-list">
           <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Inside oven, microwave &amp; refrigerator</span></div>
           <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Behind &amp; under appliances</span></div>
@@ -44,13 +44,13 @@
         </div>
       </div>
       <div>
-        <h2>When Do You <span class="accent">Need One?</span></h2>
-        <p style="color:var(--text-muted);font-size:16px;line-height:1.7;margin-bottom:8px">A deep clean makes sense at key moments — here are the most common ones.</p>
+        <h2>When do you need one?</h2>
+        <p class="section-lead">A deep clean makes sense at key moments — here are the most common ones.</p>
         <div class="sched-grid reveal">
-          <div class="sched-card"><h3>Moving Into a New Home</h3><p>Start fresh before you unpack. Don't inherit someone else's buildup.</p></div>
-          <div class="sched-card"><h3>Seasonal Reset</h3><p>Spring and fall deep cleans keep your home in top shape year-round.</p></div>
-          <div class="sched-card"><h3>Before a Big Event</h3><p>Parties, showings, family visits — make the right impression.</p></div>
-          <div class="sched-card"><h3>First-Time Client</h3><p>The best starting point before switching to recurring service.</p></div>
+          <div class="sched-card"><h3>Moving into a new home</h3><p>Start fresh before you unpack. Don't inherit someone else's buildup.</p></div>
+          <div class="sched-card"><h3>Seasonal reset</h3><p>Spring and fall deep cleans keep your home in top shape year-round.</p></div>
+          <div class="sched-card"><h3>Before a big event</h3><p>Parties, showings, family visits — make the right impression.</p></div>
+          <div class="sched-card"><h3>First-time client</h3><p>The best starting point before switching to recurring service.</p></div>
         </div>
       </div>
     </div>
@@ -61,44 +61,23 @@
   <div class="wrap">
     <div class="two-col-grid">
       <div>
-        <h2>The Deep Clean <span class="accent">Difference</span></h2>
-        <p style="color:var(--text-muted);font-size:16px;line-height:1.7;margin-top:14px">We don't cut corners. Every deep clean is done with professional-grade products by a trained team that takes pride in the work. You'll see the difference immediately.</p>
+        <h2>The deep clean difference</h2>
+        <p class="section-lead">We don't cut corners. Every deep clean is done with professional-grade products by a trained team that takes pride in the work. You'll see the difference immediately.</p>
       </div>
       <div class="trust-cards-stack">
         <div class="trust-card reveal">
           <div class="tc-icon"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <div class="tc-content"><h3>Licensed &amp; Insured</h3><p>Fully licensed and insured in MA &amp; NH. Your home and belongings are protected every time we walk through the door.</p></div>
+          <div class="tc-content"><h3>Licensed &amp; insured</h3><p>Fully licensed and insured in MA &amp; NH. Your home and belongings are protected every time we walk through the door.</p></div>
         </div>
         <div class="trust-card reveal">
           <div class="tc-icon"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-          <div class="tc-content"><h3>Flat-Rate Quote</h3><p>No hourly surprises — you know the full cost before we start. The price we quote is the price you pay.</p></div>
+          <div class="tc-content"><h3>Flat-rate quote</h3><p>No hourly surprises — you know the full cost before we start. The price we quote is the price you pay.</p></div>
         </div>
         <div class="trust-card reveal">
           <div class="tc-icon"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg></div>
-          <div class="tc-content"><h3>Satisfaction Guarantee</h3><p>Not happy with something? We come back within 24 hours and make it right — at zero cost to you.</p></div>
+          <div class="tc-content"><h3>Satisfaction guarantee</h3><p>Not happy with something? We come back within 24 hours and make it right — at zero cost to you.</p></div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="content-section section-alt" id="faq">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <h2>Common Questions</h2>
-      <p>Everything you need to know about deep cleaning before you book.</p>
-    </div>
-    <div class="faq-list">
-      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>What's the difference between a regular clean and a deep clean?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>A regular clean maintains what's already clean — wiping surfaces, vacuuming, mopping, and sanitizing bathrooms and kitchens. A deep clean goes much further: inside appliances, behind and under furniture, grout lines, cabinet interiors, vents, baseboards, and anywhere buildup has been accumulating. Think of it as a reset rather than maintenance.</p></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>How long does a deep clean take?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Most homes take 4–8 hours depending on size, number of rooms, and current condition. We give you an honest time estimate with your quote. Larger homes or those that haven't been deep cleaned in a while will take longer — and we don't rush it.</p></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>How much does a deep clean cost in Massachusetts?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Deep cleans in the North Shore MA area typically run $250–$500 depending on the size and condition of the home. We price by the job — not by the hour — so you know the exact cost before we start. Submit a quote request and we'll get back to you within 24 hours with a flat-rate number.</p></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Do I need a deep clean before starting regular service?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>We strongly recommend it. Starting with a deep clean gives us a proper baseline so every recurring visit is truly maintaining a clean home rather than playing catch-up. Many clients book a deep clean first and then switch to bi-weekly or monthly service.</p></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Do you bring your own supplies?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Yes — everything is included. We bring professional-grade cleaning products, equipment, and microfibers. You don't need to provide anything. If you have specific product preferences (fragrance-free, eco-friendly, etc.), let us know in the quote form and we'll accommodate where possible.</p></div></div>
-    </div>
-    <div class="service-cta-block reveal" style="margin-top:48px">
-      <h2>Ready for a Deep Clean Reset?</h2>
-      <p>Get a flat-rate quote today — no hourly surprises, no commitment required.</p>
-      <a href="#quote" class="btn-primary">Request My Free Quote</a>
     </div>
   </div>
 </section>
@@ -106,7 +85,7 @@
 <section class="content-section section-alt">
   <div class="wrap">
     <div class="section-head reveal">
-      <h2>See the <span class="accent">Difference</span></h2>
+      <h2>See the difference</h2>
       <p>Real results from real cleaning jobs across Massachusetts and New Hampshire.</p>
     </div>
     <div class="svc-gallery-grid">
@@ -131,7 +110,7 @@
 <section class="contact-section" id="quote">
   <div class="wrap contact-inner">
     <div class="contact-info">
-      <h2>Request Your <span class="accent">Free Quote</span></h2>
+      <h2>Request your free quote</h2>
       <p class="contact-lead">Fill out the form and we'll respond within 24 hours with a no-obligation estimate. Or call us right now.</p>
       <div class="ci-items">
         <div class="ci-item"><div class="ci-ico"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div><div class="ci-label">Phone</div><a href="tel:+19782199787" class="ci-value">(978) 219-9787</a></div></div>
@@ -140,7 +119,7 @@
       </div>
     </div>
     <div class="form-card">
-      <h3>Get a Free Quote</h3>
+      <h3>Get a free quote</h3>
       <p class="form-sub">No commitment required — we respond within 24 hours.</p>
       <form action="https://formsubmit.co/support@kfscleaning.com" method="POST" class="quote-form">
         <!-- FormSubmit.co configuration -->
@@ -172,6 +151,26 @@
   </div>
 </section>
 
+<section class="content-section section-alt" id="faq">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Common questions</h2>
+      <p>Everything you need to know about deep cleaning before you book.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>What's the difference between a regular clean and a deep clean?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>A regular clean maintains what's already clean — wiping surfaces, vacuuming, mopping, and sanitizing bathrooms and kitchens. A deep clean goes much further: inside appliances, behind and under furniture, grout lines, cabinet interiors, vents, baseboards, and anywhere buildup has been accumulating. Think of it as a reset rather than maintenance.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>How long does a deep clean take?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Most homes take 4–8 hours depending on size, number of rooms, and current condition. We give you an honest time estimate with your quote. Larger homes or those that haven't been deep cleaned in a while will take longer — and we don't rush it.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>How much does a deep clean cost in Massachusetts?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Deep cleans in the North Shore MA area typically run $250–$500 depending on the size and condition of the home. We price by the job — not by the hour — so you know the exact cost before we start. Submit a quote request and we'll get back to you within 24 hours with a flat-rate number.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Do I need a deep clean before starting regular service?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>We strongly recommend it. Starting with a deep clean gives us a proper baseline so every recurring visit is truly maintaining a clean home rather than playing catch-up. Many clients book a deep clean first and then switch to bi-weekly or monthly service.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Do you bring your own supplies?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Yes — everything is included. We bring professional-grade cleaning products, equipment, and microfibers. You don't need to provide anything. If you have specific product preferences (fragrance-free, eco-friendly, etc.), let us know in the quote form and we'll accommodate where possible.</p></div></div>
+    </div>
+    <div class="service-cta-block reveal">
+      <h2>Ready for a deep clean reset?</h2>
+      <p>Get a flat-rate quote today — no hourly surprises, no commitment required.</p>
+      <a href="#quote" class="btn-primary">Request My Free Quote</a>
+    </div>
+  </div>
+</section>
 
 </main>
 

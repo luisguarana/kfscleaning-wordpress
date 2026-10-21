@@ -12,7 +12,7 @@
         </div>
       <?php endif; ?>
 
-      <h1>Move-in &amp; move-out cleaning in <span class="accent">MA &amp; NH</span></h1>
+      <h1>Move-in &amp; move-out cleaning in MA &amp; NH</h1>
       <p class="page-hero-sub">Leave your old place spotless or step into a fresh new home. Inspection-ready results for tenants, landlords, and realtors.</p>
       <div class="pill-row">
         <span class="pill">Deposit-Back Results</span>
@@ -29,8 +29,8 @@
   <div class="wrap">
     <div class="two-col-grid">
       <div>
-        <h2>Everything <span class="accent">Covered</span></h2>
-        <p style="color:var(--text-muted);font-size:16px;line-height:1.7;margin-bottom:8px">A thorough top-to-bottom clean designed to pass inspection and impress — every time.</p>
+        <h2>Everything covered</h2>
+        <p class="section-lead">A thorough top-to-bottom clean designed to pass inspection and impress — every time.</p>
         <div class="inc-list">
           <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Full kitchen deep clean including inside appliances</span></div>
           <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Bathrooms scrubbed and sanitized completely</span></div>
@@ -43,13 +43,13 @@
         </div>
       </div>
       <div>
-        <h2>Built for <span class="accent">Every Situation</span></h2>
-        <p style="color:var(--text-muted);font-size:16px;line-height:1.7;margin-bottom:8px">Whether you're moving out, turning a unit, or prepping for a showing — we've got you covered.</p>
+        <h2>Built for every situation</h2>
+        <p class="section-lead">Whether you're moving out, turning a unit, or prepping for a showing — we've got you covered.</p>
         <div class="sched-grid reveal">
           <div class="sched-card"><h3>Tenants</h3><p>Protect your deposit with a professional clean that meets landlord expectations.</p></div>
-          <div class="sched-card"><h3>Landlords &amp; Property Managers</h3><p>Fast unit turnaround between tenants so you don't lose rental income.</p></div>
-          <div class="sched-card"><h3>Realtors &amp; Home Sellers</h3><p>Get the home show-ready and make the right first impression on buyers.</p></div>
-          <div class="sched-card"><h3>New Homeowners</h3><p>Start completely fresh in your new space before moving a single box in.</p></div>
+          <div class="sched-card"><h3>Landlords &amp; property managers</h3><p>Fast unit turnaround between tenants so you don't lose rental income.</p></div>
+          <div class="sched-card"><h3>Realtors &amp; home sellers</h3><p>Get the home show-ready and make the right first impression on buyers.</p></div>
+          <div class="sched-card"><h3>New homeowners</h3><p>Start completely fresh in your new space before moving a single box in.</p></div>
         </div>
       </div>
     </div>
@@ -60,8 +60,8 @@
   <div class="wrap">
     <div class="two-col-grid">
       <div>
-        <h2>Honest <span class="accent">Flat-Rate</span> Quotes</h2>
-        <p style="color:var(--text-muted);font-size:16px;line-height:1.7;margin-top:16px">Move-out cleans in the North Shore MA area typically run $250–$800 depending on size and condition. We price by the job, not by the hour — so you know the cost upfront.</p>
+        <h2>Honest flat-rate quotes</h2>
+        <p class="section-lead">Move-out cleans in the North Shore MA area typically run $250–$800 depending on size and condition. We price by the job, not by the hour — so you know the cost upfront.</p>
         <div class="price-band reveal">
           <p class="price-lbl">Starting from</p>
           <div class="price-num">$250–$800</div>
@@ -71,38 +71,17 @@
       <div class="trust-cards-stack">
         <div class="trust-card reveal">
           <div class="tc-icon"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <div class="tc-content"><h3>Licensed &amp; Insured in MA &amp; NH</h3><p>Fully covered on every job. Your property is protected and we carry the right credentials in both states.</p></div>
+          <div class="tc-content"><h3>Licensed &amp; insured in MA &amp; NH</h3><p>Fully covered on every job. Your property is protected and we carry the right credentials in both states.</p></div>
         </div>
         <div class="trust-card reveal">
           <div class="tc-icon"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg></div>
-          <div class="tc-content"><h3>Satisfaction Guarantee</h3><p>If something wasn't cleaned to your standard, we return within 24 hours and fix it at no extra charge.</p></div>
+          <div class="tc-content"><h3>Satisfaction guarantee</h3><p>If something wasn't cleaned to your standard, we return within 24 hours and fix it at no extra charge.</p></div>
         </div>
         <div class="trust-card reveal">
           <div class="tc-icon"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-          <div class="tc-content"><h3>24-Hour Response on Quotes</h3><p>Submit a request today and we'll get back to you with a flat-rate number within 24 hours — often same day.</p></div>
+          <div class="tc-content"><h3>24-hour response on quotes</h3><p>Submit a request today and we'll get back to you with a flat-rate number within 24 hours — often same day.</p></div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="content-section section-alt" id="faq">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <h2>Common Questions</h2>
-      <p>Answers to what tenants, landlords, and realtors ask most before booking.</p>
-    </div>
-    <div class="faq-list">
-      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Do you guarantee I'll get my deposit back?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>We can't make promises about a landlord's decision, but we can give you the best possible shot. Our move-out cleans are designed to meet professional inspection standards — and if your landlord flags anything related to cleanliness, we'll come back and address it. Most clients who use us have no cleaning-related deposit deductions.</p></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>How far in advance should I book?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>We recommend booking at least 3–5 days before your move-out date to lock in your preferred time. That said, we do accommodate last-minute requests when our schedule allows — reach out and we'll do our best to fit you in.</p></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Do you clean empty properties only?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>No — we clean both occupied and empty properties. For move-out cleans, it's easiest when the home is empty since we can reach every surface. But we can also work around furniture and boxes if you're still in the process of moving. Just let us know the situation in your quote request.</p></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>How long does a move-out clean take?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Most move-out cleans take 3–6 hours depending on the size of the home and its condition. We'll give you a realistic estimate with your quote. We don't rush — we stay until the job is done right.</p></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>What if the previous tenant left it in really bad shape?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>We've seen it all — and we handle it. Heavily soiled properties may take longer and may be priced slightly higher than a standard move-out clean. We'll let you know upfront when you request your quote so there are no surprises. For extreme cases we'll walk through the scope honestly before any work begins.</p></div></div>
-    </div>
-    <div class="service-cta-block reveal" style="margin-top:48px">
-      <h2>Moving? Let Us Handle the Clean.</h2>
-      <p>Get a free flat-rate quote today. We respond within 24 hours.</p>
-      <a href="#quote" class="btn-primary">Request My Free Quote</a>
     </div>
   </div>
 </section>
@@ -110,7 +89,7 @@
 <section class="content-section section-alt">
   <div class="wrap">
     <div class="section-head reveal">
-      <h2>See the <span class="accent">Difference</span></h2>
+      <h2>See the difference</h2>
       <p>Real results from real cleaning jobs across Massachusetts and New Hampshire.</p>
     </div>
     <div class="svc-gallery-grid">
@@ -135,7 +114,7 @@
 <section class="contact-section" id="quote">
   <div class="wrap contact-inner">
     <div class="contact-info">
-      <h2>Request Your <span class="accent">Free Quote</span></h2>
+      <h2>Request your free quote</h2>
       <p class="contact-lead">Fill out the form and we'll respond within 24 hours with a no-obligation estimate. Or call us right now.</p>
       <div class="ci-items">
         <div class="ci-item"><div class="ci-ico"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div><div class="ci-label">Phone</div><a href="tel:+19782199787" class="ci-value">(978) 219-9787</a></div></div>
@@ -144,7 +123,7 @@
       </div>
     </div>
     <div class="form-card">
-      <h3>Get a Free Quote</h3>
+      <h3>Get a free quote</h3>
       <p class="form-sub">No commitment required — we respond within 24 hours.</p>
       <form action="https://formsubmit.co/support@kfscleaning.com" method="POST" class="quote-form">
         <!-- FormSubmit.co configuration -->
@@ -176,6 +155,26 @@
   </div>
 </section>
 
+<section class="content-section section-alt" id="faq">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Common questions</h2>
+      <p>Answers to what tenants, landlords, and realtors ask most before booking.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Do you guarantee I'll get my deposit back?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>We can't make promises about a landlord's decision, but we can give you the best possible shot. Our move-out cleans are designed to meet professional inspection standards — and if your landlord flags anything related to cleanliness, we'll come back and address it. Most clients who use us have no cleaning-related deposit deductions.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>How far in advance should I book?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>We recommend booking at least 3–5 days before your move-out date to lock in your preferred time. That said, we do accommodate last-minute requests when our schedule allows — reach out and we'll do our best to fit you in.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Do you clean empty properties only?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>No — we clean both occupied and empty properties. For move-out cleans, it's easiest when the home is empty since we can reach every surface. But we can also work around furniture and boxes if you're still in the process of moving. Just let us know the situation in your quote request.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>How long does a move-out clean take?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Most move-out cleans take 3–6 hours depending on the size of the home and its condition. We'll give you a realistic estimate with your quote. We don't rush — we stay until the job is done right.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>What if the previous tenant left it in really bad shape?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>We've seen it all — and we handle it. Heavily soiled properties may take longer and may be priced slightly higher than a standard move-out clean. We'll let you know upfront when you request your quote so there are no surprises. For extreme cases we'll walk through the scope honestly before any work begins.</p></div></div>
+    </div>
+    <div class="service-cta-block reveal">
+      <h2>Moving? Let us handle the clean.</h2>
+      <p>Get a free flat-rate quote today. We respond within 24 hours.</p>
+      <a href="#quote" class="btn-primary">Request My Free Quote</a>
+    </div>
+  </div>
+</section>
 
 </main>
 

@@ -12,7 +12,7 @@
         </div>
       <?php endif; ?>
 
-      <h1>Post-construction cleaning in <span class="accent">MA &amp; NH</span></h1>
+      <h1>Post-construction cleaning in MA &amp; NH</h1>
       <p class="page-hero-sub">Contractors build it. We make it livable. KFS removes drywall dust, adhesive residue, paint overspray, and debris from every corner.</p>
       <div class="pill-row">
         <span class="pill">Licensed &amp; Insured</span>
@@ -29,8 +29,8 @@
   <div class="wrap">
     <div class="two-col-grid">
       <div>
-        <h2>Top-to-Bottom <span class="accent">Construction Clean</span></h2>
-        <p style="color:var(--text-muted);font-size:16px;line-height:1.7;margin-bottom:8px">Construction dust gets everywhere. We go everywhere to get rid of it &#8212; no surface skipped, no corner missed.</p>
+        <h2>Top-to-bottom construction clean</h2>
+        <p class="section-lead">Construction dust gets everywhere. We go everywhere to get rid of it &#8212; no surface skipped, no corner missed.</p>
         <div class="inc-list">
           <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>All surfaces vacuumed and wiped &#8212; ceilings, walls, trim, windowsills</span></div>
           <div class="inc-item"><span class="inc-check" aria-hidden="true"></span><span>Floors cleaned of adhesive, grout haze, paint, and debris</span></div>
@@ -42,13 +42,13 @@
         </div>
       </div>
       <div>
-        <h2>Right for Every <span class="accent">Phase</span></h2>
-        <p style="color:var(--text-muted);font-size:16px;line-height:1.7;margin-bottom:8px">Whether you need a rough clean mid-build or a final polish before keys change hands, we&#8217;ve got the right service.</p>
+        <h2>Right for every phase</h2>
+        <p class="section-lead">Whether you need a rough clean mid-build or a final polish before keys change hands, we&#8217;ve got the right service.</p>
         <div class="sched-grid reveal">
-          <div class="sched-card"><h3>Rough Clean</h3><p>During construction &#8212; debris removal and dust control while work is still in progress.</p></div>
-          <div class="sched-card"><h3>Final Clean</h3><p>Move-in ready &#8212; full top-to-bottom clean after all contractors have finished.</p></div>
-          <div class="sched-card"><h3>Touch-Up Clean</h3><p>Day-of move-in last-minute polish &#8212; makes the hand-off moment perfect.</p></div>
-          <div class="sched-card"><h3>Recurring Construction</h3><p>Ongoing builds and multi-unit projects &#8212; we schedule around your timeline.</p></div>
+          <div class="sched-card"><h3>Rough clean</h3><p>During construction &#8212; debris removal and dust control while work is still in progress.</p></div>
+          <div class="sched-card"><h3>Final clean</h3><p>Move-in ready &#8212; full top-to-bottom clean after all contractors have finished.</p></div>
+          <div class="sched-card"><h3>Touch-up clean</h3><p>Day-of move-in last-minute polish &#8212; makes the hand-off moment perfect.</p></div>
+          <div class="sched-card"><h3>Recurring construction</h3><p>Ongoing builds and multi-unit projects &#8212; we schedule around your timeline.</p></div>
         </div>
       </div>
     </div>
@@ -59,8 +59,8 @@
   <div class="wrap">
     <div class="two-col-grid">
       <div>
-        <h2>Trusted by <span class="accent">Contractors &amp; Homeowners</span></h2>
-        <p style="color:var(--text-muted);font-size:16px;line-height:1.7;margin:16px 0 24px">We work directly with the people who need the space ready &#8212; whether that&#8217;s a GC handing off to a client, a homeowner moving in, or a realtor staging a listing.</p>
+        <h2>Trusted by contractors &amp; homeowners</h2>
+        <p class="section-lead">We work directly with the people who need the space ready &#8212; whether that&#8217;s a GC handing off to a client, a homeowner moving in, or a realtor staging a listing.</p>
         <div class="price-band reveal">
           <p class="price-lbl">Typical cost range</p>
           <div class="price-num">$350&#8211;$1,000</div>
@@ -70,35 +70,17 @@
       <div class="trust-cards-stack">
         <div class="trust-card reveal">
           <div class="tc-icon"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20M4 20V10l8-6 8 6v10"/><path d="M10 20v-6h4v6"/></svg></div>
-          <div class="tc-content"><h3>General Contractors</h3><p>Final clean before client handoff &#8212; we make your project shine when it matters most. On time, on schedule.</p></div>
+          <div class="tc-content"><h3>General contractors</h3><p>Final clean before client handoff &#8212; we make your project shine when it matters most. On time, on schedule.</p></div>
         </div>
         <div class="trust-card reveal">
           <div class="tc-icon"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-          <div class="tc-content"><h3>Homeowners &amp; Remodelers</h3><p>Renovations, additions, and new builds &#8212; we get your home move-in ready after the dust settles.</p></div>
+          <div class="tc-content"><h3>Homeowners &amp; remodelers</h3><p>Renovations, additions, and new builds &#8212; we get your home move-in ready after the dust settles.</p></div>
         </div>
         <div class="trust-card reveal">
           <div class="tc-icon"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg></div>
-          <div class="tc-content"><h3>Realtors &amp; Developers</h3><p>Pre-listing clean after renovation &#8212; staged, spotless, and ready for buyers or tenants to walk through.</p></div>
+          <div class="tc-content"><h3>Realtors &amp; developers</h3><p>Pre-listing clean after renovation &#8212; staged, spotless, and ready for buyers or tenants to walk through.</p></div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="content-section section-alt" id="faq">
-  <div class="wrap">
-    <div class="section-head reveal"><h2>Post-Construction Cleaning Questions</h2><p>Common questions from contractors, homeowners, and realtors before booking.</p></div>
-    <div class="faq-list">
-      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>How long does post-construction cleaning take?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Most residential post-construction cleans take 4&#8211;8 hours depending on square footage and the extent of the build. A full new construction home may take a full day. We&#8217;ll give you a time estimate when you request your quote &#8212; no guessing on your timeline.</p></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>What makes construction cleaning different from regular cleaning?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Construction sites leave behind drywall dust, adhesive residue, paint overspray, grout haze, caulk smears, sawdust, and debris that standard cleaning tools and techniques can&#8217;t handle. We use heavy-duty equipment and construction-specific methods to remove all of it without damaging new finishes.</p></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Can you work while contractors are still on-site?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Yes &#8212; for rough cleans and ongoing builds, we can work around your contractor schedule. We just need to coordinate timing with your GC or project manager. Final cleans are typically done after all trade work is complete to avoid re-contamination.</p></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Do you clean multi-unit or commercial construction sites?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Yes. We handle multi-unit residential projects and smaller commercial build-outs. For large-scale commercial construction, call us directly at (978) 219-9787 to discuss scope and scheduling &#8212; those are quoted individually.</p></div></div>
-      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>How do I get a post-construction cleaning quote?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Fill out the quote form below with your square footage and project type. For larger or more complex jobs, we may ask for a few photos or a brief walkthrough before providing a flat rate. Most quotes are turned around within 24 hours of the initial request.</p></div></div>
-    </div>
-    <div class="service-cta-block reveal" style="margin-top:48px">
-      <h2>Ready for Move-In Ready?</h2>
-      <p>Get a free flat-rate quote for your construction or renovation clean.</p>
-      <a href="#quote" class="btn-primary">Request Your Free Quote</a>
     </div>
   </div>
 </section>
@@ -106,7 +88,7 @@
 <section class="content-section section-alt">
   <div class="wrap">
     <div class="section-head reveal">
-      <h2>See the <span class="accent">Difference</span></h2>
+      <h2>See the difference</h2>
       <p>Real results from real cleaning jobs across Massachusetts and New Hampshire.</p>
     </div>
     <div class="svc-gallery-grid">
@@ -131,7 +113,7 @@
 <section class="contact-section" id="quote">
   <div class="wrap contact-inner">
     <div class="contact-info">
-      <h2>Request Your <span class="accent">Free Quote</span></h2>
+      <h2>Request your free quote</h2>
       <p class="contact-lead">Fill out the form and we&#8217;ll respond within 24 hours with a no-obligation estimate. Or call us right now.</p>
       <div class="ci-items">
         <div class="ci-item"><div class="ci-ico"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div><div class="ci-label">Phone</div><a href="tel:+19782199787" class="ci-value">(978) 219-9787</a></div></div>
@@ -140,7 +122,7 @@
       </div>
     </div>
     <div class="form-card">
-      <h3>Get a Free Quote</h3>
+      <h3>Get a free quote</h3>
       <p class="form-sub">No commitment required &#8212; we respond within 24 hours.</p>
       <form action="https://formsubmit.co/support@kfscleaning.com" method="POST" class="quote-form">
         <!-- FormSubmit.co configuration -->
@@ -172,6 +154,23 @@
   </div>
 </section>
 
+<section class="content-section section-alt" id="faq">
+  <div class="wrap">
+    <div class="section-head reveal"><h2>Post-construction cleaning questions</h2><p>Common questions from contractors, homeowners, and realtors before booking.</p></div>
+    <div class="faq-list">
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>How long does post-construction cleaning take?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Most residential post-construction cleans take 4&#8211;8 hours depending on square footage and the extent of the build. A full new construction home may take a full day. We&#8217;ll give you a time estimate when you request your quote &#8212; no guessing on your timeline.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>What makes construction cleaning different from regular cleaning?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Construction sites leave behind drywall dust, adhesive residue, paint overspray, grout haze, caulk smears, sawdust, and debris that standard cleaning tools and techniques can&#8217;t handle. We use heavy-duty equipment and construction-specific methods to remove all of it without damaging new finishes.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Can you work while contractors are still on-site?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Yes &#8212; for rough cleans and ongoing builds, we can work around your contractor schedule. We just need to coordinate timing with your GC or project manager. Final cleans are typically done after all trade work is complete to avoid re-contamination.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Do you clean multi-unit or commercial construction sites?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Yes. We handle multi-unit residential projects and smaller commercial build-outs. For large-scale commercial construction, call us directly at (978) 219-9787 to discuss scope and scheduling &#8212; those are quoted individually.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>How do I get a post-construction cleaning quote?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Fill out the quote form below with your square footage and project type. For larger or more complex jobs, we may ask for a few photos or a brief walkthrough before providing a flat rate. Most quotes are turned around within 24 hours of the initial request.</p></div></div>
+    </div>
+    <div class="service-cta-block reveal">
+      <h2>Ready for move-in ready?</h2>
+      <p>Get a free flat-rate quote for your construction or renovation clean.</p>
+      <a href="#quote" class="btn-primary">Request Your Free Quote</a>
+    </div>
+  </div>
+</section>
 
 </main>
 

@@ -213,16 +213,6 @@ get_header();
 		<div class="hero-copy">
 			<h1 id="hero-title">Every room, done right.</h1>
 			<p class="hero-sub">Katia&rsquo;s team takes its time and doesn&rsquo;t leave until you&rsquo;re happy. Tap a room to see what gets cleaned.</p>
-			<div class="quote-card" id="quick-quote">
-				<h2 class="quote-card-title">Free quote within 24 hours</h2>
-				<p class="quote-card-sub">No commitment. Or call <a href="tel:+19782199787">(978) 219-9787</a>.</p>
-				<?php kfs_quote_form( 'h-', false ); ?>
-			</div>
-			<div class="proof">
-				<span><?php echo $kfs_star; ?>5-star rated on Google</span>
-				<span>500+ homes cleaned</span>
-				<span>Flat-rate pricing</span>
-			</div>
 		</div>
 
 		<noscript><style>.house.is-settling .room { opacity: 1; transform: none; }</style></noscript>
@@ -273,6 +263,19 @@ get_header();
 					<li>Not home? We text you when we&rsquo;re done</li>
 					<li>Spot something later? Tell us within 24 hours and we re-clean it free</li>
 				</ul>
+			</div>
+		</div>
+
+		<div class="hero-form">
+			<div class="quote-card" id="quick-quote">
+				<h2 class="quote-card-title">Free quote within 24 hours</h2>
+				<p class="quote-card-sub">No commitment. Or call <a href="tel:+19782199787">(978) 219-9787</a>.</p>
+				<?php kfs_quote_form( 'h-', false ); ?>
+			</div>
+			<div class="proof">
+				<span><?php echo $kfs_star; ?>5-star rated on Google</span>
+				<span>500+ homes cleaned</span>
+				<span>Flat-rate pricing</span>
 			</div>
 		</div>
 

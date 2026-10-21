@@ -166,7 +166,13 @@ html { scrollbar-color: #b7c4d9 var(--sky); }
 
 /* ── HERO: the little house ─────────────────────────────────────────────── */
 .hero { padding: clamp(28px, 4vw, 56px) 0 var(--section); }
-.hero-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(28px, 4vw, 64px); align-items: start; }
+.hero-grid {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); grid-template-rows: auto 1fr;
+  grid-template-areas: "copy house" "form house"; gap: 0 clamp(28px, 4vw, 64px); align-items: start;
+}
+.hero-copy { grid-area: copy; }
+.house { grid-area: house; }
+.hero-form { grid-area: form; }
 .hero h1 { font-size: clamp(2.5rem, 5vw, 4.25rem); font-weight: 800; letter-spacing: -.035em; line-height: 1; max-width: 13ch; }
 .hero-sub { font-size: 1.1875rem; color: var(--ink-2); margin: 18px 0 24px; max-width: 40ch; }
 .proof { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
@@ -553,7 +559,8 @@ a.ci-value:hover { color: var(--navy); text-decoration: underline; }
   .nav-right { margin-left: auto; }
   .hamburger { display: block; margin-left: 0; }
   .hero-grid, .quote-grid, .services-grid, .promise-card, .contact-inner { grid-template-columns: 1fr; }
-  .house { max-width: 680px; margin: 0 auto; width: 100%; }
+  .hero-grid { grid-template-areas: "copy" "house" "form"; grid-template-rows: none; }
+  .house { max-width: 680px; margin: 0 auto 28px; width: 100%; }
   .business-card { position: static; }
   .review-lead { grid-column: 1 / -1; grid-row: auto; }
   .review-small { grid-column: span 6; }

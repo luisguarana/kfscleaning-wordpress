@@ -321,7 +321,6 @@ html { scrollbar-color: #b7c4d9 var(--sky); }
 .review-lead figcaption { color: var(--white); }
 .review-lead figcaption span { color: #b8c3e3; }
 .review-small { grid-column: span 3; }
-.review-wide { grid-column: span 6; }
 .reviews-more { margin-top: 28px; }
 .reviews-widget { margin-top: 8px; }
 .reviews-fallback { font-weight: 600; }

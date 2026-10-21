@@ -212,7 +212,7 @@ get_header();
 
 		<div class="hero-copy">
 			<h1 id="hero-title">Every room, done right.</h1>
-			<p class="hero-sub">Katia&rsquo;s team has cleaned homes in Massachusetts and New Hampshire for 25 years. We take our time and don&rsquo;t leave until you&rsquo;re happy. Tap a room to see what gets cleaned.</p>
+			<p class="hero-sub">Katia&rsquo;s team has cleaned homes in Massachusetts and New Hampshire for over 25 years. We take our time and don&rsquo;t leave until you&rsquo;re happy. Tap a room to see what gets cleaned.</p>
 		</div>
 
 		<noscript><style>.house.is-settling .room { opacity: 1; transform: none; }</style></noscript>
@@ -287,7 +287,7 @@ get_header();
 	<div class="wrap">
 		<div class="section-head">
 			<h2 class="section-title" id="reviews-title">What the neighbors say</h2>
-			<p class="section-lead">Google reviews, word for word.</p>
+			<p class="section-lead">Google and Thumbtack reviews, word for word.</p>
 		</div>
 		<div class="reviews-grid">
 			<figure class="review review-lead">
@@ -306,10 +306,15 @@ get_header();
 				<blockquote><p>&ldquo;I highly recommend Katia and her cleaning team. They are reliable, professional, thorough, and consistently do an outstanding job.&rdquo;</p></blockquote>
 				<figcaption><span class="review-avatar" style="--av:var(--bedroom)" aria-hidden="true">L</span>Lauren D. <span>Google review</span></figcaption>
 			</figure>
-			<figure class="review review-small review-wide">
+			<figure class="review review-small">
 				<?php echo $kfs_stars; ?>
 				<blockquote><p>&ldquo;KFS has been cleaning my home for 26 years. Trusted, does a great job cleaning the kitchen, bathrooms and main rooms.&rdquo;</p></blockquote>
 				<figcaption><span class="review-avatar" style="--av:var(--living)" aria-hidden="true">J</span>Jan R. <span>Google review</span></figcaption>
+			</figure>
+			<figure class="review review-small">
+				<?php echo $kfs_stars; ?>
+				<blockquote><p>&ldquo;KFS cleaning is literally the best !! We have 2 dogs so we need weekly cleanings, KFS is always on time, always doing a perfect job! I&rsquo;ve worked with different cleaning companies before and KFS is the best one!&rdquo;</p></blockquote>
+				<figcaption><span class="review-avatar" style="--av:var(--kitchen)" aria-hidden="true">T</span>Thomas W. <span>Thumbtack review</span></figcaption>
 			</figure>
 		</div>
 		<div class="reviews-more reviews-widget">

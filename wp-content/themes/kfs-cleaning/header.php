@@ -120,7 +120,8 @@ if ( is_array( $kfs_reviews ) && ! empty( $kfs_reviews['rating_number'] ) ) : ?>
 
 <!-- Phone: call / quote within thumb reach -->
 <div class="action-bar">
-	<a href="tel:+19782199787" class="ab-call">Call (978) 219-9787</a>
+	<a href="tel:+19782199787" class="ab-call">Call</a>
+	<a href="sms:+19782199787" class="ab-call">Text</a>
 	<a href="<?php echo esc_url( kfs_quote_url() ); ?>" class="ab-quote">Get a Free Quote</a>
 </div>
 <?php if ( isset( $_GET['thanks'] ) && $_GET['thanks'] === '1' ) : ?>

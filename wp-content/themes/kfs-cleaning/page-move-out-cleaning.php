@@ -13,7 +13,7 @@
       <?php endif; ?>
 
       <h1>Move-in &amp; move-out cleaning in MA &amp; NH</h1>
-      <p class="page-hero-sub">Leave your old place spotless or step into a fresh new home. Inspection-ready results for tenants, landlords, and realtors.</p>
+      <p class="page-hero-sub">Don&rsquo;t lose your security deposit over a dirty oven. Leave your old place spotless or step into a fresh new home. Inspection-ready results for tenants, landlords, and realtors.</p>
       <div class="pill-row">
         <span class="pill">Deposit-Back Results</span>
         <span class="pill">Licensed &amp; Insured</span>
@@ -124,7 +124,7 @@
     </div>
     <div class="form-card">
       <h3>Get a free quote</h3>
-      <p class="form-sub">No commitment required — we respond within 24 hours.</p>
+      <p class="form-sub">We reply within 24 hours. The price we quote is the price you pay. Miss a spot? We re-clean it free.</p>
       <form action="https://formsubmit.co/support@kfscleaning.com" method="POST" class="quote-form">
         <!-- FormSubmit.co configuration -->
         <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">

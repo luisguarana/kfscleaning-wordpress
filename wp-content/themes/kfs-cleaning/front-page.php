@@ -269,13 +269,13 @@ get_header();
 		<div class="hero-form">
 			<div class="quote-card" id="quick-quote">
 				<h2 class="quote-card-title">Free quote within 24 hours</h2>
-				<p class="quote-card-sub">No commitment. Or call <a href="tel:+19782199787">(978) 219-9787</a>.</p>
+				<p class="quote-card-sub">No commitment. The price we quote is the price you pay. Call or text <a href="tel:+19782199787">(978) 219-9787</a>.</p>
 				<?php kfs_quote_form( 'h-', false ); ?>
 			</div>
 			<div class="proof">
 				<span><?php echo $kfs_star; ?>5-star rated on Google</span>
 				<span>500+ cleans completed</span>
-				<span>Flat-rate pricing</span>
+				<span>25+ years in MA &amp; NH</span>
 			</div>
 		</div>
 
@@ -337,7 +337,7 @@ get_header();
 		<div class="promise-card">
 			<div>
 				<h2 id="promise-title">We don&rsquo;t leave until it&rsquo;s completely clean and you&rsquo;re happy.</h2>
-				<p>Katia&rsquo;s team takes its time and doesn&rsquo;t rush. If anything was missed, tell us within 24 hours and we come back and re-clean it at no charge.</p>
+				<p>We&rsquo;re not the cheapest cleaner around. We&rsquo;re the team that doesn&rsquo;t rush. If anything was missed, tell us within 24 hours and we come back and re-clean it at no charge.</p>
 			</div>
 			<ul class="credits">
 				<li><b>Flat-rate pricing</b>Priced by the job, never by the hour</li>
@@ -426,11 +426,12 @@ get_header();
 				<li><div><b>Get a flat-rate quote within 24 hours.</b><span>For businesses, we set up a walkthrough of the space first.</span></div></li>
 				<li><div><b>Pick a day.</b><span>Katia&rsquo;s team arrives on time with every supply and gives each room the time it needs.</span></div></li>
 			</ol>
-			<p class="call-line">Rather talk? <a href="tel:+19782199787">(978) 219-9787</a></p>
+			<p class="call-line">Rather talk? Call or text <a href="tel:+19782199787">(978) 219-9787</a></p>
+			<p class="call-line">Know a neighbor who needs a cleaner? Send them our way. When they book, you get $20 off your next clean.</p>
 		</div>
 		<div class="quote-card">
 			<h2 class="quote-card-title">Your free quote</h2>
-			<p class="quote-card-sub">A few details and we&rsquo;ll send a flat-rate number within 24 hours. That&rsquo;s the price you pay, unless you ask us to add extra work.</p>
+			<p class="quote-card-sub">A few details and we&rsquo;ll send a flat-rate number within 24 hours. That&rsquo;s the price you pay, unless you ask us to add extra work. Miss a spot? We re-clean it free within 24 hours.</p>
 			<?php kfs_quote_form( 'q-', true ); ?>
 		</div>
 	</div>

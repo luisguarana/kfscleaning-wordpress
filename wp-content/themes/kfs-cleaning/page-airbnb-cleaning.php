@@ -119,7 +119,7 @@
     </div>
     <div class="form-card">
       <h3>Get a free quote</h3>
-      <p class="form-sub">No commitment required &#8212; we respond within 24 hours.</p>
+      <p class="form-sub">We reply within 24 hours. The price we quote is the price you pay. Miss a spot? We re-clean it free.</p>
       <form action="https://formsubmit.co/support@kfscleaning.com" method="POST" class="quote-form">
         <!-- FormSubmit.co configuration -->
         <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">

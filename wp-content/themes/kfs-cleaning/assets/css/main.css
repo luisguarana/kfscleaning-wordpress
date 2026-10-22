@@ -584,7 +584,7 @@ a.ci-value:hover { color: var(--navy); text-decoration: underline; }
   .lb-prev, .lb-next { top: auto; bottom: 16px; transform: none; }
 
   .action-bar {
-    display: grid; grid-template-columns: 1fr 1.25fr; gap: 8px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 150;
+    display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 8px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 150;
     background: rgba(255,255,255,.97); border-top: 1px solid var(--line); padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
     box-shadow: 0 -6px 20px rgba(27,47,110,.08);
   }

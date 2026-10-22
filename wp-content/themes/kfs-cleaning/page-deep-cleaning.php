@@ -120,7 +120,7 @@
     </div>
     <div class="form-card">
       <h3>Get a free quote</h3>
-      <p class="form-sub">No commitment required — we respond within 24 hours.</p>
+      <p class="form-sub">We reply within 24 hours. The price we quote is the price you pay. Miss a spot? We re-clean it free.</p>
       <form action="https://formsubmit.co/support@kfscleaning.com" method="POST" class="quote-form">
         <!-- FormSubmit.co configuration -->
         <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
@@ -166,7 +166,7 @@
     </div>
     <div class="service-cta-block reveal">
       <h2>Ready for a deep clean reset?</h2>
-      <p>Get a flat-rate quote today — no hourly surprises, no commitment required.</p>
+      <p>Get a flat-rate quote today — no hourly surprises, no commitment required. Want it to stay this way? Most clients switch to <a href="<?php echo esc_url( home_url( '/regular-house-cleaning/' ) ); ?>">bi-weekly regular cleaning</a> after their deep clean.</p>
       <a href="#quote" class="btn-primary">Request My Free Quote</a>
     </div>
   </div>

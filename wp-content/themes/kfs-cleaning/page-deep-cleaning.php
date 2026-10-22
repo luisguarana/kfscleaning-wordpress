@@ -166,7 +166,7 @@
     </div>
     <div class="service-cta-block reveal">
       <h2>Ready for a deep clean reset?</h2>
-      <p>Get a flat-rate quote today — no hourly surprises, no commitment required. Want it to stay this way? Most clients switch to <a href="<?php echo esc_url( home_url( '/regular-house-cleaning/' ) ); ?>">bi-weekly regular cleaning</a> after their deep clean.</p>
+      <p>Get a flat-rate quote today — no hourly surprises, no commitment required. Want it to stay this way? Follow it with <a href="<?php echo esc_url( home_url( '/regular-house-cleaning/' ) ); ?>">bi-weekly regular cleaning</a>.</p>
       <a href="#quote" class="btn-primary">Request My Free Quote</a>
     </div>
   </div>
